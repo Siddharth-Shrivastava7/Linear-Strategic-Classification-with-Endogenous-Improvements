@@ -1,0 +1,3 @@
+,agents,predicted_positive_before,manipulating,manipulating_y0,manipulating_y1,improved,improvement_rate,expected_improved,expected_improvement_rate,improvement_error,expected_improvement_error,error_no_response
+"Linear SVM (hinge, C=1)",1041,1041,0,0,0,0,,0.0,,0.09125840537944284,0.09125840537944284,0.09125840537944284
+Ours (stage 4 model),1041,584,440,68,372,46,0.6764705882352942,44.74002724160368,0.657941577082407,0.040345821325648415,0.04155616979673037,0.3765609990393852

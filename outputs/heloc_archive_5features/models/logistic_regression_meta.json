@@ -1,0 +1,86 @@
+{
+  "features": [
+    "ExternalRiskEstimate",
+    "neg_NetFractionRevolvingBurden",
+    "neg_PercentTradesWBalance",
+    "PercentTradesNeverDelq",
+    "neg_NumBank2NatlTradesWHighUtilization"
+  ],
+  "feature_types": {
+    "ExternalRiskEstimate": "continuous",
+    "neg_NetFractionRevolvingBurden": "continuous",
+    "neg_PercentTradesWBalance": "continuous",
+    "PercentTradesNeverDelq": "continuous",
+    "neg_NumBank2NatlTradesWHighUtilization": "ordinal"
+  },
+  "train_split": "lr_train",
+  "params": {
+    "penalty": "l2",
+    "C": 1.0,
+    "solver": "lbfgs",
+    "max_iter": 1000
+  },
+  "sklearn_version": "1.4.2",
+  "standardized_space": {
+    "intercept": -0.11144441223184222,
+    "coef": {
+      "ExternalRiskEstimate": 0.9060416228234129,
+      "neg_NetFractionRevolvingBurden": 0.2306803252742682,
+      "neg_PercentTradesWBalance": 0.11520927987532599,
+      "PercentTradesNeverDelq": 0.13245702292778305,
+      "neg_NumBank2NatlTradesWHighUtilization": -0.012540227148327684
+    }
+  },
+  "raw_space": {
+    "intercept": -7.25725120470697,
+    "coef": {
+      "ExternalRiskEstimate": 0.09161626114660544,
+      "neg_NetFractionRevolvingBurden": 0.00810570891406226,
+      "neg_PercentTradesWBalance": 0.005342203411400806,
+      "PercentTradesNeverDelq": 0.012359496177387751,
+      "neg_NumBank2NatlTradesWHighUtilization": -0.007989568007478689
+    }
+  },
+  "metrics": {
+    "lr_train": {
+      "rows": 4175,
+      "accuracy": 0.72,
+      "log_loss": 0.561161851805875,
+      "roc_auc": 0.7847301050486717,
+      "brier": 0.18863945908603535,
+      "positive_rate_true": 0.4792814371257485,
+      "positive_rate_pred": 0.4675449101796407,
+      "mean_predicted_proba": 0.4791862406684848
+    },
+    "algo_train": {
+      "rows": 4175,
+      "accuracy": 0.7135329341317366,
+      "log_loss": 0.5759021130593055,
+      "roc_auc": 0.7730304494814171,
+      "brier": 0.19458906463166267,
+      "positive_rate_true": 0.5008383233532934,
+      "positive_rate_pred": 0.4658682634730539,
+      "mean_predicted_proba": 0.4779168392984042
+    },
+    "algo_val": {
+      "rows": 463,
+      "accuracy": 0.6911447084233261,
+      "log_loss": 0.5800286486667389,
+      "roc_auc": 0.771354341893761,
+      "brier": 0.19741788307059305,
+      "positive_rate_true": 0.5205183585313174,
+      "positive_rate_pred": 0.45788336933045354,
+      "mean_predicted_proba": 0.4751568950399419
+    },
+    "algo_test": {
+      "rows": 466,
+      "accuracy": 0.7124463519313304,
+      "log_loss": 0.5743217771602919,
+      "roc_auc": 0.7771634969777385,
+      "brier": 0.19429325038291725,
+      "positive_rate_true": 0.5107296137339056,
+      "positive_rate_pred": 0.45493562231759654,
+      "mean_predicted_proba": 0.4716040094827665
+    }
+  }
+}

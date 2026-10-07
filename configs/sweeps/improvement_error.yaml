@@ -1,0 +1,11 @@
+# Improvement error vs. number of training samples.
+# Algorithm 1 settings come unchanged from the base config's `strat_imp_aware`
+# section (currently feasible mode, beta = 2, alpha = (1, 0.5, 1), T = 200).
+
+base_config: configs/retiring_adult.yaml
+eval_split: algo_test            # unseen; checkpoint selection still uses strat_imp_aware.val_split
+train_sizes: [50, 200, 1000, 3000, 6000, all]   # "all" = the whole train split
+repeats: 10                      # repeat r: subsets are the first n rows of permutation r
+                                 # (nested across sizes) and Algorithm 1 uses seed r
+sample_seed: 42                  # for the one sampled draw of post-deployment labels
+workers: 8

@@ -1,0 +1,80 @@
+{
+  "model_file": "linear_svm.joblib",
+  "model_sha256": "93d602077f98ca43e31a4c8e80efe7ff6d73412f0f97b112189056e8d580cf6c",
+  "svm": {
+    "C": 1.0,
+    "loss": "hinge",
+    "max_iter": 200000,
+    "random_state": 42
+  },
+  "train_split": "algo_train",
+  "train_rows": 88049,
+  "features": [
+    "AGEP",
+    "WKHP",
+    "SCHL"
+  ],
+  "input_space": "standardized with the LR scaler (fit on lr_train)",
+  "decision_rule": "positive iff w . u + c >= 0",
+  "w_standardized": {
+    "AGEP": 0.5714328551139365,
+    "WKHP": 0.8528615114314455,
+    "SCHL": 1.1979209435512517
+  },
+  "c": -0.5054242039945037,
+  "train_accuracy": 0.770741291780713,
+  "test_split": "algo_test",
+  "split_indices_sha256": "67241ee509aa3cde629d60e41e4645b250d09703c299de3a1d9283c4a6f42b33",
+  "environment_ours": {
+    "beta": 2.0,
+    "alpha": {
+      "AGEP": 1.0,
+      "WKHP": 0.5,
+      "SCHL": 1.0
+    },
+    "delta_g": 0.01,
+    "clip": "feasible (max of lr_train)"
+  },
+  "sample_seed": 42,
+  "results": {
+    "Linear SVM (hinge, C=1)": {
+      "agents": 9784.0,
+      "predicted_positive_before": 4092.0,
+      "manipulating": 5177.0,
+      "manipulating_y0": 4091.0,
+      "manipulating_y1": 1086.0,
+      "improved": 1330.0,
+      "improvement_rate": 0.3251038865802982,
+      "expected_improved": 1336.932829330075,
+      "expected_improvement_rate": 0.3267985405353398,
+      "improvement_error": 0.40647996729354047,
+      "expected_improvement_error": 0.4057713788501558,
+      "error_no_response": 0.23528209321340965,
+      "moves_along": {
+        "WKHP": 5177
+      }
+    },
+    "Ours (stage 4 model)": {
+      "agents": 9784.0,
+      "predicted_positive_before": 51.0,
+      "manipulating": 6348.0,
+      "manipulating_y0": 2640.0,
+      "manipulating_y1": 3708.0,
+      "improved": 2310.0,
+      "improvement_rate": 0.875,
+      "expected_improved": 2321.8389731886127,
+      "expected_improvement_rate": 0.8794844595411412,
+      "improvement_error": 0.06531071136549468,
+      "expected_improvement_error": 0.06410067731105759,
+      "error_no_response": 0.41056827473426,
+      "moves_along": {
+        "WKHP": 6342,
+        "SCHL": 6
+      }
+    }
+  },
+  "versions": {
+    "sklearn": "1.4.2",
+    "torch": "2.3.1"
+  }
+}

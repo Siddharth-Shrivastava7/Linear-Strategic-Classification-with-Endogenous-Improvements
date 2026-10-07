@@ -1,0 +1,21 @@
+# Strategic SVM of Levanon & Rosenfeld (ICML 2022, github.com/SagiLevanon1/GSC),
+# trained like Algorithm 1 (algo_train; selection on algo_val) and evaluated in
+# our environment on the unseen algo_test, next to the other saved baselines.
+
+base_config: configs/retiring_adult.yaml
+train_split: algo_train
+select_split: algo_val           # lambda chosen here by improvement error in our environment
+test_split: algo_test
+gsc:
+  shifts: [l2, ours]             # l2 = as in the paper (L2 cost, budget 2); ours = our cost model
+  lambdas: [0.1, 1.0]           # chosen by user (paper's grid was {0.01, 0.1, 1})
+  epochs: 100
+  batch_size: 128
+  lr: 0.05                       # Adam, as in the paper
+  seed: 42
+sample_seed: 42                  # same as stage 5 / SVM baseline
+workers: 8
+# Previously saved models evaluated in the same table (skipped if missing).
+saved_baselines:
+  svm: outputs/retiring_adult/sweeps/svm_baseline/linear_svm.joblib
+  pli: outputs/retiring_adult/sweeps/pli_paper/pli_nn_paper_default.pt

@@ -1,0 +1,25 @@
+# Improvement rate under bounded best responses (Algorithm 2 with clipping),
+# over a grid of agent utility beta x cost profiles alpha.
+# Every cell retrains Algorithm 1 with that clip_mode (training and evaluation
+# use the same best-response model). All other settings come from the base config.
+
+base_config: configs/retiring_adult.yaml
+selection_split: algo_train      # the best setting is picked here...
+report_split: algo_val           # ...and reported here
+workers: 8
+
+grid:
+  clip_mode: [none, clip, feasible]
+  beta: [0.25, 0.5, 1, 2, 4, 8, 16]
+  alpha_profiles:                # cost per 1 SD of each feature
+    "equal (1,1,1)":       {AGEP: 1.0, WKHP: 1.0, SCHL: 1.0}
+    "AGEP cheap (0.5,1,1)": {AGEP: 0.5, WKHP: 1.0, SCHL: 1.0}
+    "WKHP cheap (1,0.5,1)": {AGEP: 1.0, WKHP: 0.5, SCHL: 1.0}
+    "SCHL costly (1,1,2)": {AGEP: 1.0, WKHP: 1.0, SCHL: 2.0}
+    "SCHL costly (1,1,4)": {AGEP: 1.0, WKHP: 1.0, SCHL: 4.0}
+    "WKHP cheap, SCHL costly (1,0.5,2)": {AGEP: 1.0, WKHP: 0.5, SCHL: 2.0}
+    "AGEP fixed, SCHL costly (1e6,1,2)": {AGEP: 1000000.0, WKHP: 1.0, SCHL: 2.0}
+
+# A setting only counts as "best" if at least this many negative agents move on
+# the report split (a high rate over a handful of movers is not meaningful).
+min_negative_movers: 200

@@ -1,0 +1,57 @@
+{
+  "decision_rule": "positive iff w . u - b >= 0, u = (x - shift) / scale  (equivalently w_raw . x - b_raw >= 0)",
+  "features": [
+    "AGEP",
+    "WKHP",
+    "SCHL"
+  ],
+  "best_epoch": 29,
+  "best_val_loss": 0.5466363822448762,
+  "model_space": {
+    "w": {
+      "AGEP": 0.5212576126660187,
+      "WKHP": 0.8219353361358562,
+      "SCHL": 1.4647252334891159
+    },
+    "b": 1.9395780379846073
+  },
+  "raw_space": {
+    "w": {
+      "AGEP": 0.035040033778282735,
+      "WKHP": 0.06305575985457232,
+      "SCHL": 0.37265777984376036
+    },
+    "b": 12.707990093288046
+  },
+  "feature_scaling": {
+    "kind": "standard",
+    "shift": {
+      "AGEP": 42.6445956228918,
+      "WKHP": 37.85603470794671,
+      "SCHL": 18.481038966938865
+    },
+    "scale": {
+      "AGEP": 14.876059080430625,
+      "WKHP": 13.035055608425212,
+      "SCHL": 3.93048344275333
+    },
+    "stats_from": "lr_train"
+  },
+  "hyperparameters": {
+    "epochs": 50,
+    "lr": 0.01,
+    "batch_size": 256,
+    "beta": 1.0,
+    "delta_g": 0.01,
+    "seed": 42,
+    "init": "uniform",
+    "feature_scaling": "standard",
+    "alpha": {
+      "AGEP": 1.0,
+      "WKHP": 1.0,
+      "SCHL": 1.0
+    }
+  },
+  "train_split": "algo_train",
+  "val_split": "algo_val"
+}

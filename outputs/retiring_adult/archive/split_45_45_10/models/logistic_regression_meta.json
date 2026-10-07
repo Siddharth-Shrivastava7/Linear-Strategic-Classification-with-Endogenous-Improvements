@@ -1,0 +1,68 @@
+{
+  "features": [
+    "AGEP",
+    "WKHP",
+    "SCHL"
+  ],
+  "feature_types": {
+    "AGEP": "continuous",
+    "WKHP": "continuous",
+    "SCHL": "ordinal"
+  },
+  "train_split": "lr_train",
+  "params": {
+    "penalty": "l2",
+    "C": 1.0,
+    "solver": "lbfgs",
+    "max_iter": 1000
+  },
+  "sklearn_version": "1.4.2",
+  "standardized_space": {
+    "intercept": -0.6463642145068168,
+    "coef": {
+      "AGEP": 0.6903863526178194,
+      "WKHP": 0.9450554337592645,
+      "SCHL": 1.235443209268386
+    }
+  },
+  "raw_space": {
+    "intercept": -11.179094046704053,
+    "coef": {
+      "AGEP": 0.04640922363141317,
+      "WKHP": 0.07250106652007128,
+      "SCHL": 0.3143234737564369
+    }
+  },
+  "metrics": {
+    "lr_train": {
+      "rows": 88049,
+      "accuracy": 0.7631205351565605,
+      "log_loss": 0.4975689023485119,
+      "roc_auc": 0.837096200175515,
+      "brier": 0.16214899617596562,
+      "positive_rate_true": 0.40845438335472295,
+      "positive_rate_pred": 0.387613715090461,
+      "mean_predicted_proba": 0.40845099213788727
+    },
+    "algo_train": {
+      "rows": 88049,
+      "accuracy": 0.7635861849651898,
+      "log_loss": 0.4975820925165384,
+      "roc_auc": 0.8382398294954201,
+      "brier": 0.16191487982461558,
+      "positive_rate_true": 0.41244080000908584,
+      "positive_rate_pred": 0.38802257833706233,
+      "mean_predicted_proba": 0.40935289791125556
+    },
+    "algo_val": {
+      "rows": 19567,
+      "accuracy": 0.7595952368784178,
+      "log_loss": 0.5024446403063876,
+      "roc_auc": 0.8342498016016284,
+      "brier": 0.16367295826172143,
+      "positive_rate_true": 0.4117135994276077,
+      "positive_rate_pred": 0.3882046302447999,
+      "mean_predicted_proba": 0.41022952006804153
+    }
+  }
+}

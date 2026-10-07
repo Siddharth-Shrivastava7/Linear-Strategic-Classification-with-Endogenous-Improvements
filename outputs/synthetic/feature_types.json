@@ -1,0 +1,21 @@
+{
+  "types": {
+    "x1": "continuous",
+    "x2": "continuous",
+    "x3": "continuous",
+    "x4": "continuous",
+    "x5": "continuous",
+    "eta_true": "continuous"
+  },
+  "kept_features": [
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5",
+    "eta_true"
+  ],
+  "dropped_types": [
+    "nominal"
+  ]
+}

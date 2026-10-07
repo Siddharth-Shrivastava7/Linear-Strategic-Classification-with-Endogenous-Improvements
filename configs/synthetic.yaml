@@ -1,0 +1,65 @@
+# ---------------------------------------------------------------------------
+# Synthetic dataset with a KNOWN logistic label model (make_synthetic_dataset.py):
+#   x_j ~ N(0, 1), j = 1..5;  y ~ Bernoulli(sigmoid(w* . x + b*)),
+#   w* = (1.5, 1.2, 0.9, 0.6, 0.3), b* = -0.5   (data/synthetic_logistic_params.json)
+# The column eta_true (true P(y=1|x)) is kept in the CSV for validation, not as a feature.
+# ---------------------------------------------------------------------------
+
+dataset:
+  name: synthetic
+  path: /Users/siddharthshrivastava/Downloads/Research_coding/data/synthetic_logistic.csv
+  target: label
+  positive_class: 1
+  label_description: "y = 1 drawn from Bernoulli(sigmoid(w* . x + b*)) (synthetic)"
+  use_features: [x1, x2, x3, x4, x5]   # eta_true excluded
+  true_model_params: /Users/siddharthshrivastava/Downloads/Research_coding/data/synthetic_logistic_params.json
+
+output_dir: outputs/synthetic
+
+split:
+  seed: 42
+  fractions:                        # plain random (non-stratified), 45/45/5/5
+    lr_train: 0.45
+    algo_train: 0.45
+    algo_val: 0.05
+    algo_test: 0.05
+
+feature_types:
+  max_discrete_unique: 30
+  overrides: {}
+  ordinal_orders: {}
+  drop_types: [nominal]
+
+feature_labels: {x1: "x1 (true w = 1.5)", x2: "x2 (true w = 1.2)", x3: "x3 (true w = 0.9)",
+                 x4: "x4 (true w = 0.6)", x5: "x5 (true w = 0.3)"}
+
+logistic_regression:
+  features: [x1, x2, x3, x4, x5]    # chosen by user (correctly specified model)
+  train_split: lr_train
+  params: {penalty: l2, C: 1.0, solver: lbfgs, max_iter: 1000}
+
+plots:
+  data_split: lr_train
+  spread: std
+  max_points: 100
+  n_bins: 50
+  low_count: 30
+
+strat_imp_aware:                    # Algorithm 1; beta / alpha from sweeps/synthetic_env (HELOC rule)
+  train_split: algo_train
+  val_split: algo_val
+  epochs: 800                       # user choice (best checkpoint was the last epoch at 400 in the sweep)
+  lr: 0.01
+  batch_size: 256
+  beta: 4.0                         # user choice (sweeps/synthetic_env, HELOC rule)
+  alpha: {x1: 1.5, x2: 1.2, x3: 0.9, x4: 0.6, x5: 0.3}   # cost per 1 SD, proportional to the true weights
+  delta_g: 0.01
+  seed: 42
+  clip_mode: feasible
+  restarts: 2
+  init: lr                          # start from the LR's decision rule (as for Adult)
+
+evaluation:
+  split: algo_test
+  seed: 42
+  n_repeats: 1000

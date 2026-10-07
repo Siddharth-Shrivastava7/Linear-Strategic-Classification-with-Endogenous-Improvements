@@ -1,0 +1,22 @@
+# Environment selection for HELOC (user rule): the (beta, alpha) cell with the
+# LOWEST expected improvement error on algo_val. Algorithm 1 in feasible mode,
+# 5 restarts per cell (from the base config); algo_test is not used.
+
+base_config: configs/heloc.yaml
+selection_split: algo_train
+report_split: algo_val
+workers: 8
+
+grid:
+  clip_mode: [feasible]
+  beta: [0.25, 0.5, 1, 2, 4, 8]
+  alpha_profiles:   # cost per 1 SD of (ExternalRiskEstimate, -revolving util., -% with balance, % never delinquent)
+    "equal (1,1,1,1)":                 {ExternalRiskEstimate: 1.0, neg_NetFractionRevolvingBurden: 1.0, neg_PercentTradesWBalance: 1.0, PercentTradesNeverDelq: 1.0}
+    "risk est. costly (4,1,1,1)":      {ExternalRiskEstimate: 4.0, neg_NetFractionRevolvingBurden: 1.0, neg_PercentTradesWBalance: 1.0, PercentTradesNeverDelq: 1.0}
+    "risk est. fixed (1e6,1,1,1)":     {ExternalRiskEstimate: 1000000.0, neg_NetFractionRevolvingBurden: 1.0, neg_PercentTradesWBalance: 1.0, PercentTradesNeverDelq: 1.0}
+    "balances cheap (1,.5,.5,1)":      {ExternalRiskEstimate: 1.0, neg_NetFractionRevolvingBurden: 0.5, neg_PercentTradesWBalance: 0.5, PercentTradesNeverDelq: 1.0}
+    "balances cheap, risk fixed (1e6,.5,.5,1)": {ExternalRiskEstimate: 1000000.0, neg_NetFractionRevolvingBurden: 0.5, neg_PercentTradesWBalance: 0.5, PercentTradesNeverDelq: 1.0}
+    "delinquency costly (1,1,1,4)":    {ExternalRiskEstimate: 1.0, neg_NetFractionRevolvingBurden: 1.0, neg_PercentTradesWBalance: 1.0, PercentTradesNeverDelq: 4.0}
+
+select_by: {metric: improvement_error, split: report}   # lowest error on algo_val
+min_negative_movers: 0

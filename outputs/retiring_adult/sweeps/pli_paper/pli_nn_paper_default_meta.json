@@ -1,0 +1,87 @@
+{
+  "model_file": "pli_nn_paper_default.pt",
+  "model_sha256": "cdb59b48d7bde040c05e60fe7c7cfe9defab3cea464c2790997fe096d1cb69dd",
+  "method": "PLI paper default (Attias et al., ICML 2025; github.com/ripl/PLI), reimplemented in pipeline/baselines_pli.py",
+  "architecture": "NNClassifier: Linear(3,64) -> ReLU -> Linear(64,1) -> Sigmoid (float32)",
+  "decision_rule": "positive iff h(u) > 0.9",
+  "training": {
+    "model_type": "nn",
+    "loss": "wbce_2",
+    "threshold": 0.9,
+    "epochs": 100,
+    "batch_size": 64,
+    "lr": 0.001,
+    "seed": 42,
+    "loss_detail": "WBCELossx(false_positive_weight=2.0, false_negative_weight=1.33)",
+    "optimizer": "Adam",
+    "shuffle": false,
+    "train_split": "algo_train",
+    "train_rows": 88049
+  },
+  "features": [
+    "AGEP",
+    "WKHP",
+    "SCHL"
+  ],
+  "input_space": "standardized with the LR scaler (fit on lr_train): u = (x - shift) / scale",
+  "standardization": {
+    "shift": {
+      "AGEP": 42.6445956228918,
+      "WKHP": 37.85603470794671,
+      "SCHL": 18.481038966938865
+    },
+    "scale": {
+      "AGEP": 14.876059080430625,
+      "WKHP": 13.035055608425212,
+      "SCHL": 3.93048344275333
+    }
+  },
+  "data": {
+    "dataset": "/Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/retiring_adult_data.csv",
+    "split_indices": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/retiring_adult/splits/split_indices.json",
+    "split_indices_sha256": "67241ee509aa3cde629d60e41e4645b250d09703c299de3a1d9283c4a6f42b33",
+    "test_split": "algo_test",
+    "test_rows": 9784
+  },
+  "environment_ours": {
+    "beta": 2.0,
+    "alpha": {
+      "AGEP": 1.0,
+      "WKHP": 0.5,
+      "SCHL": 1.0
+    },
+    "delta_g": 0.01,
+    "clip": "feasible (max of lr_train)",
+    "eta_hat": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/retiring_adult/models/logistic_regression.joblib"
+  },
+  "compared_with": {
+    "model": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/retiring_adult/models/strat_imp_aware.pt",
+    "best_epoch": 183
+  },
+  "results_env_ours_test": {
+    "Ours (stage 4 model, seed 42)": {
+      "improvement_rate": 0.8794844595411412,
+      "improvement_error": 0.06410067731105759,
+      "error_no_response": 0.41056827473426,
+      "movers": 6348.0,
+      "neg_movers": 2640.0,
+      "expected_improved": 2321.8389731886127,
+      "predicted_positive_before": 0.005212591986917416
+    },
+    "PLI paper default (NN, FP weight 2, threshold 0.9)": {
+      "improvement_rate": 0.642514322201281,
+      "improvement_error": 0.36102417891484334,
+      "error_no_response": 0.4091373671300082,
+      "movers": 654.0,
+      "neg_movers": 135.0,
+      "expected_improved": 86.73943349717294,
+      "predicted_positive_before": 0.002964022894521668
+    }
+  },
+  "versions": {
+    "python": "3.11.15",
+    "torch": "2.3.1",
+    "sklearn": "1.4.2",
+    "pandas": "2.2.3"
+  }
+}

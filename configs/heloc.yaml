@@ -1,0 +1,75 @@
+# ---------------------------------------------------------------------------
+# FICO HELOC (credit) dataset. Same pipeline as configs/retiring_adult.yaml.
+# ---------------------------------------------------------------------------
+
+dataset:
+  name: heloc
+  path: /Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/heloc.csv
+  target: RiskPerformance
+  positive_class: Good              # confirmed by user: y = 1 = repaid ("Good")
+  label_description: "y = 1 if RiskPerformance = Good (repaid; never 90+ days delinquent)"
+  # FICO special codes: -9 no bureau record, -8 no usable trades/inquiries, -7 condition not met.
+  missing_values: [-7, -8, -9]
+  drop_rows_all_missing: true       # the 588 no-bureau-record rows
+  # Lower-is-better features, negated (renamed neg_<name>) so agents improve by increasing them.
+  negate_features: [NetFractionRevolvingBurden, PercentTradesWBalance]
+  # Features kept in the dataset (chosen by user); rows are dropped only if one of these is missing.
+  # (NumBank2NatlTradesWHighUtilization dropped by user: ~0 / wrong-sign LR coefficient given the others;
+  #  5-feature run archived in outputs/heloc_archive_5features)
+  use_features: [ExternalRiskEstimate, neg_NetFractionRevolvingBurden, neg_PercentTradesWBalance,
+                 PercentTradesNeverDelq]
+
+output_dir: outputs/heloc
+
+split:
+  seed: 42
+  fractions:                        # plain random (non-stratified), 45/45/5/5
+    lr_train: 0.45
+    algo_train: 0.45
+    algo_val: 0.05
+    algo_test: 0.05
+
+feature_types:
+  max_discrete_unique: 30
+  overrides:
+    nominal: [MaxDelq2PublicRecLast12M, MaxDelqEver]   # coded categories with "unknown"/"other" values (FICO dictionary)
+  ordinal_orders: {}
+  drop_types: [nominal]
+
+feature_labels:
+  ExternalRiskEstimate: "External risk estimate (higher = better)"
+  neg_NetFractionRevolvingBurden: "− Revolving utilization % (negated)"
+  neg_PercentTradesWBalance: "− % trades with balance (negated)"
+  PercentTradesNeverDelq: "% trades never delinquent"
+
+logistic_regression:
+  features: [ExternalRiskEstimate, neg_NetFractionRevolvingBurden, neg_PercentTradesWBalance,
+             PercentTradesNeverDelq]
+  train_split: lr_train
+  params: {penalty: l2, C: 1.0, solver: lbfgs, max_iter: 1000}
+
+plots:
+  data_split: lr_train
+  spread: std
+  max_points: 100
+  n_bins: 50
+  low_count: 30
+
+strat_imp_aware:                    # Algorithm 1; beta / alpha from sweeps/heloc_env (lowest improvement error on algo_val)
+  train_split: algo_train
+  val_split: algo_val
+  epochs: 600                       # val loss still improving at 200; best checkpoint ~474 with T=800
+  lr: 0.01
+  batch_size: 256
+  beta: 2.0                         # user choice (sweeps/heloc_env): lowest stable val improvement error, reach 2
+  alpha: {ExternalRiskEstimate: 1.0, neg_NetFractionRevolvingBurden: 1.0, neg_PercentTradesWBalance: 1.0,
+          PercentTradesNeverDelq: 1.0}   # equal costs (per 1 SD); agents move along ExternalRiskEstimate
+  delta_g: 0.01
+  seed: 42
+  clip_mode: feasible
+  restarts: 5                       # as for law school: keep the lowest-val-loss of 5 random starts
+
+evaluation:
+  split: algo_test
+  seed: 42
+  n_repeats: 1000

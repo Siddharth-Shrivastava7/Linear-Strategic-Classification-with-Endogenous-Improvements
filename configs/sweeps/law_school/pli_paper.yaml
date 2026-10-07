@@ -1,0 +1,10 @@
+# Law school: PLI paper default (same settings as configs/sweeps/pli_paper.yaml).
+base_config: configs/law_school.yaml
+train_split: algo_train
+test_split: algo_test
+pli: {model_type: nn, loss: wbce_2, threshold: 0.9, epochs: 100, batch_size: 64, lr: 0.001, seed: 42}
+env_pli:
+  radii: [0.0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.7, 1.0, 2.0, 4.0]
+  step: 0.01
+  iters: 500
+  improvable_features: [lsat, ugpa, zgpa]

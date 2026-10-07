@@ -1,0 +1,45 @@
+{
+  "dataset": "/Users/siddharthshrivastava/Downloads/Research_coding/data/synthetic_logistic.csv",
+  "dataset_sha256": "6e025be3eba48050bd7073c58a9c781ab486f14c10999c53a1de61be28960132",
+  "seed": 42,
+  "stratified": false,
+  "fractions": {
+    "lr_train": 0.45,
+    "algo_train": 0.45,
+    "algo_val": 0.05,
+    "algo_test": 0.05
+  },
+  "features": [
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5"
+  ],
+  "target": "label",
+  "rows_raw": 20000,
+  "rows_dropped_missing": 0,
+  "rows_clean": 20000,
+  "splits": {
+    "lr_train": {
+      "rows": 9000,
+      "fraction": 0.45,
+      "positive_rate": 0.423222
+    },
+    "algo_train": {
+      "rows": 9000,
+      "fraction": 0.45,
+      "positive_rate": 0.423111
+    },
+    "algo_val": {
+      "rows": 1000,
+      "fraction": 0.05,
+      "positive_rate": 0.433
+    },
+    "algo_test": {
+      "rows": 1000,
+      "fraction": 0.05,
+      "positive_rate": 0.407
+    }
+  }
+}

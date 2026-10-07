@@ -1,0 +1,25 @@
+# Strategic improvement error vs. number of algo_train samples (paper Figure 1).
+# For every dataset, size n and repeat r: the first n rows of permutation r of
+# algo_train (nested across n) train all four methods with seed r; Strat-Imp-Aware
+# uses the dataset's final config (beta, alpha, epochs, init, restarts). Baseline
+# variants follow paper Table 1. Error = sampled strategic improvement error on
+# algo_test (label-sampling seed r); expected error is stored too.
+
+sizes: [100, 250, 500, 1000, 2000, 4000, 6000]
+repeats: 5                       # user choice (half of the 10 in the original figure; ~20 min)
+select_split: algo_val
+test_split: algo_test
+workers: 8
+out_dir: outputs/figures/error_vs_n
+
+pli: {model_type: nn, loss: wbce_2, epochs: 100, batch_size: 64, lr: 0.001,
+      thresholds: [0.5, 0.7, 0.8, 0.9]}          # grid used when threshold: select
+serm: {shift: l2, lambdas: [0.1, 1.0], epochs: 100, batch_size: 128, lr: 0.05}
+svm: {C: 1.0, loss: hinge, max_iter: 200000}
+
+datasets:   # order = panel order; class_weight applies to SERM and SVM only
+  - {name: Adult,      config: configs/adult.yaml,          pli_threshold: select, class_weight: balanced}
+  - {name: HELOC,      config: configs/heloc.yaml,          pli_threshold: select, class_weight: null}
+  - {name: Law School, config: configs/law_school.yaml,     pli_threshold: 0.9,    class_weight: balanced}
+  - {name: ACSIncome,  config: configs/retiring_adult.yaml, pli_threshold: 0.9,    class_weight: null}
+  - {name: Synthetic,  config: configs/synthetic.yaml,      pli_threshold: 0.9,    class_weight: null}

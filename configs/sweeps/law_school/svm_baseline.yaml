@@ -1,0 +1,6 @@
+# Law school: standard linear SVM (same settings as configs/sweeps/svm_baseline.yaml).
+base_config: configs/law_school.yaml
+train_split: algo_train
+test_split: algo_test
+svm: {C: 1.0, loss: hinge, max_iter: 200000, random_state: 42}
+sample_seed: 42

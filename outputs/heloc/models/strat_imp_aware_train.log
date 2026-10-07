@@ -1,0 +1,18 @@
+Features: ['ExternalRiskEstimate', 'neg_NetFractionRevolvingBurden', 'neg_PercentTradesWBalance', 'PercentTradesNeverDelq']   feature_scaling: standard   init: uniform   clip_mode: feasible
+Train algo_train: 4356 rows   Val algo_val: 484 rows
+FrozenLR matches sklearn LR (max |diff| = 0.0e+00); its parameters are buffers, not trained
+Hyperparameters: epochs=600, lr=0.01, batch_size=256, beta=2.0, delta_g=0.01, seed=42, init=uniform, feature_scaling=standard, clip_mode=feasible, restarts=5, alpha={'ExternalRiskEstimate': 1.0, 'neg_NetFractionRevolvingBurden': 1.0, 'neg_PercentTradesWBalance': 1.0, 'PercentTradesNeverDelq': 1.0}
+
+restart 0 (seed 42): best epoch 515, val loss 0.60202, j* = ExternalRiskEstimate
+restart 1 (seed 1042): best epoch 579, val loss 0.60184, j* = ExternalRiskEstimate
+restart 2 (seed 2042): best epoch 505, val loss 0.60197, j* = ExternalRiskEstimate
+restart 3 (seed 3042): best epoch 474, val loss 0.60179, j* = ExternalRiskEstimate
+restart 4 (seed 4042): best epoch 596, val loss 0.60182, j* = ExternalRiskEstimate
+-> kept restart 3 (seed 3042), val loss 0.60179
+
+Best epoch 474: val loss 0.60179
+  model space (standard): w = ExternalRiskEstimate 1.19273, neg_NetFractionRevolvingBurden 0.01893, neg_PercentTradesWBalance 0.02197, PercentTradesNeverDelq 0.00000;  b = 2.22734
+  raw units:    w = ExternalRiskEstimate 0.120710, neg_NetFractionRevolvingBurden 0.000653, neg_PercentTradesWBalance 0.000999, PercentTradesNeverDelq 0.000000;  b = 10.84334
+Saved -> /Users/siddharthshrivastava/Downloads/Research_coding/outputs/heloc/models/strat_imp_aware.pt
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/heloc/models/strat_imp_aware.json
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/heloc/models/strat_imp_aware_history.csv

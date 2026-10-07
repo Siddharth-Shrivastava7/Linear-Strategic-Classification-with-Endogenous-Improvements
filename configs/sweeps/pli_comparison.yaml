@@ -1,0 +1,29 @@
+# Comparison with PAC Learning with Improvements (PLI, github.com/ripl/PLI).
+# Same data for both: train on algo_train, choose (checkpoint / loss+threshold) on
+# algo_val, report on the unseen algo_test.
+# Our method uses the base config's strat_imp_aware settings unchanged; the
+# agent/label environment "ours" uses the same beta, alpha, delta_g and bounds.
+
+base_config: configs/retiring_adult.yaml
+train_split: algo_train
+select_split: algo_val           # PLI's (loss, threshold) chosen here by improvement error
+test_split: algo_test            # unseen; all reported numbers
+seeds: [0]                       # option B: one seed (no error bars)
+workers: 8
+
+pli:                             # as in the PLI notebook
+  model_types: [nn, linear]      # nn = their 64-unit MLP; linear = same losses, linear model
+  losses: [bce, wbce_2, wbce_4, wbce_8]
+  thresholds: [0.5, 0.7, 0.8, 0.9]
+  epochs: 100
+  batch_size: 256                # PLI notebook uses 64; 256 = option B (faster)
+  lr: 0.001
+
+# "Standard" non-strategic baselines: the same learners with plain BCE at 0.5.
+standard: {loss: bce, threshold: 0.5}
+
+env_pli:                         # PLI's own response and labels (robustness check)
+  radii: [0.0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.7, 1.0, 2.0, 4.0]
+  step: 0.01
+  iters: 500
+  improvable_features: [AGEP, WKHP, SCHL]

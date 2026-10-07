@@ -1,0 +1,45 @@
+{
+  "dataset": "/Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/heloc.csv",
+  "dataset_sha256": "abdb86f415228b6754dcdee791feaf25bb73a9147f1742cf09c9a2dd54308a93",
+  "seed": 42,
+  "stratified": false,
+  "fractions": {
+    "lr_train": 0.45,
+    "algo_train": 0.45,
+    "algo_val": 0.05,
+    "algo_test": 0.05
+  },
+  "features": [
+    "ExternalRiskEstimate",
+    "neg_NetFractionRevolvingBurden",
+    "neg_PercentTradesWBalance",
+    "PercentTradesNeverDelq",
+    "neg_NumBank2NatlTradesWHighUtilization"
+  ],
+  "target": "RiskPerformance",
+  "rows_raw": 9871,
+  "rows_dropped_missing": 592,
+  "rows_clean": 9279,
+  "splits": {
+    "lr_train": {
+      "rows": 4175,
+      "fraction": 0.449941,
+      "positive_rate": 0.479281
+    },
+    "algo_train": {
+      "rows": 4175,
+      "fraction": 0.449941,
+      "positive_rate": 0.500838
+    },
+    "algo_val": {
+      "rows": 463,
+      "fraction": 0.049898,
+      "positive_rate": 0.520518
+    },
+    "algo_test": {
+      "rows": 466,
+      "fraction": 0.050221,
+      "positive_rate": 0.51073
+    }
+  }
+}

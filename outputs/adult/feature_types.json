@@ -1,0 +1,29 @@
+{
+  "types": {
+    "age": "continuous",
+    "workclass": "nominal",
+    "fnlwgt": "continuous",
+    "education": "nominal",
+    "educational-num": "ordinal",
+    "marital-status": "nominal",
+    "occupation": "nominal",
+    "relationship": "nominal",
+    "race": "nominal",
+    "gender": "nominal",
+    "capital-gain": "continuous",
+    "capital-loss": "continuous",
+    "hours-per-week": "continuous",
+    "native-country": "nominal"
+  },
+  "kept_features": [
+    "age",
+    "fnlwgt",
+    "educational-num",
+    "capital-gain",
+    "capital-loss",
+    "hours-per-week"
+  ],
+  "dropped_types": [
+    "nominal"
+  ]
+}

@@ -1,0 +1,16 @@
+# Synthetic comparison table (Ours, PLI + val-chosen threshold, GSC x2, SVM), seed 42,
+# our environment. Same baseline settings as Adult/HELOC; no class-balanced rows
+# (42% positive). true_eta: also score improvement with the generator's true eta.
+
+base_config: configs/synthetic.yaml
+train_split: algo_train
+select_split: algo_val
+test_split: algo_test
+seeds: [42]
+workers: 8
+true_eta: true
+
+pli: {model_type: nn, loss: wbce_2, threshold: 0.9, epochs: 100, batch_size: 64, lr: 0.001,
+      select_thresholds: [0.5, 0.7, 0.8, 0.9]}
+gsc: {shifts: [l2, ours], lambdas: [0.1, 1.0], epochs: 100, batch_size: 128, lr: 0.05}
+svm: {C: 1.0, loss: hinge, max_iter: 200000}

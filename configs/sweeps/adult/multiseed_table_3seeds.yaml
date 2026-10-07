@@ -1,0 +1,17 @@
+# Adult comparison table (Ours, PLI + val-chosen threshold, GSC x2, SVM), 3 seeds (42, 0, 1),
+# our environment. Same baseline settings as HELOC, plus class-balanced GSC / SVM rows
+# (baselines only; our loss is unweighted). Unweighted GSC / SVM collapse on Adult.
+
+base_config: configs/adult.yaml
+train_split: algo_train
+select_split: algo_val        # GSC lambda, PLI threshold row; ours: checkpoint + restarts (base config)
+test_split: algo_test
+seeds: [42, 0, 1]
+workers: 8
+
+pli: {model_type: nn, loss: wbce_2, threshold: 0.9, epochs: 100, batch_size: 64, lr: 0.001,
+      select_thresholds: [0.5, 0.7, 0.8, 0.9]}
+gsc: {shifts: [l2, ours], lambdas: [0.1, 1.0], epochs: 100, batch_size: 128, lr: 0.05,
+      class_weights: [null, balanced]}
+svm: {C: 1.0, loss: hinge, max_iter: 200000}
+svm_class_weights: [null, balanced]

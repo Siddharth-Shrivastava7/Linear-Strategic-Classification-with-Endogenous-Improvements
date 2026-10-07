@@ -1,0 +1,13 @@
+# Standard (non-strategic) linear SVM baseline, trained like Algorithm 1:
+# same train split, same features and standardization; evaluated in our
+# environment (feasible cost-based response, y' ~ Bernoulli(pi_Imp)) on the unseen test split.
+
+base_config: configs/retiring_adult.yaml
+train_split: algo_train
+test_split: algo_test
+svm:                       # sklearn LinearSVC
+  C: 1.0
+  loss: hinge              # standard SVM hinge loss
+  max_iter: 200000
+  random_state: 42
+sample_seed: 42            # same seed as stage 5 for the sampled post-response labels

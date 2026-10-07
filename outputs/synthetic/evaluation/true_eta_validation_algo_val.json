@@ -1,0 +1,24 @@
+{
+  "split": "algo_val",
+  "agents": 1000,
+  "manipulating": 527,
+  "manipulating_y0": 187,
+  "eta_hat_vs_true_mean_abs": 0.0054987462473633465,
+  "pi_hat_vs_true": {
+    "mean_abs_diff": 0.0016276513658403128,
+    "max_abs_diff": 0.008522608707975277,
+    "corr": 0.9998241833628179
+  },
+  "estimated_eta": {
+    "expected_improvement_rate": 0.8796980600169834,
+    "expected_improvement_error": 0.07949646277682411,
+    "expected_improved": 164.5035372231759
+  },
+  "true_eta": {
+    "expected_improvement_rate": 0.8790560952128007,
+    "expected_improvement_error": 0.07961651019520627,
+    "expected_improved": 164.38348980479373,
+    "sampled_improved_seed": 167,
+    "sampled_improvement_rate": 0.893048128342246
+  }
+}

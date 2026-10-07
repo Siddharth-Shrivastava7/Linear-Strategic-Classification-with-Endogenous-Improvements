@@ -1,0 +1,81 @@
+{
+  "seeds": [
+    42
+  ],
+  "settings": {
+    "pli": {
+      "model_type": "nn",
+      "loss": "wbce_2",
+      "threshold": 0.9,
+      "epochs": 100,
+      "batch_size": 64,
+      "lr": 0.001,
+      "select_thresholds": [
+        0.5,
+        0.7,
+        0.8,
+        0.9
+      ]
+    },
+    "gsc": {
+      "shifts": [
+        "l2",
+        "ours"
+      ],
+      "lambdas": [
+        0.1,
+        1.0
+      ],
+      "epochs": 100,
+      "batch_size": 128,
+      "lr": 0.05,
+      "class_weights": [
+        null,
+        "balanced"
+      ]
+    },
+    "svm": {
+      "C": 1.0,
+      "loss": "hinge",
+      "max_iter": 200000
+    },
+    "svm_class_weights": [
+      null,
+      "balanced"
+    ]
+  },
+  "environment_ours": {
+    "beta": 2.0,
+    "alpha": {
+      "age": 1000000.0,
+      "hours-per-week": 0.5,
+      "educational-num": 1.0
+    },
+    "delta_g": 0.01,
+    "clip": "feasible (max of lr_train)"
+  },
+  "data": {
+    "train": "algo_train",
+    "select": "algo_val",
+    "test": "algo_test",
+    "split_indices_sha256": "57bfca01be5870ab15ca150046c8a9bf4fa5d3149ee519be47c01d0ed08a1ba9"
+  },
+  "strat_imp_aware": {
+    "train_split": "algo_train",
+    "val_split": "algo_val",
+    "epochs": 800,
+    "lr": 0.01,
+    "batch_size": 256,
+    "beta": 2.0,
+    "alpha": {
+      "age": 1000000.0,
+      "hours-per-week": 0.5,
+      "educational-num": 1.0
+    },
+    "delta_g": 0.01,
+    "seed": 42,
+    "clip_mode": "feasible",
+    "restarts": 2,
+    "init": "lr"
+  }
+}

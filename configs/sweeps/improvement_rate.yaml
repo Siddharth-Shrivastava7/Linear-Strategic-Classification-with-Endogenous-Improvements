@@ -1,0 +1,53 @@
+# Sweep of STRAT-IMP-AWARE settings vs. improvement rate.
+# Each variant overrides keys of the base config's `strat_imp_aware` section.
+# Settings are compared on `selection_split`, and reported on `report_split`.
+
+base_config: configs/retiring_adult.yaml
+selection_split: algo_train
+report_split: algo_val
+workers: 8
+
+groups:
+  # Learner settings: legitimate to tune.
+  learner:
+    - {name: default}
+    - {name: "lr=0.001, T=200", lr: 0.001, epochs: 200}
+    - {name: "lr=0.003, T=100", lr: 0.003, epochs: 100}
+    - {name: "lr=0.03", lr: 0.03}
+    - {name: "lr=0.1", lr: 0.1}
+    - {name: "batch=64", batch_size: 64}
+    - {name: "batch=1024, T=100", batch_size: 1024, epochs: 100}
+    - {name: "T=150", epochs: 150}
+    - {name: "init=lr", init: lr}
+    - {name: "delta_g=0.001", delta_g: 0.001}
+    - {name: "delta_g=0.1", delta_g: 0.1}
+    - {name: "seed=1", seed: 1}
+    - {name: "seed=2", seed: 2}
+    - {name: "seed=3", seed: 3}
+
+  # Feature scaling. "+equiv alpha" rescales alpha so the agents' costs are the
+  # same as under standard scaling: only the optimizer sees a difference.
+  scaling:
+    - {name: "standard (default)"}
+    - {name: "minmax, alpha=1", feature_scaling: minmax}
+    - {name: "minmax, equiv alpha", feature_scaling: minmax, alpha: EQUIV}
+    - {name: "minmax, equiv alpha, lr=0.1, T=300", feature_scaling: minmax, alpha: EQUIV, lr: 0.1, epochs: 300}
+    - {name: "none, alpha=1, lr=1e-4, T=200", feature_scaling: none, lr: 0.0001, epochs: 200}
+    - {name: "none, equiv alpha, lr=1e-4, T=200", feature_scaling: none, alpha: EQUIV, lr: 0.0001, epochs: 200}
+    - {name: "none, alpha=1, lr=0.01", feature_scaling: none}
+
+  # Agent model (utility and costs): sensitivity analysis, not tuning.
+  beta:
+    - {name: "beta=0.25", beta: 0.25}
+    - {name: "beta=0.5", beta: 0.5}
+    - {name: "beta=1 (default)"}
+    - {name: "beta=2", beta: 2.0}
+    - {name: "beta=4", beta: 4.0}
+    - {name: "beta=8", beta: 8.0}
+  alpha:
+    - {name: "alpha=(1,1,1) (default)"}
+    - {name: "SCHL cheap (0.5)", alpha: {AGEP: 1.0, WKHP: 1.0, SCHL: 0.5}}
+    - {name: "SCHL costly (2)", alpha: {AGEP: 1.0, WKHP: 1.0, SCHL: 2.0}}
+    - {name: "SCHL costly (4)", alpha: {AGEP: 1.0, WKHP: 1.0, SCHL: 4.0}}
+    - {name: "WKHP cheap (0.5)", alpha: {AGEP: 1.0, WKHP: 0.5, SCHL: 1.0}}
+    - {name: "AGEP immutable", alpha: {AGEP: 1000000.0, WKHP: 1.0, SCHL: 1.0}}

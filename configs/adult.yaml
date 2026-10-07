@@ -1,0 +1,65 @@
+# ---------------------------------------------------------------------------
+# UCI Adult (census income). Same pipeline as configs/retiring_adult.yaml.
+# ---------------------------------------------------------------------------
+
+dataset:
+  name: adult
+  path: /Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/adult.csv
+  target: income
+  positive_class: ">50K"            # confirmed by user
+  label_description: "y = 1 if income > $50K"
+  missing_values: ["?"]             # only in workclass / occupation / native-country (nominal)
+
+output_dir: outputs/adult
+
+split:
+  seed: 42
+  fractions:                        # plain random (non-stratified), 45/45/5/5
+    lr_train: 0.45
+    algo_train: 0.45
+    algo_val: 0.05
+    algo_test: 0.05
+
+feature_types:
+  max_discrete_unique: 30
+  overrides:
+    nominal: [education]            # text version of educational-num (redundant)
+  ordinal_orders: {}
+  drop_types: [nominal]             # keep continuous + ordinal only, as for the other datasets
+
+feature_labels:
+  age: "Age (years)"
+  hours-per-week: "Hours worked per week"
+  educational-num: "Education level (educational-num, 1-16)"
+
+logistic_regression:
+  features: [age, hours-per-week, educational-num]   # chosen by user
+  train_split: lr_train
+  params: {penalty: l2, C: 1.0, solver: lbfgs, max_iter: 1000}
+
+plots:
+  data_split: lr_train
+  spread: std
+  max_points: 100
+  n_bins: 50
+  low_count: 30
+
+strat_imp_aware:                    # Algorithm 1; beta / alpha from sweeps/adult_env (HELOC rule)
+  train_split: algo_train
+  val_split: algo_val
+  epochs: 800                       # user choice: 400 still improving at epoch 399 (archived in outputs/adult/archive/epochs_400)
+  lr: 0.01
+  batch_size: 256
+  beta: 2.0                         # user choice (sweeps/adult_env, HELOC rule): reach 4 SD along hours
+  alpha: {age: 1000000.0, hours-per-week: 0.5, educational-num: 1.0}   # age fixed, hours cheap (cost per 1 SD)
+  delta_g: 0.01
+  seed: 42
+  clip_mode: feasible
+  restarts: 2                       # user choice; with init lr the restarts differ only in batch order
+  init: lr                          # start from the LR's decision rule (allowed by Alg 1: w >= 0, w != 0);
+                                    # random starts collapse to reject-all on Adult (flat unweighted loss)
+
+evaluation:
+  split: algo_test
+  seed: 42
+  n_repeats: 1000

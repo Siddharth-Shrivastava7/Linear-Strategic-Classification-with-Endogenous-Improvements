@@ -1,0 +1,7 @@
+,Pred. positive before,Manipulating,Manip. y=0,Improved (sampled),E[improved],Impr. rate (sampled),E[impr. rate],Impr. error (sampled),E[impr. error]
+Ours (STRAT-IMP-AWARE),21.0,384.0,147.0,104.0,97.9,0.707,0.666,0.1575,0.1600
+"PLI paper default (NN, FP 2, threshold 0.9)",0.0,0.0,0.0,0.0,0.0,undefined,undefined,0.2390,0.2390
+"PLI (NN, FP 2, threshold chosen on validation)",42.0,410.0,183.0,73.0,78.7,0.399,0.430,0.1788,0.1765
+"GSC strategic SVM, as in paper (L2 cost)",0.0,0.0,0.0,0.0,0.0,undefined,undefined,0.2390,0.2390
+"GSC strategic SVM, our cost model",0.0,0.0,0.0,0.0,0.0,undefined,undefined,0.2390,0.2390
+Standard linear SVM,0.0,0.0,0.0,0.0,0.0,undefined,undefined,0.2390,0.2390

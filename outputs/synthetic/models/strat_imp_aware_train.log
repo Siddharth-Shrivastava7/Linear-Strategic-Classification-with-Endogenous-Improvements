@@ -1,0 +1,15 @@
+Features: ['x1', 'x2', 'x3', 'x4', 'x5']   feature_scaling: standard   init: lr   clip_mode: feasible
+Train algo_train: 9000 rows   Val algo_val: 1000 rows
+FrozenLR matches sklearn LR (max |diff| = 1.1e-16); its parameters are buffers, not trained
+Hyperparameters: epochs=800, lr=0.01, batch_size=256, beta=4.0, delta_g=0.01, seed=42, init=lr, feature_scaling=standard, clip_mode=feasible, restarts=2, class_weight=None, alpha={'x1': 1.5, 'x2': 1.2, 'x3': 0.9, 'x4': 0.6, 'x5': 0.3}
+
+restart 0 (seed 42): best epoch 710, val loss 0.31617, j* = x1
+restart 1 (seed 1042): best epoch 784, val loss 0.31770, j* = x1
+-> kept restart 0 (seed 42), val loss 0.31617
+
+Best epoch 710: val loss 0.31617
+  model space (standard): w = x1 2.03542, x2 1.33420, x3 1.02864, x4 0.66720, x5 0.21195;  b = 4.85118
+  raw units:    w = x1 2.046070, x2 1.321120, x3 1.038833, x4 0.663993, x5 0.208131;  b = 4.80377
+Saved -> /Users/siddharthshrivastava/Downloads/Research_coding/outputs/synthetic/models/strat_imp_aware.pt
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/synthetic/models/strat_imp_aware.json
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/synthetic/models/strat_imp_aware_history.csv

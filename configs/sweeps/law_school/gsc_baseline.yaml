@@ -1,0 +1,17 @@
+# Law school: GSC strategic SVM (same settings as configs/sweeps/gsc_baseline.yaml) + combined table.
+base_config: configs/law_school.yaml
+train_split: algo_train
+select_split: algo_val
+test_split: algo_test
+gsc:
+  shifts: [l2, ours]
+  lambdas: [0.1, 1.0]            # as chosen by the user for retiring_adult
+  epochs: 100
+  batch_size: 128
+  lr: 0.05
+  seed: 42
+sample_seed: 42
+workers: 4
+saved_baselines:
+  svm: outputs/law_school/sweeps/svm_baseline/linear_svm.joblib
+  pli: outputs/law_school/sweeps/pli_paper/pli_nn_paper_default.pt

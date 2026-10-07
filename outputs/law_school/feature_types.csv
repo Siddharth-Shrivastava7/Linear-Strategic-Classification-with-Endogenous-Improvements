@@ -1,0 +1,12 @@
+feature,dtype,n_unique,n_missing,min,max,detected_type,detected_reason,final_type,source
+decile1b,float64,10,0,1.0,10.0,ordinal,"integer-valued, 10 <= 30 unique values (may be nominal codes)",ordinal,auto-detected
+decile3,float64,10,0,1.0,10.0,ordinal,"integer-valued, 10 <= 30 unique values (may be nominal codes)",ordinal,auto-detected
+lsat,float64,114,0,11.0,48.0,continuous,non-integer numeric values,continuous,auto-detected
+ugpa,float64,26,0,1.5,4.0,continuous,non-integer numeric values,continuous,auto-detected
+zfygpa,float64,563,0,-3.35,3.48,continuous,non-integer numeric values,continuous,auto-detected
+zgpa,float64,590,0,-6.44,4.01,continuous,non-integer numeric values,continuous,auto-detected
+fulltime,float64,2,0,1.0,2.0,nominal,binary,nominal,auto-detected
+fam_inc,float64,5,0,1.0,5.0,ordinal,"integer-valued, 5 <= 30 unique values (may be nominal codes)",ordinal,auto-detected
+male,float64,2,0,0.0,1.0,nominal,binary,nominal,auto-detected
+tier,float64,6,0,1.0,6.0,ordinal,"integer-valued, 6 <= 30 unique values (may be nominal codes)",ordinal,auto-detected
+race,object,2,0,,,nominal,binary,nominal,auto-detected

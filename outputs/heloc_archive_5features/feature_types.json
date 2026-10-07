@@ -1,0 +1,53 @@
+{
+  "types": {
+    "ExternalRiskEstimate": "continuous",
+    "MSinceOldestTradeOpen": "continuous",
+    "MSinceMostRecentTradeOpen": "continuous",
+    "AverageMInFile": "continuous",
+    "NumSatisfactoryTrades": "continuous",
+    "NumTrades60Ever2DerogPubRec": "ordinal",
+    "NumTrades90Ever2DerogPubRec": "ordinal",
+    "PercentTradesNeverDelq": "continuous",
+    "MSinceMostRecentDelq": "continuous",
+    "MaxDelq2PublicRecLast12M": "nominal",
+    "MaxDelqEver": "nominal",
+    "NumTotalTrades": "continuous",
+    "NumTradesOpeninLast12M": "ordinal",
+    "PercentInstallTrades": "continuous",
+    "MSinceMostRecentInqexcl7days": "ordinal",
+    "NumInqLast6M": "ordinal",
+    "NumInqLast6Mexcl7days": "ordinal",
+    "NetFractionInstallBurden": "continuous",
+    "NumRevolvingTradesWBalance": "ordinal",
+    "NumInstallTradesWBalance": "ordinal",
+    "neg_NetFractionRevolvingBurden": "continuous",
+    "neg_PercentTradesWBalance": "continuous",
+    "neg_NumBank2NatlTradesWHighUtilization": "ordinal"
+  },
+  "kept_features": [
+    "ExternalRiskEstimate",
+    "MSinceOldestTradeOpen",
+    "MSinceMostRecentTradeOpen",
+    "AverageMInFile",
+    "NumSatisfactoryTrades",
+    "NumTrades60Ever2DerogPubRec",
+    "NumTrades90Ever2DerogPubRec",
+    "PercentTradesNeverDelq",
+    "MSinceMostRecentDelq",
+    "NumTotalTrades",
+    "NumTradesOpeninLast12M",
+    "PercentInstallTrades",
+    "MSinceMostRecentInqexcl7days",
+    "NumInqLast6M",
+    "NumInqLast6Mexcl7days",
+    "NetFractionInstallBurden",
+    "NumRevolvingTradesWBalance",
+    "NumInstallTradesWBalance",
+    "neg_NetFractionRevolvingBurden",
+    "neg_PercentTradesWBalance",
+    "neg_NumBank2NatlTradesWHighUtilization"
+  ],
+  "dropped_types": [
+    "nominal"
+  ]
+}

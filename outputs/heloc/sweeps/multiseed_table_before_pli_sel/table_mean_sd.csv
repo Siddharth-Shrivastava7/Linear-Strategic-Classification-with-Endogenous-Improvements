@@ -1,0 +1,8 @@
+,mean,mean,mean,mean,mean,mean,mean,mean,mean,mean,sd,sd,sd,sd,sd,sd,sd,sd,sd,sd
+,predicted_positive_before,manipulating,manipulating_y0,manipulating_y1,improved,expected_improved,improvement_rate,expected_improvement_rate,improvement_error,expected_improvement_error,predicted_positive_before,manipulating,manipulating_y0,manipulating_y1,improved,expected_improved,improvement_rate,expected_improvement_rate,improvement_error,expected_improvement_error
+method,,,,,,,,,,,,,,,,,,,,
+Ours (STRAT-IMP-AWARE),11.0,252.0,92.0,160.0,47.0,47.63339793032022,0.5108695652173914,0.5177543253295677,0.22016460905349794,0.21886132113102832,,,,,,,,,,
+"PLI paper default (NN, FP 2, threshold 0.9)",0.0,0.0,0.0,0.0,0.0,0.0,,,0.4711934156378601,0.4711934156378601,,,,,,,,,,
+"GSC strategic SVM, as in paper (L2 cost)",17.0,129.0,44.0,85.0,17.0,20.53458923328914,0.38636363636363635,0.4666952098474804,0.32510288065843623,0.31783006330598945,,,,,,,,,,
+"GSC strategic SVM, our cost model",31.0,168.0,56.0,112.0,20.0,25.76555356610242,0.35714285714285715,0.46009917082325746,0.2757201646090535,0.26385688566645593,,,,,,,,,,
+Standard linear SVM,232.0,199.0,141.0,58.0,35.0,36.42329948662133,0.24822695035460993,0.2583212729547612,0.3888888888888889,0.38596028912217833,,,,,,,,,,

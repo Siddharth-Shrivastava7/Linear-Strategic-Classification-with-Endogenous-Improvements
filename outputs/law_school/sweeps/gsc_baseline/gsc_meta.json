@@ -1,0 +1,142 @@
+{
+  "selected": {
+    "l2": {
+      "lambda": 0.1,
+      "w_standardized": {
+        "lsat": 0.011382851749658585,
+        "ugpa": 0.023890964686870575,
+        "zgpa": 0.03297661989927292
+      },
+      "c": 0.9457511305809021,
+      "algo_val_expected_improvement_error": 0.13185755534167468,
+      "file": "gsc_ssvm_l2.pt",
+      "sha256": "d80bbbf1716308112a33d71adc569d234f83f457f051b3f80d921b56caec5b19"
+    },
+    "ours": {
+      "lambda": 0.1,
+      "w_standardized": {
+        "lsat": 0.01596999168395996,
+        "ugpa": 0.002970242640003562,
+        "zgpa": 0.05467918887734413
+      },
+      "c": 0.9395945072174072,
+      "algo_val_expected_improvement_error": 0.13185755534167468,
+      "file": "gsc_ssvm_ours.pt",
+      "sha256": "3f6da5c0eef95f76fa66b0b49c045da9c337d789737049d3c2f938049c109fbd"
+    }
+  },
+  "training": {
+    "shifts": [
+      "l2",
+      "ours"
+    ],
+    "lambdas": [
+      0.1,
+      1.0
+    ],
+    "epochs": 100,
+    "batch_size": 128,
+    "lr": 0.05,
+    "seed": 42,
+    "train_split": "algo_train"
+  },
+  "environment_ours": {
+    "beta": 2.0,
+    "alpha": {
+      "lsat": 1.0,
+      "ugpa": 1.0,
+      "zgpa": 1.0
+    },
+    "delta_g": 0.01,
+    "clip": "feasible (max of lr_train)"
+  },
+  "split_indices_sha256": "1772f79ef644b7e0bed1b9a1afd049886d245755e8564ec80ae08a8040b7a23b",
+  "sample_seed": 42,
+  "results_test": {
+    "Ours (STRAT-IMP-AWARE)": {
+      "agents": 1041.0,
+      "predicted_positive_before": 584.0,
+      "manipulating": 440.0,
+      "manipulating_y0": 68.0,
+      "manipulating_y1": 372.0,
+      "improved": 46.0,
+      "improvement_rate": 0.6764705882352942,
+      "expected_improved": 44.74002724160368,
+      "expected_improvement_rate": 0.657941577082407,
+      "improvement_error": 0.040345821325648415,
+      "expected_improvement_error": 0.04155616979673037,
+      "error_no_response": 0.3765609990393852,
+      "moves_along": {
+        "zgpa": 440
+      },
+      "strategic_error_labels_fixed": 0.0845341018251681
+    },
+    "GSC strategic SVM, as in paper (L2 cost, budget 2), lambda=0.1": {
+      "agents": 1041.0,
+      "predicted_positive_before": 1041.0,
+      "manipulating": 0.0,
+      "manipulating_y0": 0.0,
+      "manipulating_y1": 0.0,
+      "improved": 0.0,
+      "improvement_rate": NaN,
+      "expected_improved": 0.0,
+      "expected_improvement_rate": NaN,
+      "improvement_error": 0.09125840537944284,
+      "expected_improvement_error": 0.09125840537944284,
+      "error_no_response": 0.09125840537944284,
+      "moves_along": {},
+      "strategic_error_labels_fixed": 0.09125840537944284
+    },
+    "GSC strategic SVM, our cost model, lambda=0.1": {
+      "agents": 1041.0,
+      "predicted_positive_before": 1041.0,
+      "manipulating": 0.0,
+      "manipulating_y0": 0.0,
+      "manipulating_y1": 0.0,
+      "improved": 0.0,
+      "improvement_rate": NaN,
+      "expected_improved": 0.0,
+      "expected_improvement_rate": NaN,
+      "improvement_error": 0.09125840537944284,
+      "expected_improvement_error": 0.09125840537944284,
+      "error_no_response": 0.09125840537944284,
+      "moves_along": {},
+      "strategic_error_labels_fixed": 0.09125840537944284
+    },
+    "Standard linear SVM (hinge, C=1)": {
+      "agents": 1041.0,
+      "predicted_positive_before": 1041.0,
+      "manipulating": 0.0,
+      "manipulating_y0": 0.0,
+      "manipulating_y1": 0.0,
+      "improved": 0.0,
+      "improvement_rate": NaN,
+      "expected_improved": 0.0,
+      "expected_improvement_rate": NaN,
+      "improvement_error": 0.09125840537944284,
+      "expected_improvement_error": 0.09125840537944284,
+      "error_no_response": 0.09125840537944284,
+      "moves_along": {},
+      "strategic_error_labels_fixed": 0.09125840537944284
+    },
+    "PLI paper default (NN, FP weight 2, threshold 0.9)": {
+      "agents": 1041.0,
+      "predicted_positive_before": 680.0,
+      "manipulating": 326.0,
+      "manipulating_y0": 60.0,
+      "manipulating_y1": 266.0,
+      "improved": 31.0,
+      "improvement_rate": 0.5166666666666667,
+      "expected_improved": 35.38970132309839,
+      "expected_improvement_rate": 0.5898283553849732,
+      "improvement_error": 0.05475504322766571,
+      "expected_improvement_error": 0.05053823119779215,
+      "error_no_response": 0.2824207492795389,
+      "moves_along": {
+        "lsat": 1,
+        "zgpa": 325
+      },
+      "strategic_error_labels_fixed": 0.0845341018251681
+    }
+  }
+}

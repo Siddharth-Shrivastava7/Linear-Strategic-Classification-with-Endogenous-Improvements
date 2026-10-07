@@ -1,0 +1,154 @@
+{
+  "selected": {
+    "l2": {
+      "lambda": 0.01,
+      "w_standardized": {
+        "AGEP": 0.5721718072891235,
+        "WKHP": 0.6522008776664734,
+        "SCHL": 1.0503560304641724
+      },
+      "c": -3.2922308444976807,
+      "algo_val_expected_improvement_error": 0.1815390379974449,
+      "file": "gsc_ssvm_l2.pt",
+      "sha256": "19c686a23313dcbb924e0205b8f1e5da9fa37df176dd637deb824dac764d0916"
+    },
+    "ours": {
+      "lambda": 0.01,
+      "w_standardized": {
+        "AGEP": 0.6170398592948914,
+        "WKHP": 0.741523027420044,
+        "SCHL": 1.1632977724075317
+      },
+      "c": -3.527021646499634,
+      "algo_val_expected_improvement_error": 0.14602636542669997,
+      "file": "gsc_ssvm_ours.pt",
+      "sha256": "a7cdb2c349093ffbddfa4b232a1233ffea7d0ff64c781f3adff874bca037cb8f"
+    }
+  },
+  "training": {
+    "shifts": [
+      "l2",
+      "ours"
+    ],
+    "lambdas": [
+      0.01,
+      0.1,
+      1.0
+    ],
+    "epochs": 100,
+    "batch_size": 128,
+    "lr": 0.05,
+    "seed": 42,
+    "train_split": "algo_train"
+  },
+  "environment_ours": {
+    "beta": 2.0,
+    "alpha": {
+      "AGEP": 1.0,
+      "WKHP": 0.5,
+      "SCHL": 1.0
+    },
+    "delta_g": 0.01,
+    "clip": "feasible (max of lr_train)"
+  },
+  "split_indices_sha256": "67241ee509aa3cde629d60e41e4645b250d09703c299de3a1d9283c4a6f42b33",
+  "sample_seed": 42,
+  "results_test": {
+    "Ours (STRAT-IMP-AWARE)": {
+      "agents": 9784.0,
+      "predicted_positive_before": 51.0,
+      "manipulating": 6348.0,
+      "manipulating_y0": 2640.0,
+      "manipulating_y1": 3708.0,
+      "improved": 2310.0,
+      "improvement_rate": 0.875,
+      "expected_improved": 2321.8389731886127,
+      "expected_improvement_rate": 0.8794844595411412,
+      "improvement_error": 0.06531071136549468,
+      "expected_improvement_error": 0.06410067731105759,
+      "error_no_response": 0.41056827473426,
+      "moves_along": {
+        "WKHP": 6342,
+        "SCHL": 6
+      },
+      "strategic_error_labels_fixed": 0.30141046606704824
+    },
+    "GSC strategic SVM, as in paper (L2 cost, budget 2), lambda=0.01": {
+      "agents": 9784.0,
+      "predicted_positive_before": 30.0,
+      "manipulating": 3047.0,
+      "manipulating_y0": 781.0,
+      "manipulating_y1": 2266.0,
+      "improved": 705.0,
+      "improvement_rate": 0.9026888604353394,
+      "expected_improved": 708.335099429404,
+      "expected_improvement_rate": 0.9069591541989808,
+      "improvement_error": 0.18622240392477515,
+      "expected_improvement_error": 0.18588153112945585,
+      "error_no_response": 0.41005723630417007,
+      "moves_along": {
+        "WKHP": 3009,
+        "SCHL": 38
+      },
+      "strategic_error_labels_fixed": 0.2582788225674571
+    },
+    "GSC strategic SVM, our cost model, lambda=0.01": {
+      "agents": 9784.0,
+      "predicted_positive_before": 34.0,
+      "manipulating": 3674.0,
+      "manipulating_y0": 1038.0,
+      "manipulating_y1": 2636.0,
+      "improved": 938.0,
+      "improvement_rate": 0.9036608863198459,
+      "expected_improved": 935.4099514388874,
+      "expected_improvement_rate": 0.9011656564921844,
+      "improvement_error": 0.15065412919051513,
+      "expected_improvement_error": 0.15091885206062067,
+      "error_no_response": 0.4098528209321341,
+      "moves_along": {
+        "AGEP": 2,
+        "WKHP": 3636,
+        "SCHL": 36
+      },
+      "strategic_error_labels_fixed": 0.24652493867538838
+    },
+    "Standard linear SVM (hinge, C=1)": {
+      "agents": 9784.0,
+      "predicted_positive_before": 4092.0,
+      "manipulating": 5177.0,
+      "manipulating_y0": 4091.0,
+      "manipulating_y1": 1086.0,
+      "improved": 1330.0,
+      "improvement_rate": 0.3251038865802982,
+      "expected_improved": 1336.932829330075,
+      "expected_improvement_rate": 0.3267985405353398,
+      "improvement_error": 0.40647996729354047,
+      "expected_improvement_error": 0.4057713788501558,
+      "error_no_response": 0.23528209321340965,
+      "moves_along": {
+        "WKHP": 5177
+      },
+      "strategic_error_labels_fixed": 0.5424161896974653
+    },
+    "PLI paper default (NN, FP weight 2, threshold 0.9)": {
+      "agents": 9784.0,
+      "predicted_positive_before": 29.0,
+      "manipulating": 654.0,
+      "manipulating_y0": 135.0,
+      "manipulating_y1": 519.0,
+      "improved": 85.0,
+      "improvement_rate": 0.6296296296296297,
+      "expected_improved": 86.73943349717294,
+      "expected_improvement_rate": 0.642514322201281,
+      "improvement_error": 0.3612019623875715,
+      "expected_improvement_error": 0.36102417891484334,
+      "error_no_response": 0.4091373671300082,
+      "moves_along": {
+        "AGEP": 15,
+        "WKHP": 71,
+        "SCHL": 568
+      },
+      "strategic_error_labels_fixed": 0.36988961569910056
+    }
+  }
+}

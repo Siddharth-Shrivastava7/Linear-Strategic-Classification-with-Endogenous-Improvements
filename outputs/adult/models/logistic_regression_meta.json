@@ -1,0 +1,78 @@
+{
+  "features": [
+    "age",
+    "hours-per-week",
+    "educational-num"
+  ],
+  "feature_types": {
+    "age": "continuous",
+    "hours-per-week": "continuous",
+    "educational-num": "ordinal"
+  },
+  "train_split": "lr_train",
+  "params": {
+    "penalty": "l2",
+    "C": 1.0,
+    "solver": "lbfgs",
+    "max_iter": 1000
+  },
+  "sklearn_version": "1.4.2",
+  "standardized_space": {
+    "intercept": -1.5240269613524893,
+    "coef": {
+      "age": 0.6509386523459946,
+      "hours-per-week": 0.5453582026422573,
+      "educational-num": 0.8919536266462985
+    }
+  },
+  "raw_space": {
+    "intercept": -8.634119409541782,
+    "coef": {
+      "age": 0.047596175209410715,
+      "hours-per-week": 0.04402013063182434,
+      "educational-num": 0.3469870417709484
+    }
+  },
+  "metrics": {
+    "lr_train": {
+      "rows": 21978,
+      "accuracy": 0.7913822913822914,
+      "log_loss": 0.44164291814212364,
+      "roc_auc": 0.8005761881988568,
+      "brier": 0.14393372933990442,
+      "positive_rate_true": 0.23887523887523887,
+      "positive_rate_pred": 0.12480662480662481,
+      "mean_predicted_proba": 0.2388969966146452
+    },
+    "algo_train": {
+      "rows": 21978,
+      "accuracy": 0.7865137865137866,
+      "log_loss": 0.4486299427675785,
+      "roc_auc": 0.7932549989378721,
+      "brier": 0.14671428148596288,
+      "positive_rate_true": 0.23933023933023934,
+      "positive_rate_pred": 0.12594412594412593,
+      "mean_predicted_proba": 0.2399535611887408
+    },
+    "algo_val": {
+      "rows": 2442,
+      "accuracy": 0.7907452907452908,
+      "log_loss": 0.44482483449005217,
+      "roc_auc": 0.7974398448821978,
+      "brier": 0.14409620939810894,
+      "positive_rate_true": 0.24283374283374284,
+      "positive_rate_pred": 0.12448812448812449,
+      "mean_predicted_proba": 0.2410396704834605
+    },
+    "algo_test": {
+      "rows": 2444,
+      "accuracy": 0.7909165302782324,
+      "log_loss": 0.44479782146749564,
+      "roc_auc": 0.7988160995728383,
+      "brier": 0.1446713700571136,
+      "positive_rate_true": 0.23895253682487724,
+      "positive_rate_pred": 0.117430441898527,
+      "mean_predicted_proba": 0.23464765678853627
+    }
+  }
+}

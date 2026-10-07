@@ -1,0 +1,3 @@
+method,improvement_rate,improvement_error,error_no_response,movers,neg_movers,expected_improved,predicted_positive_before
+"Ours (stage 4 model, seed 42)",0.8794844595411412,0.06410067731105759,0.41056827473426,6348,2640,2321.8389731886127,0.005212591986917416
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.642514322201281,0.36102417891484334,0.4091373671300082,654,135,86.73943349717294,0.002964022894521668

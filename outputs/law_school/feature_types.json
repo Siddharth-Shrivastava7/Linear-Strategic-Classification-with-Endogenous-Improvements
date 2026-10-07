@@ -1,0 +1,28 @@
+{
+  "types": {
+    "decile1b": "ordinal",
+    "decile3": "ordinal",
+    "lsat": "continuous",
+    "ugpa": "continuous",
+    "zfygpa": "continuous",
+    "zgpa": "continuous",
+    "fulltime": "nominal",
+    "fam_inc": "ordinal",
+    "male": "nominal",
+    "tier": "ordinal",
+    "race": "nominal"
+  },
+  "kept_features": [
+    "decile1b",
+    "decile3",
+    "lsat",
+    "ugpa",
+    "zfygpa",
+    "zgpa",
+    "fam_inc",
+    "tier"
+  ],
+  "dropped_types": [
+    "nominal"
+  ]
+}

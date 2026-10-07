@@ -1,0 +1,23 @@
+# Environment selection for Adult (HELOC rule): lowest expected improvement error
+# on algo_val among cells whose Algorithm 1 run converged (best checkpoint at epoch
+# >= 11). Feasible mode, init lr + 2 restarts per cell (base config); algo_test unused.
+
+base_config: configs/adult.yaml
+selection_split: algo_train
+report_split: algo_val
+workers: 8
+
+grid:
+  clip_mode: [feasible]
+  beta: [0.25, 0.5, 1, 2, 4, 8]
+  alpha_profiles:                     # cost per 1 SD of (age, hours-per-week, educational-num)
+    "equal (1,1,1)":                     {age: 1.0, hours-per-week: 1.0, educational-num: 1.0}
+    "hours cheap (1,.5,1)":              {age: 1.0, hours-per-week: 0.5, educational-num: 1.0}
+    "age fixed (1e6,1,1)":               {age: 1000000.0, hours-per-week: 1.0, educational-num: 1.0}
+    "age fixed, hours cheap (1e6,.5,1)": {age: 1000000.0, hours-per-week: 0.5, educational-num: 1.0}
+    "age fixed, edu cheap (1e6,1,.5)":   {age: 1000000.0, hours-per-week: 1.0, educational-num: 0.5}
+    "age fixed, hours costly (1e6,4,1)": {age: 1000000.0, hours-per-week: 4.0, educational-num: 1.0}
+
+select_by: {metric: improvement_error, split: report}
+min_best_epoch: 11
+min_negative_movers: 0

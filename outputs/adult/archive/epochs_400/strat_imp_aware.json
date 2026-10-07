@@ -1,0 +1,65 @@
+{
+  "decision_rule": "positive iff w . u - b >= 0, u = (x - shift) / scale  (equivalently w_raw . x - b_raw >= 0)",
+  "features": [
+    "age",
+    "hours-per-week",
+    "educational-num"
+  ],
+  "best_epoch": 399,
+  "best_val_loss": 0.4524191033256896,
+  "restart": {
+    "kept": 0,
+    "seed": 42,
+    "restarts": 2
+  },
+  "model_space": {
+    "w": {
+      "age": 0.4955693191940937,
+      "hours-per-week": 0.5142802027828655,
+      "educational-num": 0.8944394384605812
+    },
+    "b": 3.1700276890968992
+  },
+  "raw_space": {
+    "w": {
+      "age": 0.036235679137752476,
+      "hours-per-week": 0.04151158192574819,
+      "educational-num": 0.3479540701702614
+    },
+    "b": 9.750516870528664
+  },
+  "feature_scaling": {
+    "kind": "standard",
+    "shift": {
+      "age": 38.57170807170807,
+      "hours-per-week": 40.32655382655383,
+      "educational-num": 10.084084084084084
+    },
+    "scale": {
+      "age": 13.676280698649311,
+      "hours-per-week": 12.388836534891851,
+      "educational-num": 2.570567540776036
+    },
+    "stats_from": "lr_train"
+  },
+  "hyperparameters": {
+    "epochs": 400,
+    "lr": 0.01,
+    "batch_size": 256,
+    "beta": 2.0,
+    "delta_g": 0.01,
+    "seed": 42,
+    "init": "lr",
+    "feature_scaling": "standard",
+    "clip_mode": "feasible",
+    "restarts": 2,
+    "class_weight": null,
+    "alpha": {
+      "age": 1000000.0,
+      "hours-per-week": 0.5,
+      "educational-num": 1.0
+    }
+  },
+  "train_split": "algo_train",
+  "val_split": "algo_val"
+}

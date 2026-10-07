@@ -1,0 +1,46 @@
+{
+  "dataset": "/Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/adult.csv",
+  "dataset_sha256": "1f13ee2bf9d7c66098429281ab91fa1b51cbabd3b805cc365b3c6b44491ea2c0",
+  "seed": 42,
+  "stratified": false,
+  "fractions": {
+    "lr_train": 0.45,
+    "algo_train": 0.45,
+    "algo_val": 0.05,
+    "algo_test": 0.05
+  },
+  "features": [
+    "age",
+    "fnlwgt",
+    "educational-num",
+    "capital-gain",
+    "capital-loss",
+    "hours-per-week"
+  ],
+  "target": "income",
+  "rows_raw": 48842,
+  "rows_dropped_missing": 0,
+  "rows_clean": 48842,
+  "splits": {
+    "lr_train": {
+      "rows": 21978,
+      "fraction": 0.449982,
+      "positive_rate": 0.238875
+    },
+    "algo_train": {
+      "rows": 21978,
+      "fraction": 0.449982,
+      "positive_rate": 0.23933
+    },
+    "algo_val": {
+      "rows": 2442,
+      "fraction": 0.049998,
+      "positive_rate": 0.242834
+    },
+    "algo_test": {
+      "rows": 2444,
+      "fraction": 0.050039,
+      "positive_rate": 0.238953
+    }
+  }
+}

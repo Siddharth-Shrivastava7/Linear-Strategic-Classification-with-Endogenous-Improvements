@@ -1,0 +1,22 @@
+{
+  "types": {
+    "AGEP": "continuous",
+    "COW": "nominal",
+    "SCHL": "ordinal",
+    "MAR": "nominal",
+    "OCCP": "nominal",
+    "POBP": "nominal",
+    "RELP": "nominal",
+    "WKHP": "continuous",
+    "SEX": "nominal",
+    "RAC1P": "nominal"
+  },
+  "kept_features": [
+    "AGEP",
+    "SCHL",
+    "WKHP"
+  ],
+  "dropped_types": [
+    "nominal"
+  ]
+}

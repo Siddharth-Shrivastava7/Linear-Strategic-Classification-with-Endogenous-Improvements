@@ -1,0 +1,85 @@
+# ---------------------------------------------------------------------------
+# Experiment config. To run on a new dataset, copy this file and edit it;
+# none of the code needs to change.
+# ---------------------------------------------------------------------------
+
+dataset:
+  name: retiring_adult
+  path: /Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/retiring_adult_data.csv
+  target: label
+  positive_class: 1                 # value of `target` that is mapped to y = 1
+  label_description: "y = 1 if personal income > $50K (folktables ACSIncome)"
+
+# Output folder for everything this experiment produces (relative paths are
+# resolved against the project root).
+output_dir: outputs/retiring_adult
+
+split:
+  seed: 42
+  # Plain random (non-stratified) split. Order matters: the last split gets the
+  # rounding remainder.
+  fractions:
+    lr_train: 0.45                  # stage 2: logistic regression
+    algo_train: 0.45                # stage 4: our algorithm (training)
+    algo_val: 0.05                  # stage 4: our algorithm (validation loss / checkpoint)
+    algo_test: 0.05                 # stage 5: unseen test set for evaluation
+
+feature_types:
+  # Integer-valued columns with <= this many unique values are auto-detected as
+  # ordinal; anything with more is continuous.
+  max_discrete_unique: 30
+  # Explicit types override auto-detection. Features not listed here are
+  # auto-detected (check stage 1's report).
+  overrides:
+    continuous: [AGEP, WKHP]
+    ordinal: [SCHL]
+    nominal: [COW, MAR, OCCP, POBP, RELP, SEX, RAC1P]
+  # For non-numeric ordinal features, give the category order (low -> high), e.g.
+  # ordinal_orders: {education: [primary, secondary, bachelor, master, phd]}
+  ordinal_orders: {}
+  # Feature types that are removed from the dataset entirely.
+  drop_types: [nominal]
+
+feature_labels:                     # pretty axis labels for plots (optional)
+  AGEP: "Age (AGEP, years)"
+  WKHP: "Usual hours worked per week (WKHP)"
+  SCHL: "Educational attainment (SCHL, ordinal 1-24)"
+
+logistic_regression:
+  features: [AGEP, WKHP, SCHL]
+  train_split: lr_train
+  params:                           # passed straight to sklearn LogisticRegression
+    penalty: l2
+    C: 1.0
+    solver: lbfgs
+    max_iter: 1000
+
+plots:
+  data_split: lr_train              # rows used to draw the P(y=1|x) profiles
+  spread: std                       # band around the mean: std | iqr | p10_p90
+  max_points: 100                   # more unique x values than this -> quantile bins
+  n_bins: 50
+  low_count: 30                     # groups with fewer rows are drawn hollow
+
+strat_imp_aware:                    # Algorithm 1 (STRAT-IMP-AWARE), stage 4
+  train_split: algo_train
+  val_split: algo_val
+  # Features = logistic_regression.features, standardized with the LR's own
+  # mean/scale (fit on lr_train); eta_hat = the saved LR, frozen.
+  epochs: 200                       # T (val loss flat by ~epoch 180 under feasible, beta=2)
+  lr: 0.01                          # gamma
+  batch_size: 256
+  beta: 2.0                         # utility
+  alpha: {AGEP: 1.0, WKHP: 0.5, SCHL: 1.0}   # cost per 1 SD of each feature
+  delta_g: 0.01                     # guard
+  seed: 42                          # w ~ U(0,1)^d, b = 0; batch shuffling
+  # Best response bound (pipeline/strat_imp_clipped.py): none | clip | feasible.
+  # feasible: an agent moves only if it reaches the boundary within the largest
+  # observed value (lr_train) of the feature it moves along.
+  # Chosen from sweeps/clipped_improvement: effective reach beta/alpha_WKHP = 4.
+  clip_mode: feasible
+
+evaluation:                         # stage 5
+  split: algo_test
+  seed: 42                          # seed for sampling post-response labels
+  n_repeats: 1000                   # extra independent draws, for mean +/- std

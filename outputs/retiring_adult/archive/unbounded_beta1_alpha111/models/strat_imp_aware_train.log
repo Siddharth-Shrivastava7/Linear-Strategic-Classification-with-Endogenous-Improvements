@@ -1,0 +1,62 @@
+Features: ['AGEP', 'WKHP', 'SCHL']   feature_scaling: standard   init: uniform
+Train algo_train: 88049 rows   Val algo_val: 19567 rows
+FrozenLR matches sklearn LR (max |diff| = 0.0e+00); its parameters are buffers, not trained
+Hyperparameters: epochs=50, lr=0.01, batch_size=256, beta=1.0, delta_g=0.01, seed=42, init=uniform, feature_scaling=standard, alpha={'AGEP': 1.0, 'WKHP': 1.0, 'SCHL': 1.0}
+
+epoch   1  train 0.71252  val 0.62807  w=[0.485  0.5264 0.5273]  b=+0.5606  j*=2  S=0.5273  moved=0.252  *best
+epoch   2  train 0.59909  val 0.58957  w=[0.5256 0.6629 0.6831]  b=+0.8549  j*=2  S=0.6831  moved=0.263  *best
+epoch   3  train 0.57409  val 0.57429  w=[0.5276 0.7223 0.8061]  b=+1.0440  j*=2  S=0.8061  moved=0.278  *best
+epoch   4  train 0.56199  val 0.56544  w=[0.5269 0.7473 0.9104]  b=+1.1855  j*=2  S=0.9104  moved=0.294  *best
+epoch   5  train 0.55451  val 0.55962  w=[0.5187 0.7605 0.9971]  b=+1.2988  j*=2  S=0.9971  moved=0.307  *best
+epoch   6  train 0.54948  val 0.55572  w=[0.5122 0.7653 1.0651]  b=+1.3966  j*=2  S=1.0651  moved=0.315  *best
+epoch   7  train 0.54599  val 0.55307  w=[0.5111 0.7712 1.1335]  b=+1.4696  j*=2  S=1.1335  moved=0.325  *best
+epoch   8  train 0.54361  val 0.55122  w=[0.5069 0.7766 1.1805]  b=+1.5375  j*=2  S=1.1805  moved=0.330  *best
+epoch   9  train 0.54188  val 0.54992  w=[0.5066 0.7784 1.2175]  b=+1.5978  j*=2  S=1.2175  moved=0.330  *best
+epoch  10  train 0.54063  val 0.54901  w=[0.5079 0.7835 1.2549]  b=+1.6447  j*=2  S=1.2549  moved=0.337  *best
+epoch  11  train 0.53972  val 0.54834  w=[0.5063 0.7871 1.2837]  b=+1.6873  j*=2  S=1.2837  moved=0.338  *best
+epoch  12  train 0.53904  val 0.54795  w=[0.5113 0.7915 1.3153]  b=+1.7176  j*=2  S=1.3153  moved=0.340  *best
+epoch  13  train 0.53858  val 0.54763  w=[0.5144 0.7946 1.3381]  b=+1.7472  j*=2  S=1.3381  moved=0.345  *best
+epoch  14  train 0.53822  val 0.54731  w=[0.5116 0.7998 1.3542]  b=+1.7771  j*=2  S=1.3542  moved=0.348  *best
+epoch  15  train 0.53795  val 0.54714  w=[0.5118 0.8039 1.3699]  b=+1.7992  j*=2  S=1.3699  moved=0.346  *best
+epoch  16  train 0.53774  val 0.54698  w=[0.5104 0.8063 1.3837]  b=+1.8205  j*=2  S=1.3837  moved=0.346  *best
+epoch  17  train 0.53756  val 0.54693  w=[0.5116 0.8082 1.4006]  b=+1.8348  j*=2  S=1.4006  moved=0.348  *best
+epoch  18  train 0.53745  val 0.54678  w=[0.5097 0.8094 1.404 ]  b=+1.8558  j*=2  S=1.4040  moved=0.349  *best
+epoch  19  train 0.53736  val 0.54674  w=[0.5114 0.81   1.4177]  b=+1.8681  j*=2  S=1.4177  moved=0.351  *best
+epoch  20  train 0.53727  val 0.54669  w=[0.5111 0.8129 1.4247]  b=+1.8812  j*=2  S=1.4247  moved=0.349  *best
+epoch  21  train 0.53721  val 0.54669  w=[0.5138 0.814  1.4335]  b=+1.8898  j*=2  S=1.4335  moved=0.350  *best
+epoch  22  train 0.53716  val 0.54667  w=[0.5156 0.8141 1.4394]  b=+1.8991  j*=2  S=1.4394  moved=0.350  *best
+epoch  23  train 0.53712  val 0.54675  w=[0.5156 0.8134 1.4533]  b=+1.9023  j*=2  S=1.4533  moved=0.355
+epoch  24  train 0.53712  val 0.54669  w=[0.517  0.8126 1.4549]  b=+1.9119  j*=2  S=1.4549  moved=0.353
+epoch  25  train 0.53710  val 0.54672  w=[0.5179 0.8153 1.4606]  b=+1.9174  j*=2  S=1.4606  moved=0.352
+epoch  26  train 0.53708  val 0.54665  w=[0.519  0.8169 1.4601]  b=+1.9259  j*=2  S=1.4601  moved=0.353  *best
+epoch  27  train 0.53705  val 0.54664  w=[0.52   0.8219 1.4608]  b=+1.9311  j*=2  S=1.4608  moved=0.352  *best
+epoch  28  train 0.53705  val 0.54666  w=[0.5219 0.8217 1.4651]  b=+1.9343  j*=2  S=1.4651  moved=0.352
+epoch  29  train 0.53706  val 0.54664  w=[0.5213 0.8219 1.4647]  b=+1.9396  j*=2  S=1.4647  moved=0.352  *best
+epoch  30  train 0.53704  val 0.54667  w=[0.5257 0.8207 1.4684]  b=+1.9406  j*=2  S=1.4684  moved=0.353
+epoch  31  train 0.53705  val 0.54671  w=[0.5229 0.8222 1.4735]  b=+1.9405  j*=2  S=1.4735  moved=0.353
+epoch  32  train 0.53705  val 0.54664  w=[0.5221 0.8229 1.4696]  b=+1.9461  j*=2  S=1.4696  moved=0.353
+epoch  33  train 0.53704  val 0.54665  w=[0.5216 0.8217 1.4721]  b=+1.9473  j*=2  S=1.4721  moved=0.353
+epoch  34  train 0.53703  val 0.54666  w=[0.5202 0.8228 1.4748]  b=+1.9478  j*=2  S=1.4748  moved=0.353
+epoch  35  train 0.53704  val 0.54667  w=[0.523  0.8218 1.475 ]  b=+1.9497  j*=2  S=1.4750  moved=0.353
+epoch  36  train 0.53704  val 0.54668  w=[0.5211 0.824  1.4773]  b=+1.9494  j*=2  S=1.4773  moved=0.353
+epoch  37  train 0.53703  val 0.54667  w=[0.52   0.8235 1.4779]  b=+1.9509  j*=2  S=1.4779  moved=0.353
+epoch  38  train 0.53704  val 0.54672  w=[0.5238 0.8239 1.4801]  b=+1.9503  j*=2  S=1.4801  moved=0.353
+epoch  39  train 0.53705  val 0.54667  w=[0.5246 0.8237 1.4763]  b=+1.9541  j*=2  S=1.4763  moved=0.353
+epoch  40  train 0.53703  val 0.54664  w=[0.5218 0.8222 1.472 ]  b=+1.9588  j*=2  S=1.4720  moved=0.351
+epoch  41  train 0.53703  val 0.54670  w=[0.5248 0.8225 1.4799]  b=+1.9543  j*=2  S=1.4799  moved=0.353
+epoch  42  train 0.53703  val 0.54670  w=[0.5246 0.8238 1.4806]  b=+1.9546  j*=2  S=1.4806  moved=0.353
+epoch  43  train 0.53704  val 0.54667  w=[0.5203 0.8245 1.4799]  b=+1.9561  j*=2  S=1.4799  moved=0.352
+epoch  44  train 0.53703  val 0.54667  w=[0.52   0.8256 1.48  ]  b=+1.9566  j*=2  S=1.4800  moved=0.352
+epoch  45  train 0.53706  val 0.54664  w=[0.5195 0.8234 1.4779]  b=+1.9587  j*=2  S=1.4779  moved=0.352
+epoch  46  train 0.53703  val 0.54665  w=[0.5202 0.824  1.478 ]  b=+1.9591  j*=2  S=1.4780  moved=0.352
+epoch  47  train 0.53704  val 0.54666  w=[0.5234 0.8244 1.4773]  b=+1.9603  j*=2  S=1.4773  moved=0.352
+epoch  48  train 0.53702  val 0.54665  w=[0.5214 0.8242 1.4752]  b=+1.9622  j*=2  S=1.4752  moved=0.351
+epoch  49  train 0.53705  val 0.54668  w=[0.5222 0.8263 1.4811]  b=+1.9588  j*=2  S=1.4811  moved=0.353
+epoch  50  train 0.53704  val 0.54671  w=[0.5233 0.8261 1.4829]  b=+1.9573  j*=2  S=1.4829  moved=0.353
+
+Best epoch 29: val loss 0.54664
+  model space (standard): w = AGEP 0.52126, WKHP 0.82194, SCHL 1.46473;  b = 1.93958
+  raw units:    w = AGEP 0.035040, WKHP 0.063056, SCHL 0.372658;  b = 12.70799
+Saved -> /Users/siddharthshrivastava/Downloads/Research_coding/outputs/retiring_adult/models/strat_imp_aware.pt
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/retiring_adult/models/strat_imp_aware.json
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/retiring_adult/models/strat_imp_aware_history.csv

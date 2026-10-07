@@ -1,0 +1,153 @@
+Claude Prompt for the project - 
+
+1st --- Hey Claude, Act like a expert in ML coding  
+
+Here is the flow what we need to do (make a general code, so that is applicable for any dataset) 
+
+1. I will give you a dataset, you need to split it randomly into 45-45-10, and then keep them fixed, and identify the features which are continuous, ordinal or nomial.  
+
+2. I will select few features and then including these features (removing all the other features) you need to train a logistic regression classifier with one of 45 percent of dataset and save this logistic regression.
+
+3. Plot the graphs how each selected features will vary with its probability of getting one. Please save the graphs. 
+
+4. Then, I will attach Snapshots of our Algorithm, now use the rest 45 and 10 percent of data, where 45 percent to use for training and 10 percent for validation (for probability estimate use saved logistic regression model) after training saved the model with the best validation loss (mentioned in the algorithm) 
+
+5. Then, with the saved model we will calculate improvement-aware error and improvment rates, I will describe them more when we will reach to this stage. 
+
+So, is everything clear to you ? I am excited to get work with you! 
+
+
+
+2nd --- To Answer your questions: 
+1. Target - Yes, it is binary (when attaching each dataset, I will say how it will be labelled) 
+2. Split - No, dont use stratifying, cause we want independently and randomly split the data 
+3. Plots for stage 3 - vary each feature as it observed in the data (not holding any other features, that is irrespective of other features values), so that this plot represents the actual variation of LR for that feature (as per the dataset). Yes, can overlay empirical rate of y=1. For nominal features, get a bar works. We have to for 
+4. Missing values - Drop them
+5. Stack for stage 4 - Yaa sure, Pytorch works for our algorithm.
+
+Also, I will attach one algorithm (say B) so, train on B and we have to validate on B. 
+
+Path for the folder I want: /Users/siddharthshrivastava/Downloads/Research_coding
+I have attached the dataset. 
+
+I hope it clears your questions, if you have any doubt please ask before starting 
+
+
+3rd --- 
+Source: Yes labelling rule is correct. 
+
+Answering the Questions: 
+1. Features types: These are correct, now consider only these mentioned continuous and ordinal features and drop the other features from the dataset. 
+So, for this dataset: now LR has to be train using 3 features - AGEP, WKHP and SCHL.
+
+2.a) Yes I meant this one. 
+
+3.b) for ignore the plots for nomial features. 
+
+4. Continous or ordinal - plot a line graph for them, where x-axis depicts the observation values from the dataset and y-axis its correspending P(y=1|x), the point the graph represent mean and use appropriate spread for showing variance. For example, for this dataset: Make 3 LR features plots - one for AGEP, WKHP and lastly for SCHL. Now for say AGEP, x-axis represent what 
+
+4. Nominal - Dont have to make plots for them, also they should not be considered for training LR. 
+
+5. Seed - Yes you can use that. 
+
+4th --- 
+
+I am attaching two snapshots. In one snapshot Algorithm 1 is there (main algorithm) which we need to train; In another snapshot Algorithm 2 and 3 which are present. Algorithm 1 uses Algorithm 2 and 3. 
+Now, use rest 45 percent of the data to train the Algorithm 1 and in the validation phase of Algorithm 1 use the remaining 10 percent of the dataset. 
+Once trained Algorithm 1, save the weights and bias of the linear classifier model, we will use that later for evaluation. 
+
+Also, in the training of Algorithm 1 we will use the already trained LR as the $\widehat{\eta}$ mentioned in the Algorithm 2. Trained LR model should differentiable but keep its parameters freezed, so that while backprop LR model should not update its parameters, just Linear model for Algorithm 1 should update its parameters. 
+
+Here one more point to note: $q$ depends upon on $w$ and $b$, and gradient of loss used in Algorithm 1 backprop through it as well.
+
+Algorithms 2 and 3 are mentioned row-wise (per sample); while Algorithm 1 is mentioned batch wise. $(\cdot)_+$ represent relu function i.e. $ (x)_+ = \max(x,0)$ 
+Use mini-batch gradient descent for training (with batch size: 256 for now)
+
+If you have any difficulty in understanding the Algorithms, let me know before we start the training 
+
+
+
+5 ----- 
+
+Answers to Questions: 
+1. Yes, use as you have mentioned. 
+
+2. The hyperparameters for now works, please go ahead with this. 
+
+3. Start with your proposal for weight and bias init. 
+
+4. Not requried for now (clipping)
+
+yes to all defaults, go ahead 
+
+6 ---- 
+
+yes please use "algo_val" for evaluating. 
+
+Improvement: Among manipulating (moving) agents, we count an agent as improved if the sampled post-response label is positive after manipulation when the original label was negative. 
+
+Improvement rate: It is the fraction of manipulating agents who improve. 
+
+Also provide the counts for: Total counts of manipulating and improved agents 
+
+
+First, please do this improvement rate experiment, then after I will mention about the improvement error experiment where we need to plot graphs.
+
+
+
+
+Ok thanks Claude! 
+Please make a syntheic dataset, which of 20000 samples with each features consisting of 5 dimensions, all continuous. Make sure that its lables follows the logistic regression of suitable postive weights and bias. This experiment is validate our algorithm particuarly.
+Then, we will do the similar analysis and making the comparison table (with only 42 seed value) for the performance of 4 Models namely: Ours, PLI, GSC, SVM. 
+Similar to previous case, we first need to find our environment, and beta, alphas values and prior to that we need to decide which features values should we consider. 
+So, please go by step as we discussed about the flow earlier, later we will come to comparison table for this dataset. 
+
+
+Claude code prompt for finding the details we did -- 
+
+
+Act as an expert machine learning researcher writing a reproducible Appendix section for an AISTATS paper. And please proivide the latex for below.
+
+ 
+Analyze the codebase, setup scripts, data loaders, and the results logs/artifacts in this project directory. Generate a highly detailed, formal, and mathematically rigorous "Experimental Details" text for the paper's Appendix.
+
+
+
+Please output the text in the following strict subsections:
+
+1. ## Experimental Setup & Environment
+- Specify the exact hardware used (CPU, GPU models, VRAM) and OS environment.
+- List primary package dependencies, deep learning frameworks, and exact version numbers (e.g., PyTorch, JAX, Scikit-learn).
+
+2. ## Datasets & Preprocessing
+- For each dataset used, provide the name, source, total sample size, number of features/dimensions, and train/validation/test split ratios.
+- Detail all exact preprocessing, normalisation steps implemented in the data loaders.
+
+3. ## Hyperparameter Configurations
+- Here mention how we used to find $\beta$ and $\alpha$ values
+- Provide an absolute, exhaustive list of hyperparameters for both our proposed method and all baseline models.
+- Differentiate between fixed hyperparameters (e.g., batch size, seed, epochs, learning rate schedule) and tuned hyperparameters.
+- Specify the exact search space (e.g., grid search ranges or distribution boundaries) and the metric used for validation selection. 
+
+4. Detailes about Training Pipeline & Optimization
+
+5. ## Evaluation Protocol & Computational Metrics
+- Define the exact evaluation metrics computed.
+- Detail how statistical significance or variance was addressed (e.g., number of random seeds, cross-validation folds) and how error bars (standard deviation/error) were aggregated.
+- Estimate total compute costs if available in the logs.
+
+
+Constraints:
+- Avoid vague terms like "some parameters" or "we adjusted the learning rate." Find and extract the exact floating-point numbers, integers, and parameter strings from the files.
+- Maintain a neutral, formal, third-person academic writing style.
+- Cite the relative file names (e.g., `src/models/trainer.py`, `logs/exp_01.json`) within the text where these details were verified so I can cross-reference them.
+
+
+
+
+
+
+
+
+
+

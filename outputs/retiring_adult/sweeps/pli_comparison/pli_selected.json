@@ -1,0 +1,12 @@
+{
+  "nn": {
+    "loss": "bce",
+    "threshold": 0.9,
+    "algo_val_improvement_error": 0.1695534725418431
+  },
+  "linear": {
+    "loss": "wbce_2",
+    "threshold": 0.9,
+    "algo_val_improvement_error": 0.07634813963642789
+  }
+}

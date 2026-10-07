@@ -1,0 +1,64 @@
+{
+  "decision_rule": "positive iff w . u - b >= 0, u = (x - shift) / scale  (equivalently w_raw . x - b_raw >= 0)",
+  "features": [
+    "lsat",
+    "ugpa",
+    "zgpa"
+  ],
+  "best_epoch": 17,
+  "best_val_loss": 0.17149471396361315,
+  "restart": {
+    "kept": 2,
+    "seed": 2042,
+    "restarts": 5
+  },
+  "model_space": {
+    "w": {
+      "lsat": 0.3322235177813683,
+      "ugpa": 0.024314483151048026,
+      "zgpa": 1.1988025825266764
+    },
+    "b": -0.11121337080206498
+  },
+  "raw_space": {
+    "w": {
+      "lsat": 0.06171799599379855,
+      "ugpa": 0.0585709470401838,
+      "zgpa": 1.221480423527168
+    },
+    "b": 2.3667598264499006
+  },
+  "feature_scaling": {
+    "kind": "standard",
+    "shift": {
+      "lsat": 36.743647825622396,
+      "ugpa": 3.22225665135164,
+      "zgpa": 0.017600170958435732
+    },
+    "scale": {
+      "lsat": 5.3829278224579795,
+      "ugpa": 0.4151287349744674,
+      "zgpa": 0.9814341347076144
+    },
+    "stats_from": "lr_train"
+  },
+  "hyperparameters": {
+    "epochs": 200,
+    "lr": 0.01,
+    "batch_size": 256,
+    "beta": 2.0,
+    "delta_g": 0.01,
+    "seed": 42,
+    "init": "uniform",
+    "feature_scaling": "standard",
+    "clip_mode": "feasible",
+    "restarts": 5,
+    "alpha": {
+      "lsat": 1.0,
+      "ugpa": 1.0,
+      "zgpa": 1.0
+    }
+  },
+  "train_split": "algo_train",
+  "val_split": "algo_val"
+}

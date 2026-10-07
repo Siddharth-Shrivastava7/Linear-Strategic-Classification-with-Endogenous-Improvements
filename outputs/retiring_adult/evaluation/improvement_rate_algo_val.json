@@ -1,0 +1,35 @@
+{
+  "split": "algo_val",
+  "model": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/retiring_adult/models/strat_imp_aware.pt",
+  "model_best_epoch": 183,
+  "feature_scaling": "standard",
+  "clip_mode": "feasible",
+  "seed": 42,
+  "n_agents": 9783,
+  "j_star": "WKHP",
+  "S_w": 7.022628466832378,
+  "manipulating_agents": 6351,
+  "manipulating_by_original_label": {
+    "y=0": 2664,
+    "y=1": 3687
+  },
+  "improved_agents": 2322,
+  "improvement_rate": 0.8716216216216216,
+  "improvement_rate_definition": "improved / manipulating agents with original y = 0",
+  "fraction_of_agents_manipulating": 0.6491873658386997,
+  "frac_movers_beyond_observed_max": 0.0,
+  "expected_improved_agents": 2341.0571731038353,
+  "expected_improvement_rate": 0.8787752151290673,
+  "repeats_1000": {
+    "improved_mean": 2341.579,
+    "improved_std": 15.80941797463451,
+    "improvement_rate_mean": 0.8789710960960961,
+    "improvement_rate_std": 0.005934466206694636
+  },
+  "pi_imp_among_negative_movers": {
+    "mean": 0.8787752151290673,
+    "median": 0.8993208280510063,
+    "min": 0.07507300579433894,
+    "max": 0.9515687781392156
+  }
+}

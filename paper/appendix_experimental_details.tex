@@ -1,0 +1,654 @@
+% =====================================================================
+% Appendix: Experimental Details (reproducibility)
+% All numbers below were extracted from the project directory; file paths
+% are relative to the project root (Research_coding/).
+% Requires: booktabs, amsmath, natbib (\citet/\cite).
+% Bib keys to add if missing: attias2025pac, levanon2022generalized,
+%   ding2021retiring, wightman1998lsac, fico2018heloc, kohavi1996adult.
+% =====================================================================
+
+\section{Experimental Details}
+\label{app:experimental-details}
+
+All experiments are produced by a single configuration-driven pipeline. Every
+dataset-specific choice (label, features, split, agent environment, and
+training hyperparameters) is stored in one YAML file per dataset
+(\texttt{configs/retiring\_adult.yaml}, \texttt{configs/law\_school.yaml},
+\texttt{configs/heloc.yaml}, \texttt{configs/adult.yaml},
+\texttt{configs/synthetic.yaml}); sweeps and comparison tables are configured
+in \texttt{configs/sweeps/}. All outputs (splits, models, logs, tables) are
+written to \texttt{outputs/<dataset>/}. Throughout, ``ACSIncome'' refers to the
+dataset configured as \texttt{retiring\_adult}.
+
+% ---------------------------------------------------------------------
+\subsection{Experimental Setup and Environment (Validation of Modelling Assumptions)}
+\label{app:setup}
+
+\paragraph{Hardware and operating system.}
+All experiments were run on a single Apple MacBook with an Apple M1 system on
+chip (8 CPU cores: 4 performance and 4 efficiency), 8\,GB of unified memory,
+and a 7-core integrated Apple M1 GPU. The GPU was not used: the code contains no
+CUDA or MPS device placement and all tensors reside on the CPU; there is
+therefore no dedicated VRAM requirement. The operating system was macOS 27.0.1
+(build 26A434, \texttt{arm64}). Independent trainings (sweep cells, seeds,
+baselines) were parallelised over up to 8 worker processes with
+\texttt{concurrent.futures.ProcessPoolExecutor}, each worker restricted to one
+intra-op thread via \texttt{torch.set\_num\_threads(1)}
+(\texttt{sweep\_improvement\_rate.py}, \texttt{experiment\_pli\_comparison.py},
+\texttt{experiment\_improvement\_error.py}).
+
+\paragraph{Software.}
+Python 3.11.15 in a Conda environment (\texttt{strategic-ai}) with
+PyTorch 2.3.1 (CPU), scikit-learn 1.4.2, NumPy 1.26.4, pandas 2.2.3,
+SciPy 1.17.1, Matplotlib 3.10.9, PyYAML 6.0.3 and joblib 1.5.3. Our algorithm
+and the frozen logistic regression are implemented in PyTorch in
+\texttt{float64}; the neural/linear baselines of
+\citet{attias2025pac} and \textsc{SERM}~\cite{levanon2022generalized} are
+trained in \texttt{float32}; the logistic regression and the linear SVM use
+scikit-learn.
+
+\paragraph{Data partition (45/45/5/5).}
+Each dataset is partitioned once, at random and without stratification, into
+four disjoint subsets with fractions $0.45/0.45/0.05/0.05$
+(\texttt{pipeline/data.py}, function \texttt{random\_split}; driver
+\texttt{stage1\_split\_and\_profile.py}). A single permutation of the row
+indices is drawn with \texttt{numpy.random.default\_rng(42)}; the first three
+subsets receive $\lfloor 0.45n\rfloor$, $\lfloor 0.45n\rfloor$ and
+$\lfloor 0.05n\rfloor$ rows and the last subset receives the remainder. The
+row indices of every subset are stored in
+\texttt{outputs/<dataset>/splits/split\_indices.json} together with the SHA-256
+hash of the source file (\texttt{split\_summary.json}), and all later stages
+read these fixed subsets. The roles are:
+\begin{itemize}
+  \item \texttt{lr\_train} (45\%): fits the logistic regression
+        $\widehat{\eta}$ used as the differentiable estimate of
+        $\Pr(y=1\mid x)$ in Algorithm~2; it is never seen by any classifier
+        under comparison.
+  \item \texttt{algo\_train} (45\%): trains \textsc{Strat-Imp-Aware} and all
+        baselines.
+  \item \texttt{algo\_val} (5\%): computes the validation loss used by
+        Algorithm~1 for checkpoint selection, and is used for environment
+        selection and for selecting baseline hyperparameters.
+  \item \texttt{algo\_test} (5\%): unseen test set on which all reported
+        numbers are computed.
+\end{itemize}
+Table~\ref{tab:splits} lists the resulting sizes.
+
+\begin{table}[h]
+\centering
+\caption{Subset sizes after preprocessing (from \texttt{outputs/<dataset>/splits/split\_summary.json}). $\Pr(y{=}1)$ in parentheses.}
+\label{tab:splits}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Dataset & $n$ & \texttt{lr\_train} & \texttt{algo\_train} & \texttt{algo\_val} & \texttt{algo\_test} \\
+\midrule
+ACSIncome  & 195{,}665 & 88{,}049 (0.408) & 88{,}049 (0.412) & 9{,}783 (0.411) & 9{,}784 (0.412) \\
+Law School &  20{,}798 &  9{,}359 (0.891) &  9{,}359 (0.889) & 1{,}039 (0.868) & 1{,}041 (0.909) \\
+HELOC      &   9{,}682 &  4{,}356 (0.477) &  4{,}356 (0.494) &   484 (0.488) &   486 (0.471) \\
+Adult      &  48{,}842 & 21{,}978 (0.239) & 21{,}978 (0.239) & 2{,}442 (0.243) & 2{,}444 (0.239) \\
+Synthetic  &  20{,}000 &  9{,}000 (0.423) &  9{,}000 (0.423) & 1{,}000 (0.433) & 1{,}000 (0.407) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Validity of the modelling assumptions.}
+The following assumptions of \textsc{Strat-Imp-Aware} were checked empirically.
+\begin{enumerate}
+  \item \emph{Monotone, non-negative linear structure ($w\in\mathbb{R}^d_{\ge 0}$).}
+  For every dataset, features were oriented so that larger values are
+  favourable, and the fitted logistic regression has strictly positive
+  coefficients on all selected features
+  (\texttt{outputs/<dataset>/models/logistic\_regression\_meta.json}).
+  Standardized coefficients: ACSIncome (AGEP, WKHP, SCHL) $=(0.690, 0.945, 1.235)$;
+  Law School (lsat, ugpa, zgpa) $=(0.624, 0.232, 1.305)$;
+  HELOC (ExternalRiskEstimate, $-$NetFractionRevolvingBurden,
+  $-$PercentTradesWBalance, PercentTradesNeverDelq) $=(0.807, 0.231, 0.124, 0.199)$;
+  Adult (age, hours-per-week, educational-num) $=(0.651, 0.545, 0.892)$;
+  Synthetic $(x_1,\dots,x_5)=(1.496, 1.200, 0.880, 0.610, 0.257)$.
+  Consequently $\widehat{\eta}$ is increasing along every admissible
+  improvement direction, so the improvement probability of Algorithm~2 is
+  non-negative before clipping.
+  \item \emph{Quality of the estimate $\widehat{\eta}$.}
+  The logistic regression is calibrated on every split (mean predicted
+  probability within $0.03$ of the empirical positive rate) with test AUC
+  $0.834$ (ACSIncome), $0.844$ (Law School), $0.752$ (HELOC), $0.799$ (Adult)
+  and $0.862$ (Synthetic). Per-feature profiles of $\widehat{\eta}$ against the
+  empirical positive rate are saved in \texttt{outputs/<dataset>/plots/}
+  (\texttt{stage3\_plot\_lr\_profiles.py}). They reveal that the linear logit
+  over-predicts $\Pr(y{=}1)$ for age $>60$ and hours worked $>60$ on ACSIncome and
+  Adult; all other profiles agree with the empirical rates.
+  \item \emph{Exactness of the improvement probabilities (synthetic data).}
+  On the synthetic dataset, the true $\eta(x)=\sigma(w^{\star\top}x+b^{\star})$
+  is known. The fitted logistic regression recovers
+  $w^\star=(1.5,1.2,0.9,0.6,0.3)$, $b^\star=-0.5$ as
+  $(1.504, 1.189, 0.888, 0.607, 0.252)$, $-0.508$; on \texttt{algo\_test},
+  $\mathrm{mean}|\widehat{\eta}-\eta|=0.006$, and for the agents that move,
+  $\mathrm{mean}|\widehat{\pi}_{\mathrm{Imp}}-\pi_{\mathrm{Imp}}|=0.0017$
+  (maximum $0.0068$, correlation $0.9998$)
+  (\texttt{validate\_true\_eta.py},
+  \texttt{outputs/synthetic/evaluation/true\_eta\_validation\_algo\_test.json}).
+  The expected improvement rate is $0.8740$ with $\widehat{\eta}$ versus
+  $0.8733$ with $\eta$, and the expected strategic improvement error is $0.0628$
+  versus $0.0630$.
+  \item \emph{Feasible best responses.} An agent moves only if the boundary
+  point of its cheapest coordinate lies within the largest value of that
+  feature observed in \texttt{lr\_train} (Section~\ref{app:training}), so
+  $\widehat{\eta}$ is never evaluated outside its training support. In all
+  final models, the share of movers whose target exceeds the observed maximum
+  is $0\%$ (\texttt{outputs/<dataset>/evaluation/improvement\_rate\_algo\_test.json}).
+  \item \emph{Correctness of the implementation.} The PyTorch copy of the
+  logistic regression reproduces scikit-learn probabilities exactly (maximum
+  absolute difference $0$). Agents that move land on the decision boundary
+  (maximum $|w^\top x^f-b|=1.7\times10^{-16}$). The autograd gradient of the
+  batch loss, including the path through $q$, matches central finite differences
+  (step $10^{-6}$) to $9.0\times10^{-11}$.
+  \item \emph{Positive agents keep their label.} In both training
+  ($q=y+(1-y)\widehat{\pi}_{\mathrm{Imp}}$, \texttt{pipeline/strat\_imp.py})
+  and evaluation (\texttt{pipeline/evaluation.py}, function
+  \texttt{sample\_post\_labels}), only agents with $y=0$ can change label. It
+  was verified on the saved per-agent records that no agent with $y=1$ is
+  assigned a post-response label of $0$.
+\end{enumerate}
+
+% ---------------------------------------------------------------------
+\subsection{Comparison with Benchmark Algorithms}
+\label{app:baselines}
+
+Both strategic baselines were re-implemented from their public code and
+papers (no third-party code was executed), so that every method is trained on
+the same \texttt{algo\_train} rows and the same standardized features, and is
+evaluated on the same \texttt{algo\_test} rows with the same agent model.
+
+\paragraph{\citet{attias2025pac}.}
+\emph{Original setup} (repository \texttt{ripl/PLI}, notebook
+\texttt{improvement/oulad\_improv.ipynb}).
+\begin{itemize}
+  \item \emph{Classifier.} A two-layer network
+        $d\!\to\!64\!\to\!\mathrm{ReLU}\!\to\!1\!\to\!\mathrm{sigmoid}$,
+        trained with Adam (learning rate $10^{-3}$) for 100 epochs with batch size
+        64 and no shuffling.
+  \item \emph{Risk-averse loss.} A false-positive-weighted binary cross-entropy
+        \[
+          \mathcal{L}=-\tfrac{1}{n}\sum_i\big[w_{\mathrm{FP}}(1-y_i)\log(1-\hat y_i)
+          +w_{\mathrm{FN}}\,y_i\log\hat y_i\big],
+        \]
+        with $w_{\mathrm{FP}}=2.0$, $w_{\mathrm{FN}}=1.33$ (default) and
+        predictions clamped to $[10^{-6},1-10^{-6}]$.
+  \item \emph{Decision rule.} Positive iff $h(x)>\tau$, with $\tau=0.9$ as the
+        risk-averse default.
+  \item \emph{Agent model and labels.} Agents respond by projected signed-gradient
+        ascent in an $\ell_\infty$ ball, and labels come from a decision tree
+        fitted on all data.
+\end{itemize}
+\emph{Our adaptation} (\texttt{pipeline/baselines\_pli.py}).
+\begin{itemize}
+  \item The architecture, loss, weights, optimizer, epochs, batch size and seed
+        handling are reproduced exactly.
+  \item The agent model and labels are replaced by ours. Agents best-respond to
+        the decision rule $h(x)>\tau$ with the cost-based feasible response of
+        Section~\ref{app:eval} (computed numerically, since $h$ is non-linear),
+        and post-response labels are drawn from $\widehat{\pi}_{\mathrm{Imp}}$.
+  \item \emph{Threshold selection (HELOC and Adult only).} With $\tau=0.9$, the
+        network never predicts a positive and no agent can reach the threshold:
+        the maximum score on HELOC \texttt{algo\_test} is $0.864$, and at the
+        best attainable feature profile it is $0.830$. For these two datasets we
+        additionally report the same trained network with $\tau$ chosen on
+        \texttt{algo\_val} from the threshold grid of \citet{attias2025pac},
+        $\{0.5,0.7,0.8,0.9\}$, by minimal expected strategic improvement error.
+        This selects $\tau=0.8$ on HELOC and $\tau=0.7$ on Adult
+        (\texttt{experiment\_multiseed\_table.py}, option
+        \texttt{select\_thresholds}).
+  \item \emph{Other datasets.} For Synthetic, Law School and ACSIncome, the
+        paper default $\tau=0.9$ is reported. On Synthetic, validation selection
+        also returns $\tau=0.9$.
+\end{itemize}
+
+\paragraph{\textsc{SERM}~\cite{levanon2022generalized}.}
+\emph{Original setup} (repository \texttt{SagiLevanon1/GSC}, notebook
+\texttt{generalization.ipynb}).
+\begin{itemize}
+  \item \emph{Classifier.} A linear model $f(x)=w^\top x+b$, positive iff
+        $f(x)\ge 0$.
+  \item \emph{Strategic hinge loss.}
+        \[
+          \tfrac{1}{n}\sum_i\max\{0,\,1-y_if(x_i)-2\,y_i\|w\|_2\}+\lambda\|w\|_2^2,
+          \qquad y_i\in\{-1,+1\},
+        \]
+        i.e. users with $\ell_2$ cost and budget 2 who all prefer a positive
+        prediction ($r=+1$).
+  \item \emph{Optimization.} Adam with learning rate $0.05$ and
+        $\lambda\in\{0.01,0.1,1\}$.
+\end{itemize}
+\emph{Our adaptation} (\texttt{pipeline/baselines\_gsc.py}).
+\begin{itemize}
+  \item The loss is reproduced exactly (shift $2\|w\|_2$, ``as in paper'').
+  \item \emph{Training.} 100 epochs with shuffled mini-batches of size 128 and
+        Adam (learning rate $0.05$); the model after the final epoch is returned.
+  \item \emph{Regularization.} $\lambda\in\{0.1,1\}$ is selected per run on
+        \texttt{algo\_val} by minimal expected strategic improvement error
+        (\texttt{configs/sweeps/<dataset>/multiseed\_table.yaml},
+        \texttt{configs/sweeps/gsc\_baseline.yaml}). $\lambda=0.1$ was selected
+        in every run reported in Table~1 (in the additional Adult seeds 0 and
+        1 the balanced variant selected $\lambda=1$).
+  \item \emph{Class weighting (Law School and Adult only).} The hinge term of
+        sample $i$ is multiplied by $n/(2n_{y_i})$, which averages to one. This
+        is required because the unweighted objective collapses on these two
+        datasets (Section~\ref{app:training}).
+  \item A variant whose shift equals the reach of our cost model,
+        $\beta\max_j|w_j|/\alpha_j$, was also evaluated. It is stored in the
+        result files but not reported in the main table.
+\end{itemize}
+
+\paragraph{Linear SVM.}
+\texttt{sklearn.svm.LinearSVC} with hinge loss, $C=1.0$,
+\texttt{max\_iter}$=200{,}000$ and \texttt{random\_state} equal to the run seed.
+For Law School and Adult, \texttt{class\_weight="balanced"}
+(\texttt{experiment\_svm\_baseline.py}, \texttt{experiment\_multiseed\_table.py}).
+
+% ---------------------------------------------------------------------
+\subsection{Datasets and Preprocessing}
+\label{app:data}
+
+All loaders are implemented in \texttt{pipeline/data.py} (functions
+\texttt{load\_raw}, \texttt{resolve\_feature\_types},
+\texttt{prepare\_dataset}).
+
+\paragraph{Feature typing.}
+Each column is classified automatically as follows:
+\begin{itemize}
+  \item non-numeric or binary columns are \emph{nominal};
+  \item numeric columns with non-integer values are \emph{continuous};
+  \item integer-valued columns are \emph{continuous} if they have more than 30
+        unique values and \emph{ordinal} otherwise (\texttt{max\_discrete\_unique: 30}).
+\end{itemize}
+These types can be overridden in the configuration. Nominal features are
+removed (\texttt{drop\_types: [nominal]}), and the logistic regression and all
+classifiers use only the selected continuous and ordinal features.
+
+\paragraph{Cleaning, normalization, label.}
+\begin{itemize}
+  \item \emph{Missing values.} Configured missing-value codes are mapped to
+        \texttt{NaN}, and rows with a missing value in any selected feature are
+        dropped before the split.
+  \item \emph{Label.} The target is binarized as $y=\mathbb{1}[\text{target}=\text{positive class}]$.
+  \item \emph{Standardization.} Features are standardized with the mean and
+        standard deviation of \texttt{lr\_train} (\texttt{StandardScaler} inside
+        the logistic-regression pipeline, \texttt{pipeline/lr\_model.py}). The
+        same affine map $u=(x-\mu)/\sigma$ is applied to all splits and used by
+        every method (\texttt{FrozenLR} in \texttt{pipeline/strat\_imp.py}), so
+        that costs $\alpha_j$ are expressed per standard deviation.
+\end{itemize}
+
+\paragraph{Per-dataset details.}
+\begin{itemize}
+  \item \textbf{ACSIncome} \cite{ding2021retiring}
+  (\texttt{datasets/retiring\_adult\_data.csv}).
+  195{,}665 individuals with 10 features plus \texttt{label}; $y=1$ if personal
+  income exceeds \$50K. No missing values. Nominal features
+  (COW, MAR, OCCP, POBP, RELP, SEX, RAC1P) are removed. Selected features: AGEP
+  (age) and WKHP (usual hours per week), both continuous, and SCHL (educational
+  attainment, ordinal 1--24).
+  \item \textbf{Law School} \cite{wightman1998lsac}
+  (\texttt{datasets/law\_school\_clean.csv}).
+  20{,}798 students with 11 features plus \texttt{pass\_bar}; $y=1$ if the
+  student passed the bar exam. No missing values. Nominal features (fulltime,
+  male, race) are removed. Selected features: lsat, ugpa, zgpa (continuous);
+  decile1b and decile3 were not used because they are near-duplicates of the
+  GPA variables (correlations $0.97$ with zfygpa and zgpa).
+  \item \textbf{HELOC} \cite{fico2018heloc}
+  (\texttt{datasets/heloc.csv}).
+  10{,}459 applicants with 23 features plus \texttt{RiskPerformance}; $y=1$ if
+  \texttt{Good}.
+  \begin{itemize}
+    \item Special codes $\{-7,-8,-9\}$ are treated as missing. 588 rows whose
+          features are all missing (no bureau record) are removed, and 189 further
+          rows with a missing value in a selected feature are removed, leaving
+          9{,}682 rows.
+    \item The lower-is-better features NetFractionRevolvingBurden and
+          PercentTradesWBalance are negated (renamed with prefix \texttt{neg\_}) so
+          that improvement corresponds to an increase.
+    \item MaxDelq2PublicRecLast12M and MaxDelqEver are coded categories and are
+          typed as nominal.
+    \item Selected features (all continuous): ExternalRiskEstimate,
+          $-$NetFractionRevolvingBurden, $-$PercentTradesWBalance,
+          PercentTradesNeverDelq. A fifth candidate,
+          $-$NumBank2NatlTradesWHighUtilization, was discarded because its
+          coefficient in the logistic regression was $-0.013$ (wrong sign) given
+          the others.
+  \end{itemize}
+  \item \textbf{Adult} \cite{kohavi1996adult}
+  (\texttt{datasets/adult.csv}).
+  48{,}842 individuals with 14 features plus \texttt{income}; $y=1$ if
+  \texttt{>50K}. The code \texttt{?} (present only in nominal columns) is
+  treated as missing, and no rows are lost. \texttt{education} is typed nominal
+  (it duplicates \texttt{educational-num}). Selected features: age and
+  hours-per-week (continuous) and educational-num (ordinal 1--16).
+  \texttt{fnlwgt} (a census sampling weight) and the 92--95\%-zero capital-gain
+  and capital-loss features were excluded.
+  \item \textbf{Synthetic}
+  (\texttt{data/synthetic\_logistic.csv}, generated by
+  \texttt{make\_synthetic\_dataset.py} with seed 42; parameters in
+  \texttt{data/synthetic\_logistic\_params.json}).
+  20{,}000 samples with $x\in\mathbb{R}^5$, $x_j\sim\mathcal{N}(0,1)$
+  independent, and $y\sim\mathrm{Bernoulli}(\sigma(w^{\star\top}x+b^\star))$
+  with $w^\star=(1.5,1.2,0.9,0.6,0.3)$ and $b^\star=-0.5$. The positive rate is
+  $0.423$, and the Bayes classifier attains accuracy $0.793$ and AUC $0.877$.
+  The column \texttt{eta\_true} is retained for validation only.
+\end{itemize}
+All datasets use the 45/45/5/5 random split of Section~\ref{app:setup}.
+
+% ---------------------------------------------------------------------
+\subsection{Hyperparameter Configurations}
+\label{app:hparams}
+
+\paragraph{Selection of the agent environment $(\beta,\alpha)$.}
+The utility $\beta$ and the per-standard-deviation cost vector $\alpha$ define
+the agents' best response (reach $S(w)=\beta\max_j w_j/\alpha_j$). They were
+selected by grid search: Algorithm~1 is retrained for every cell of
+$\beta\in\{0.25,0.5,1,2,4,8\}$ (ACSIncome additionally includes $16$) crossed
+with six or seven cost profiles. The profiles encode plausible costs, such as
+fixing immutable features (cost $10^{6}$) or making a feature cheaper by a
+factor of two
+(\texttt{experiment\_clipped\_improvement.py};
+\texttt{configs/sweeps/\{clipped\_improvement,law\_school\_env,heloc\_env,adult\_env,synthetic\_env\}.yaml};
+results in \texttt{outputs/<dataset>/sweeps/<sweep>/results.csv}).
+The selection rules were:
+\begin{itemize}
+  \item \emph{HELOC, Adult, Synthetic.} The cell with the lowest expected
+        strategic improvement error on \texttt{algo\_val}, among cells whose
+        kept checkpoint lies at epoch $\ge 11$. This convergence guard
+        (\texttt{min\_best\_epoch: 11}) excludes runs that diverge at large
+        $\beta$ and were captured in their first epochs.
+  \item \emph{ACSIncome.} The highest expected improvement rate on
+        \texttt{algo\_train} among stably trained cells with at least 200
+        negative movers on the held-out split; the grid also compared three
+        response models (unbounded, clipped, feasible), and \texttt{feasible}
+        was retained. This sweep was run before the final partition was fixed,
+        with $T=50$ epochs and with the then 10\% held-out set (the union of
+        the current \texttt{algo\_val} and \texttt{algo\_test}) as the
+        reporting split. The ranking statistic used only \texttt{algo\_train},
+        but the 200-mover screen was applied on that held-out set. The final
+        partition left \texttt{lr\_train} and \texttt{algo\_train} unchanged
+        row for row (verified against the archived indices).
+  \item \emph{Law School.} The largest non-saturated reach. Every profile
+        selected \texttt{zgpa} as the improvement direction, so the grid
+        reduced to the reach $\beta/\alpha_{\mathrm{zgpa}}$. Reach~2 was chosen
+        because reach $\ge 4$ moved $\ge 99\%$ of negatives (a saturated,
+        uninformative environment) and reach $\le 0.5$ produced the trivial
+        accept-all classifier.
+\end{itemize}
+Table~\ref{tab:env} lists the selected environments.
+
+\begin{table}[h]
+\centering
+\caption{Selected agent environments (\texttt{configs/<dataset>.yaml}, section \texttt{strat\_imp\_aware}). Reach $=\beta/\alpha_{j^\star}$ in standard deviations along the improvement direction $j^\star$.}
+\label{tab:env}
+\small
+\begin{tabular}{llcll}
+\toprule
+Dataset & $\alpha$ (cost per SD) & $\beta$ & $j^\star$ & Reach \\
+\midrule
+ACSIncome  & AGEP 1, WKHP 0.5, SCHL 1                 & 2 & WKHP & 4 \\
+Law School & lsat 1, ugpa 1, zgpa 1                    & 2 & zgpa & 2 \\
+HELOC      & all four features 1                       & 2 & ExternalRiskEstimate & 2 \\
+Adult      & age $10^{6}$ (fixed), hours 0.5, edu 1    & 2 & hours-per-week & 4 \\
+Synthetic  & $(1.5,1.2,0.9,0.6,0.3)\propto w^\star$    & 4 & $x_1$ & 2.67 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{\textsc{Strat-Imp-Aware} (all datasets).}
+Projected mini-batch gradient descent (Algorithm~1). Shared settings:
+\begin{itemize}
+  \item learning rate $\gamma=0.01$ and batch size 256 (training and validation);
+  \item guard $\delta_g=0.01$, feasible best responses
+        (\texttt{clip\_mode: feasible}) and standardized features
+        (\texttt{feature\_scaling: standard});
+  \item unweighted loss (\texttt{class\_weight: null}) and seed 42.
+\end{itemize}
+Dataset-specific settings:
+\begin{itemize}
+  \item \emph{Epochs $T$:} ACSIncome 200, Law School 200, HELOC 600, Adult 800,
+        Synthetic 800.
+  \item \emph{Initialization:} uniform, $w\sim\mathcal{U}(0,1)^d$ and $b=0$
+        (ACSIncome, Law School, HELOC); or the logistic regression's decision
+        rule, \texttt{init: lr} (Adult, Synthetic).
+  \item \emph{Restarts:} 1 (ACSIncome), 5 (Law School, HELOC), 2 (Adult,
+        Synthetic). Restart $k$ uses seed $42+1000k$, and the restart with the
+        lowest validation loss is kept.
+  \item \emph{Kept checkpoint:} best epoch 183, 17, 474, 677 and 710 for
+        ACSIncome, Law School, HELOC, Adult and Synthetic, respectively
+        (\texttt{outputs/<dataset>/models/strat\_imp\_aware.json}).
+\end{itemize}
+
+\paragraph{Logistic regression $\widehat{\eta}$.}
+\texttt{sklearn.linear\_model.LogisticRegression} with $\ell_2$ penalty,
+$C=1.0$, solver \texttt{lbfgs} and \texttt{max\_iter}$=1000$, preceded by
+\texttt{StandardScaler}; it is trained on \texttt{lr\_train} and frozen
+thereafter (\texttt{stage2\_train\_lr.py}).
+
+\paragraph{\citet{attias2025pac}.}
+\begin{itemize}
+  \item \emph{Network:} hidden width 64; Adam, learning rate $10^{-3}$; 100
+        epochs; batch size 64; no shuffling; seed 42; \texttt{float32}.
+  \item \emph{Loss:} $w_{\mathrm{FP}}=2.0$, $w_{\mathrm{FN}}=1.33$; clamp
+        $10^{-6}$.
+  \item \emph{Threshold:} $\tau=0.9$ (paper default), or $\tau$ selected from
+        $\{0.5,0.7,0.8,0.9\}$ on \texttt{algo\_val} for HELOC ($\tau=0.8$) and
+        Adult ($\tau=0.7$).
+\end{itemize}
+
+\paragraph{\textsc{SERM}.}
+\begin{itemize}
+  \item \emph{Optimization:} Adam, learning rate $0.05$; 100 epochs; batch
+        size 128 (shuffled with a generator seeded by the run seed);
+        initialization \texttt{torch.manual\_seed(42)}; final-epoch model.
+  \item \emph{Loss:} shift $2\|w\|_2$; $\lambda\in\{0.1,1\}$ selected on
+        \texttt{algo\_val}.
+  \item \emph{Class weights:} none (ACSIncome, HELOC, Synthetic) or balanced
+        (Law School, Adult).
+\end{itemize}
+
+\paragraph{Linear SVM.}
+Hinge loss, $C=1.0$, \texttt{max\_iter}$=200{,}000$, \texttt{random\_state}$=42$;
+class weights as for \textsc{SERM}.
+
+% ---------------------------------------------------------------------
+\subsection{Training Pipeline and Optimization}
+\label{app:training}
+
+\paragraph{Stages.} The pipeline consists of five scripts, each driven by
+\texttt{--config configs/<dataset>.yaml}.
+\begin{enumerate}
+  \item \texttt{stage1\_split\_and\_profile.py}: feature typing, cleaning and
+        the fixed 45/45/5/5 split.
+  \item \texttt{stage2\_train\_lr.py}: logistic regression on
+        \texttt{lr\_train}; coefficients on the standardized and the original
+        scale, and metrics on every split.
+  \item \texttt{stage3\_plot\_lr\_profiles.py}: for each selected feature, the
+        mean $\pm$ one standard deviation of $\widehat{\eta}$ over the rows
+        sharing each observed value (quantile bins if there are more than 100
+        unique values), overlaid with the empirical positive rate.
+  \item \texttt{stage4\_train\_strat\_imp.py}: Algorithm~1 on
+        \texttt{algo\_train} with checkpoint selection on \texttt{algo\_val}.
+  \item \texttt{stage5\_improvement\_rate.py}: improvement statistics on
+        \texttt{algo\_test}.
+\end{enumerate}
+Comparison tables are produced by \texttt{experiment\_multiseed\_table.py}
+(Law School, HELOC, Adult, Synthetic) and by \texttt{experiment\_svm\_baseline.py},
+\texttt{experiment\_pli\_paper.py} and \texttt{experiment\_gsc\_baseline.py}
+(ACSIncome).
+
+\paragraph{Implementation of Algorithms 1--3} (\texttt{pipeline/strat\_imp.py},
+\texttt{pipeline/strat\_imp\_clipped.py}).
+\begin{itemize}
+  \item \emph{Frozen estimate.} The logistic regression is copied into a
+        PyTorch module whose parameters are registered as buffers. It therefore
+        receives no updates, but gradients propagate through its input $x^f$.
+  \item \emph{Algorithm~2 (vectorized).}
+    \begin{itemize}
+      \item The improvement direction is $j^\star=\min\arg\max_j w_j/\alpha_j$
+            (first maximal index).
+      \item Agents with $0<b-w^\top x\le S(w)$ move to
+            $x^f=x+\frac{b-w^\top x}{w_{j^\star}}e_{j^\star}$.
+      \item \emph{Feasible mode} additionally requires
+            $x_{j^\star}+\frac{b-w^\top x}{w_{j^\star}}\le \bar x_{j^\star}$, the
+            largest value of feature $j^\star$ in \texttt{lr\_train} (in
+            standardized units).
+      \item The improvement probability is
+            $\widehat{\pi}_{\mathrm{Imp}}=\mathrm{clamp}_{[0,1]}\big((\widehat{\eta}(x^f)-\widehat{\eta}(x))/\max\{1-\widehat{\eta}(x),\delta_g\}\big)$.
+      \item The branch condition, the choice of $j^\star$ and saturated clamps
+            carry no gradient. A safe divisor avoids \texttt{NaN} gradients when
+            $w_{j^\star}=0$.
+    \end{itemize}
+  \item \emph{Algorithm~3.} The per-sample loss is
+        $q(1-s)_+ + (1-q)(1+s)_+$ with $q=y+(1-y)\widehat{\pi}_{\mathrm{Imp}}$ and
+        $s=w^\top x-b+S(w)$. The gradient flows through $q$.
+  \item \emph{Algorithm~1.} Each step updates $w\leftarrow(w-\gamma\nabla_w)_+$
+        and $b\leftarrow b-\gamma\nabla_b$ (plain SGD, no momentum), with
+        training batches reshuffled every epoch by a seeded generator.
+  \item \emph{Validation loss and checkpointing.} The validation loss is the
+        mean of per-batch mean losses over \texttt{algo\_val}, and the
+        $(w,b)$ with the lowest validation loss is returned.
+\end{itemize}
+
+\paragraph{Training length and restarts.}
+\begin{itemize}
+  \item \emph{Training length.} The number of epochs was increased whenever
+        the kept checkpoint was the final epoch. On HELOC, validation loss was
+        $0.6073$ at $T{=}200$, $0.6022$ at $T{=}400$ and $0.6018$ at $T{=}800$
+        (best epoch 474), so $T=600$. On Adult, it was $0.4524$ at $T{=}400$
+        (best epoch 399) and $0.4519$ at $T{=}800$ (best epoch 677). On
+        Synthetic, it was $0.3221$ at $T{=}400$ and $0.3162$ at $T{=}800$ (best
+        epoch 710).
+  \item \emph{Restarts.} The objective is non-convex because $j^\star$ is a
+        hard choice. On Law School, one random start (seed 0) settled along
+        lsat with validation loss $0.234$, against $0.173$ for the
+        zgpa-directed solution. Selecting among restarts by validation loss, the
+        criterion Algorithm~1 already uses, removed this failure: the standard
+        deviation of the expected improvement rate over three seeds fell from
+        $0.194$ to $0.007$.
+\end{itemize}
+
+\paragraph{Class imbalance and the need for class-weighted baselines.}
+Unweighted hinge-type objectives are minimized by a constant classifier on the
+two imbalanced datasets.
+\begin{itemize}
+  \item \emph{Law School} ($89\%$ positive). The unweighted linear SVM and
+        \textsc{SERM} converge to $w=0$ and accept every agent. On
+        \texttt{algo\_train}, the hinge loss of the accept-all classifier
+        ($0.2229$) is not improved by any rescaling of the logistic-regression
+        direction, and doubling the training data
+        ($18{,}718$ rows) does not change this.
+  \item \emph{Adult} ($24\%$ positive). The unweighted linear SVM and
+        \textsc{SERM} converge to the reject-all classifier.
+\end{itemize}
+In both cases no agent moves and the strategic improvement error equals the
+minority-class share ($0.0913$ and $0.2390$, respectively). Balanced class
+weights restore non-trivial boundaries, and these variants are reported (marked
+$^\dagger$ in Table~1).
+
+\textsc{Strat-Imp-Aware} is always trained with the unweighted loss, so the
+objective analysed in the main text is unchanged. On Adult, random
+initialization led to the reject-all solution, because the unweighted loss is
+nearly flat: $0.4787$ for $w=0$ versus at best $0.4792$ along the
+logistic-regression direction for $\beta\in\{0.5,1,2\}$. Initializing at the
+logistic-regression decision rule, which is admissible in Algorithm~1 since any
+$w\in\mathbb{R}^d_{\ge 0}\setminus\{0\}$ may be used, yields non-trivial
+classifiers with \emph{lower} validation loss ($0.4758$--$0.4772$ versus
+$0.4788$). This initialization was therefore used for Adult and Synthetic.
+
+% ---------------------------------------------------------------------
+\subsection{Evaluation Protocol and Computational Metrics}
+\label{app:eval}
+
+\paragraph{Agent response used for every method.}
+All classifiers are evaluated with one common best-response routine
+(\texttt{pipeline/best\_response.py}, function
+\texttt{cheapest\_feasible\_response}). A classifier is supplied as a margin
+function $m(u)$, with $m(u)\ge 0$ meaning a positive prediction. An agent with
+$m(u)<0$ looks for the cheapest single-feature increase $\delta$ with
+$m(u+\delta e_j)\ge 0$, subject to $\alpha_j\delta\le\beta$ and
+$u_j+\delta\le\bar u_j$:
+\begin{itemize}
+  \item a 64-point grid locates the first crossing along each coordinate;
+  \item 40 bisection steps then refine it;
+  \item the agent moves along the cheapest feasible coordinate, and otherwise
+        stays.
+\end{itemize}
+For a linear classifier with $w\ge 0$ this coincides with Algorithm~2 in
+feasible mode, except that an agent whose cheapest coordinate is infeasible may
+use another feasible coordinate. This was verified on the ACSIncome model:
+identical movers and $\widehat{\pi}_{\mathrm{Imp}}$ up to $3\times10^{-14}$,
+plus 6 additional movers out of 9{,}784.
+
+\paragraph{Metrics} (\texttt{experiment\_svm\_baseline.py}, function
+\texttt{evaluate}; \texttt{pipeline/evaluation.py}). Let $M$ be the set of
+agents that move, and let $\hat y_i=\mathbb{1}[i\in M\ \vee\ m(u_i)\ge 0]$ be
+the prediction after the response (movers land on the boundary and are
+predicted positive). Post-response labels are $y_i'=y_i$ unless $i\in M$ and
+$y_i=0$, in which case $y_i'\sim\mathrm{Bernoulli}(\widehat{\pi}_{\mathrm{Imp},i})$,
+drawn with \texttt{numpy.random.default\_rng(42)}.
+\begin{itemize}
+  \item \emph{Manip.\ agents} $=|\{i\in M: y_i=0\}|$.
+  \item \emph{Improved agents} $=|\{i\in M: y_i=0,\ y_i'=1\}|$ (one sampled
+        draw).
+  \item \emph{Strategic improvement error} $=\frac{1}{n}\sum_i\mathbb{1}[\hat y_i\neq y_i']$
+        (same draw).
+  \item \emph{Improvement rate} $=\text{Improved}/\text{Manip.}$
+\end{itemize}
+Exact expectations over the label draw are also stored: expected improved
+$=\sum_{i\in M,y_i=0}\widehat{\pi}_{\mathrm{Imp},i}$, and expected error
+$=\frac1n\big[\sum_{i\notin C}\mathbb{1}[\hat y_i\neq y_i]+\sum_{i\in C}(1-\widehat{\pi}_{\mathrm{Imp},i})\big]$
+with $C=\{i\in M: y_i=0\}$. For Synthetic, all quantities are additionally
+computed with the true $\eta$ (\texttt{true\_eta: true}). All numbers are
+computed on \texttt{algo\_test} (\texttt{outputs/<dataset>/sweeps/multiseed\_table/runs.csv};
+for ACSIncome, \texttt{outputs/retiring\_adult/sweeps/gsc\_baseline/comparison\_env\_ours\_test.csv}).
+
+\paragraph{Variance and repeated runs.}
+Table~1 reports training seed 42 and label-sampling seed 42 for every method.
+The following additional analyses quantify variability.
+\begin{itemize}
+  \item \emph{Label-sampling variance.} Stage~5 redraws the post-response
+        labels 1{,}000 times and reports mean $\pm$ standard deviation, e.g.
+        Synthetic improvement rate $0.873\pm0.022$ and Law School $0.645\pm0.053$
+        (\texttt{outputs/<dataset>/evaluation/improvement\_rate\_algo\_test.json}).
+  \item \emph{Training-seed variance.} Every method was retrained with seeds
+        $\{42,0,1\}$ on Law School and Adult
+        (\texttt{configs/sweeps/law\_school/multiseed\_table.yaml},
+        \texttt{configs/sweeps/adult/multiseed\_table\_3seeds.yaml}). The seed
+        affects initialization, batch order and label sampling. Mean $\pm$ sample
+        standard deviation (\texttt{ddof=1}) of the strategic improvement error:
+    \begin{itemize}
+      \item \emph{Law School:} \textsc{Strat-Imp-Aware} $4.39\pm0.34\%$
+            (Manip.\ $68.3\pm0.6$, Improved $43.0\pm2.6$);
+            \citet{attias2025pac} $5.41\pm0.11\%$; balanced SVM $5.35\pm0.29\%$;
+            balanced \textsc{SERM} $27.76\pm2.03\%$.
+      \item \emph{Adult:} \textsc{Strat-Imp-Aware} $15.89\pm0.24\%$
+            (Manip.\ $149.7\pm2.3$, Improved $100.7\pm5.8$); balanced
+            \textsc{SERM} $15.52\pm0.14\%$; \citet{attias2025pac}
+            ($\tau=0.7$) $17.85\pm0.05\%$; balanced SVM $63.09\pm0.61\%$.
+    \end{itemize}
+  \item \emph{Sample size.} On ACSIncome, Algorithm~1 was trained on nested
+        random subsets of \texttt{algo\_train} of size
+        $\{50,200,1000,3000,6000,88049\}$ with 10 repetitions each
+        (\texttt{experiment\_improvement\_error.py},
+        \texttt{configs/sweeps/improvement\_error.yaml}). The expected strategic
+        improvement error on \texttt{algo\_test} decreases monotonically:
+        $0.170\pm0.028$, $0.159\pm0.015$, $0.106\pm0.008$, $0.083\pm0.007$,
+        $0.077\pm0.005$ and $0.064\pm0.0001$.
+\end{itemize}
+No cross-validation was used; all model and environment selection relies on
+\texttt{algo\_val}, and \texttt{algo\_test} is used only for reporting.
+
+\paragraph{Reproduction.}
+For a dataset \texttt{<d>}, run in order:
+\texttt{stage1\_split\_and\_profile.py}, \texttt{stage2\_train\_lr.py},
+\texttt{stage3\_plot\_lr\_profiles.py}, \texttt{stage4\_train\_strat\_imp.py} and
+\texttt{stage5\_improvement\_rate.py}, each with \texttt{--config configs/<d>.yaml}.
+Then run
+\texttt{experiment\_multiseed\_table.py --sweep configs/sweeps/<d>/multiseed\_table.yaml}
+(Law School additionally with \texttt{--from-runs --seeds 42}).
+Environment sweeps are run with
+\texttt{experiment\_clipped\_improvement.py --sweep configs/sweeps/<d>\_env.yaml}.

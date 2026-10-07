@@ -1,0 +1,18 @@
+Features: ['lsat', 'ugpa', 'zgpa']   feature_scaling: standard   init: uniform   clip_mode: feasible
+Train algo_train: 9358 rows   Val algo_val: 1039 rows
+FrozenLR matches sklearn LR (max |diff| = 5.6e-17); its parameters are buffers, not trained
+Hyperparameters: epochs=200, lr=0.01, batch_size=256, beta=2.0, delta_g=0.01, seed=42, init=uniform, feature_scaling=standard, clip_mode=feasible, restarts=5, alpha={'lsat': 1.0, 'ugpa': 1.0, 'zgpa': 1.0}
+
+restart 0 (seed 42): best epoch 15, val loss 0.19803, j* = zgpa
+restart 1 (seed 1042): best epoch 81, val loss 0.19992, j* = zgpa
+restart 2 (seed 2042): best epoch 75, val loss 0.20781, j* = zgpa
+restart 3 (seed 3042): best epoch 33, val loss 0.20600, j* = zgpa
+restart 4 (seed 4042): best epoch 85, val loss 0.20001, j* = zgpa
+-> kept restart 0 (seed 42), val loss 0.19803
+
+Best epoch 15: val loss 0.19803
+  model space (standard): w = lsat 0.13469, ugpa 0.03449, zgpa 0.83584;  b = -0.20842
+  raw units:    w = lsat 0.024882, ugpa 0.083523, zgpa 0.840355;  b = 0.98813
+Saved -> /Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school_stratified/models/strat_imp_aware.pt
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school_stratified/models/strat_imp_aware.json
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school_stratified/models/strat_imp_aware_history.csv

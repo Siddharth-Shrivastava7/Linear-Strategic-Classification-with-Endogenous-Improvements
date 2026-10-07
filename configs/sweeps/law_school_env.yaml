@@ -1,0 +1,22 @@
+# Environment selection for the law school dataset: Algorithm 1 (feasible mode)
+# over beta x cost profiles alpha. Best setting = highest expected improvement
+# rate on algo_train among cells with >= 100 negative movers there; confirmed on algo_val.
+
+base_config: configs/law_school.yaml
+selection_split: algo_train
+report_split: algo_val
+workers: 8
+
+grid:
+  clip_mode: [feasible]
+  beta: [0.25, 0.5, 1, 2, 4, 8]
+  alpha_profiles:                  # cost per 1 SD of (lsat, ugpa, zgpa)
+    "equal (1,1,1)":                     {lsat: 1.0, ugpa: 1.0, zgpa: 1.0}
+    "LSAT cheap (0.5,1,1)":              {lsat: 0.5, ugpa: 1.0, zgpa: 1.0}
+    "zgpa cheap (1,1,0.5)":              {lsat: 1.0, ugpa: 1.0, zgpa: 0.5}
+    "ugpa costly (1,4,1)":               {lsat: 1.0, ugpa: 4.0, zgpa: 1.0}
+    "ugpa fixed (1,1e6,1)":              {lsat: 1.0, ugpa: 1000000.0, zgpa: 1.0}
+    "LSAT+zgpa cheap, ugpa fixed (0.5,1e6,0.5)": {lsat: 0.5, ugpa: 1000000.0, zgpa: 0.5}
+
+min_negative_movers: 100
+min_negative_movers_on: selection

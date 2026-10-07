@@ -1,0 +1,36 @@
+{
+  "dataset": "/Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/retiring_adult_data.csv",
+  "dataset_sha256": "8a338ad3b19e4b8b75a6d915a9ecbf17994ae6f7553e1396f00a0a6fc73d8ab4",
+  "seed": 42,
+  "fractions": {
+    "lr_train": 0.45,
+    "algo_train": 0.45,
+    "algo_val": 0.1
+  },
+  "features": [
+    "AGEP",
+    "SCHL",
+    "WKHP"
+  ],
+  "target": "label",
+  "rows_raw": 195665,
+  "rows_dropped_missing": 0,
+  "rows_clean": 195665,
+  "splits": {
+    "lr_train": {
+      "rows": 88049,
+      "fraction": 0.449999,
+      "positive_rate": 0.408454
+    },
+    "algo_train": {
+      "rows": 88049,
+      "fraction": 0.449999,
+      "positive_rate": 0.412441
+    },
+    "algo_val": {
+      "rows": 19567,
+      "fraction": 0.100003,
+      "positive_rate": 0.411714
+    }
+  }
+}

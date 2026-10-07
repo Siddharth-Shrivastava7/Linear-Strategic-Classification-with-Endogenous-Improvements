@@ -1,0 +1,7 @@
+feature,dtype,n_unique,n_missing,min,max,detected_type,detected_reason,final_type,source
+x1,float64,20000,0,-3.888142121160593,5.0072352319089966,continuous,non-integer numeric values,continuous,auto-detected
+x2,float64,20000,0,-3.823946149741148,4.087923070821299,continuous,non-integer numeric values,continuous,auto-detected
+x3,float64,20000,0,-4.389114584864837,4.326920740610131,continuous,non-integer numeric values,continuous,auto-detected
+x4,float64,20000,0,-3.700091559090642,4.506745812887017,continuous,non-integer numeric values,continuous,auto-detected
+x5,float64,20000,0,-4.257009288247994,4.151241397039601,continuous,non-integer numeric values,continuous,auto-detected
+eta_true,float64,20000,0,0.0004660272053903,0.9998642780882406,continuous,non-integer numeric values,continuous,auto-detected

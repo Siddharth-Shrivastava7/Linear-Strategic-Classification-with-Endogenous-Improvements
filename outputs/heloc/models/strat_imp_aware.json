@@ -1,0 +1,70 @@
+{
+  "decision_rule": "positive iff w . u - b >= 0, u = (x - shift) / scale  (equivalently w_raw . x - b_raw >= 0)",
+  "features": [
+    "ExternalRiskEstimate",
+    "neg_NetFractionRevolvingBurden",
+    "neg_PercentTradesWBalance",
+    "PercentTradesNeverDelq"
+  ],
+  "best_epoch": 474,
+  "best_val_loss": 0.6017943506909267,
+  "restart": {
+    "kept": 3,
+    "seed": 3042,
+    "restarts": 5
+  },
+  "model_space": {
+    "w": {
+      "ExternalRiskEstimate": 1.192731840992353,
+      "neg_NetFractionRevolvingBurden": 0.018928396285491717,
+      "neg_PercentTradesWBalance": 0.02196595347253305,
+      "PercentTradesNeverDelq": 0.0
+    },
+    "b": 2.2273415760165842
+  },
+  "raw_space": {
+    "w": {
+      "ExternalRiskEstimate": 0.12071019404163287,
+      "neg_NetFractionRevolvingBurden": 0.0006529222570742802,
+      "neg_PercentTradesWBalance": 0.0009990956650339034,
+      "PercentTradesNeverDelq": 0.0
+    },
+    "b": 10.843339302490467
+  },
+  "feature_scaling": {
+    "kind": "standard",
+    "shift": {
+      "ExternalRiskEstimate": 72.10881542699724,
+      "neg_NetFractionRevolvingBurden": -34.85123966942149,
+      "neg_PercentTradesWBalance": -65.5755280073462,
+      "PercentTradesNeverDelq": 92.33585858585859
+    },
+    "scale": {
+      "ExternalRiskEstimate": 9.880953721116384,
+      "neg_NetFractionRevolvingBurden": 28.99027576469692,
+      "neg_PercentTradesWBalance": 21.985836032816394,
+      "PercentTradesNeverDelq": 11.735351133559487
+    },
+    "stats_from": "lr_train"
+  },
+  "hyperparameters": {
+    "epochs": 600,
+    "lr": 0.01,
+    "batch_size": 256,
+    "beta": 2.0,
+    "delta_g": 0.01,
+    "seed": 42,
+    "init": "uniform",
+    "feature_scaling": "standard",
+    "clip_mode": "feasible",
+    "restarts": 5,
+    "alpha": {
+      "ExternalRiskEstimate": 1.0,
+      "neg_NetFractionRevolvingBurden": 1.0,
+      "neg_PercentTradesWBalance": 1.0,
+      "PercentTradesNeverDelq": 1.0
+    }
+  },
+  "train_split": "algo_train",
+  "val_split": "algo_val"
+}

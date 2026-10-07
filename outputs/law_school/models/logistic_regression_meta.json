@@ -1,0 +1,78 @@
+{
+  "features": [
+    "lsat",
+    "ugpa",
+    "zgpa"
+  ],
+  "feature_types": {
+    "lsat": "continuous",
+    "ugpa": "continuous",
+    "zgpa": "continuous"
+  },
+  "train_split": "lr_train",
+  "params": {
+    "penalty": "l2",
+    "C": 1.0,
+    "solver": "lbfgs",
+    "max_iter": 1000
+  },
+  "sklearn_version": "1.4.2",
+  "standardized_space": {
+    "intercept": 3.0200765734252073,
+    "coef": {
+      "lsat": 0.6238427137295671,
+      "ugpa": 0.23203829216460473,
+      "zgpa": 1.3051415597889329
+    }
+  },
+  "raw_space": {
+    "intercept": -3.0627503832724132,
+    "coef": {
+      "lsat": 0.11589282529980217,
+      "ugpa": 0.5589550243465471,
+      "zgpa": 1.329831023431599
+    }
+  },
+  "metrics": {
+    "lr_train": {
+      "rows": 9359,
+      "accuracy": 0.9025536916337216,
+      "log_loss": 0.2465561577924813,
+      "roc_auc": 0.8655546523917054,
+      "brier": 0.07339945127725704,
+      "positive_rate_true": 0.8912276952665883,
+      "positive_rate_pred": 0.9561919008441073,
+      "mean_predicted_proba": 0.8912461713153472
+    },
+    "algo_train": {
+      "rows": 9359,
+      "accuracy": 0.8971043914948178,
+      "log_loss": 0.248985553562895,
+      "roc_auc": 0.8709708715701044,
+      "brier": 0.07484933989680169,
+      "positive_rate_true": 0.8885564697083022,
+      "positive_rate_pred": 0.958756277380062,
+      "mean_predicted_proba": 0.8915783062253222
+    },
+    "algo_val": {
+      "rows": 1039,
+      "accuracy": 0.8796920115495669,
+      "log_loss": 0.27579988031612784,
+      "roc_auc": 0.8693171702785376,
+      "brier": 0.08522278437694278,
+      "positive_rate_true": 0.8681424446583254,
+      "positive_rate_pred": 0.9595765158806545,
+      "mean_predicted_proba": 0.887228407954356
+    },
+    "algo_test": {
+      "rows": 1041,
+      "accuracy": 0.9125840537944284,
+      "log_loss": 0.23262301963827625,
+      "roc_auc": 0.8435740514075889,
+      "brier": 0.06721813908690297,
+      "positive_rate_true": 0.9087415946205571,
+      "positive_rate_pred": 0.9654178674351584,
+      "mean_predicted_proba": 0.8990438240414999
+    }
+  }
+}

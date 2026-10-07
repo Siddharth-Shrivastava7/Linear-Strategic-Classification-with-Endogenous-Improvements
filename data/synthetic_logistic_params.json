@@ -1,0 +1,24 @@
+{
+  "n": 20000,
+  "seed": 42,
+  "features": [
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5"
+  ],
+  "feature_distribution": "independent N(0, 1)",
+  "true_weights": {
+    "x1": 1.5,
+    "x2": 1.2,
+    "x3": 0.9,
+    "x4": 0.6,
+    "x5": 0.3
+  },
+  "true_bias": -0.5,
+  "label_model": "y ~ Bernoulli(sigmoid(w . x + b))",
+  "positive_rate": 0.42285,
+  "mean_eta_true": 0.42576107663057994,
+  "bayes_accuracy": 0.7932
+}

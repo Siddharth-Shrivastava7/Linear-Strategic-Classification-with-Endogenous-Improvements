@@ -1,0 +1,86 @@
+{
+  "features": [
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5"
+  ],
+  "feature_types": {
+    "x1": "continuous",
+    "x2": "continuous",
+    "x3": "continuous",
+    "x4": "continuous",
+    "x5": "continuous"
+  },
+  "train_split": "lr_train",
+  "params": {
+    "penalty": "l2",
+    "C": 1.0,
+    "solver": "lbfgs",
+    "max_iter": 1000
+  },
+  "sklearn_version": "1.4.2",
+  "standardized_space": {
+    "intercept": -0.5465092122665035,
+    "coef": {
+      "x1": 1.4963341820603178,
+      "x2": 1.2004269650007946,
+      "x3": 0.8796888955826847,
+      "x4": 0.6097687253382219,
+      "x5": 0.2570815751557962
+    }
+  },
+  "raw_space": {
+    "intercept": -0.5080697259499775,
+    "coef": {
+      "x1": 1.504162659384912,
+      "x2": 1.188660407022535,
+      "x3": 0.8884099447986401,
+      "x4": 0.6068381309072018,
+      "x5": 0.2524533644321118
+    }
+  },
+  "metrics": {
+    "lr_train": {
+      "rows": 9000,
+      "accuracy": 0.7965555555555556,
+      "log_loss": 0.42730285111188687,
+      "roc_auc": 0.8799626390547406,
+      "brier": 0.13846431803825782,
+      "positive_rate_true": 0.4232222222222222,
+      "positive_rate_pred": 0.4031111111111111,
+      "mean_predicted_proba": 0.4232219051781079
+    },
+    "algo_train": {
+      "rows": 9000,
+      "accuracy": 0.7912222222222223,
+      "log_loss": 0.43286684752700105,
+      "roc_auc": 0.8761116204956558,
+      "brier": 0.1408274841426305,
+      "positive_rate_true": 0.4231111111111111,
+      "positive_rate_pred": 0.4087777777777778,
+      "mean_predicted_proba": 0.42577224692150156
+    },
+    "algo_val": {
+      "rows": 1000,
+      "accuracy": 0.789,
+      "log_loss": 0.4427775508046261,
+      "roc_auc": 0.871366252428608,
+      "brier": 0.14313288436195715,
+      "positive_rate_true": 0.433,
+      "positive_rate_pred": 0.394,
+      "mean_predicted_proba": 0.4225749156979669
+    },
+    "algo_test": {
+      "rows": 1000,
+      "accuracy": 0.779,
+      "log_loss": 0.4556206349151155,
+      "roc_auc": 0.8623871456923734,
+      "brier": 0.14870144575704816,
+      "positive_rate_true": 0.407,
+      "positive_rate_pred": 0.406,
+      "mean_predicted_proba": 0.42378511971850447
+    }
+  }
+}

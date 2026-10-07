@@ -1,0 +1,77 @@
+{
+  "model_file": "linear_svm.joblib",
+  "model_sha256": "81bae572063bc3fe23461d8078a1b74d9ed9ac4c13dfcfb2b279e4a904360d33",
+  "svm": {
+    "C": 1.0,
+    "loss": "hinge",
+    "max_iter": 200000,
+    "random_state": 42
+  },
+  "train_split": "algo_train",
+  "train_rows": 9359,
+  "features": [
+    "lsat",
+    "ugpa",
+    "zgpa"
+  ],
+  "input_space": "standardized with the LR scaler (fit on lr_train)",
+  "decision_rule": "positive iff w . u + c >= 0",
+  "w_standardized": {
+    "lsat": 1.0459943963695411e-13,
+    "ugpa": -7.538262258355177e-14,
+    "zgpa": 7.649821868695931e-14
+  },
+  "c": 1.0000000000003852,
+  "train_accuracy": 0.8885564697083022,
+  "test_split": "algo_test",
+  "split_indices_sha256": "1772f79ef644b7e0bed1b9a1afd049886d245755e8564ec80ae08a8040b7a23b",
+  "environment_ours": {
+    "beta": 2.0,
+    "alpha": {
+      "lsat": 1.0,
+      "ugpa": 1.0,
+      "zgpa": 1.0
+    },
+    "delta_g": 0.01,
+    "clip": "feasible (max of lr_train)"
+  },
+  "sample_seed": 42,
+  "results": {
+    "Linear SVM (hinge, C=1)": {
+      "agents": 1041.0,
+      "predicted_positive_before": 1041.0,
+      "manipulating": 0.0,
+      "manipulating_y0": 0.0,
+      "manipulating_y1": 0.0,
+      "improved": 0.0,
+      "improvement_rate": NaN,
+      "expected_improved": 0.0,
+      "expected_improvement_rate": NaN,
+      "improvement_error": 0.09125840537944284,
+      "expected_improvement_error": 0.09125840537944284,
+      "error_no_response": 0.09125840537944284,
+      "moves_along": {}
+    },
+    "Ours (stage 4 model)": {
+      "agents": 1041.0,
+      "predicted_positive_before": 584.0,
+      "manipulating": 440.0,
+      "manipulating_y0": 68.0,
+      "manipulating_y1": 372.0,
+      "improved": 46.0,
+      "improvement_rate": 0.6764705882352942,
+      "expected_improved": 44.74002724160368,
+      "expected_improvement_rate": 0.657941577082407,
+      "improvement_error": 0.040345821325648415,
+      "expected_improvement_error": 0.04155616979673037,
+      "error_no_response": 0.3765609990393852,
+      "moves_along": {
+        "zgpa": 440
+      }
+    }
+  },
+  "versions": {
+    "sklearn": "1.4.2",
+    "torch": "2.3.1"
+  }
+}

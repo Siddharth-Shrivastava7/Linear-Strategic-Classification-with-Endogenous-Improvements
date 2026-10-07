@@ -1,0 +1,87 @@
+{
+  "model_file": "pli_nn_paper_default.pt",
+  "model_sha256": "dd7b97c0b555dd2afb68560ba3ba067071053917c0b84f754aa6989e144e4c5c",
+  "method": "PLI paper default (Attias et al., ICML 2025; github.com/ripl/PLI), reimplemented in pipeline/baselines_pli.py",
+  "architecture": "NNClassifier: Linear(3,64) -> ReLU -> Linear(64,1) -> Sigmoid (float32)",
+  "decision_rule": "positive iff h(u) > 0.9",
+  "training": {
+    "model_type": "nn",
+    "loss": "wbce_2",
+    "threshold": 0.9,
+    "epochs": 100,
+    "batch_size": 64,
+    "lr": 0.001,
+    "seed": 42,
+    "loss_detail": "WBCELossx(false_positive_weight=2.0, false_negative_weight=1.33)",
+    "optimizer": "Adam",
+    "shuffle": false,
+    "train_split": "algo_train",
+    "train_rows": 9359
+  },
+  "features": [
+    "lsat",
+    "ugpa",
+    "zgpa"
+  ],
+  "input_space": "standardized with the LR scaler (fit on lr_train): u = (x - shift) / scale",
+  "standardization": {
+    "shift": {
+      "lsat": 36.743647825622396,
+      "ugpa": 3.22225665135164,
+      "zgpa": 0.017600170958435732
+    },
+    "scale": {
+      "lsat": 5.3829278224579795,
+      "ugpa": 0.4151287349744674,
+      "zgpa": 0.9814341347076144
+    }
+  },
+  "data": {
+    "dataset": "/Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/law_school_clean.csv",
+    "split_indices": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school/splits/split_indices.json",
+    "split_indices_sha256": "1772f79ef644b7e0bed1b9a1afd049886d245755e8564ec80ae08a8040b7a23b",
+    "test_split": "algo_test",
+    "test_rows": 1041
+  },
+  "environment_ours": {
+    "beta": 2.0,
+    "alpha": {
+      "lsat": 1.0,
+      "ugpa": 1.0,
+      "zgpa": 1.0
+    },
+    "delta_g": 0.01,
+    "clip": "feasible (max of lr_train)",
+    "eta_hat": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school/models/logistic_regression.joblib"
+  },
+  "compared_with": {
+    "model": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school/models/strat_imp_aware.pt",
+    "best_epoch": 194
+  },
+  "results_env_ours_test": {
+    "Ours (stage 4 model, seed 42)": {
+      "improvement_rate": 0.657941577082407,
+      "improvement_error": 0.04155616979673037,
+      "error_no_response": 0.3765609990393852,
+      "movers": 440.0,
+      "neg_movers": 68.0,
+      "expected_improved": 44.74002724160368,
+      "predicted_positive_before": 0.5609990393852066
+    },
+    "PLI paper default (NN, FP weight 2, threshold 0.9)": {
+      "improvement_rate": 0.5898283553849732,
+      "improvement_error": 0.05053823119779215,
+      "error_no_response": 0.2824207492795389,
+      "movers": 326.0,
+      "neg_movers": 60.0,
+      "expected_improved": 35.38970132309839,
+      "predicted_positive_before": 0.6532180595581172
+    }
+  },
+  "versions": {
+    "python": "3.11.15",
+    "torch": "2.3.1",
+    "sklearn": "1.4.2",
+    "pandas": "2.2.3"
+  }
+}

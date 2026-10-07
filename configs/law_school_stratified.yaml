@@ -1,0 +1,69 @@
+# ---------------------------------------------------------------------------
+# Law school, STRATIFIED split (otherwise identical to configs/law_school.yaml;
+# same features, environment and training settings). Same pipeline as
+# configs/retiring_adult.yaml). Sections after `feature_types` are filled in
+# step by step once features, LR and the agent environment are decided.
+# ---------------------------------------------------------------------------
+
+dataset:
+  name: law_school_stratified
+  path: /Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/law_school_clean.csv
+  target: pass_bar
+  positive_class: 1                 # confirmed by user
+  label_description: "y = 1 if passed the bar exam (pass_bar = 1)"
+
+output_dir: outputs/law_school_stratified
+
+split:
+  seed: 42
+  stratify: true                    # each class split 45/45/5/5 separately (keeps 89/11 balance)
+  fractions:
+    lr_train: 0.45                  # stage 2: logistic regression
+    algo_train: 0.45                # stage 4: our algorithm (training)
+    algo_val: 0.05                  # stage 4: validation loss / checkpoint
+    algo_test: 0.05                 # stage 5: unseen test set
+
+feature_types:
+  max_discrete_unique: 30
+  overrides: {}                     # auto-detection; confirm or override after stage 1's report
+  ordinal_orders: {}
+  drop_types: [nominal]             # same rule as retiring_adult: keep continuous + ordinal only
+
+feature_labels:
+  lsat: "LSAT score (lsat)"
+  ugpa: "Undergraduate GPA (ugpa)"
+  zgpa: "Standardized cumulative law-school GPA (zgpa)"
+
+logistic_regression:
+  features: [lsat, ugpa, zgpa]      # chosen by user
+  train_split: lr_train
+  params:
+    penalty: l2
+    C: 1.0
+    solver: lbfgs
+    max_iter: 1000
+
+plots:
+  data_split: lr_train
+  spread: std
+  max_points: 100
+  n_bins: 50
+  low_count: 30
+
+strat_imp_aware:                    # Algorithm 1; beta / alpha set from sweeps/law_school_env
+  train_split: algo_train
+  val_split: algo_val
+  epochs: 200
+  lr: 0.01
+  batch_size: 256
+  beta: 2.0                         # user choice: reach beta/alpha_zgpa = 2 (sweeps/law_school_env)
+  alpha: {lsat: 1.0, ugpa: 1.0, zgpa: 1.0}   # cost per 1 SD; agents move along zgpa
+  delta_g: 0.01
+  seed: 42
+  clip_mode: feasible
+  restarts: 5                       # random starts per seed (seed, seed+1000, ...); keep lowest val loss
+
+evaluation:
+  split: algo_test
+  seed: 42
+  n_repeats: 1000

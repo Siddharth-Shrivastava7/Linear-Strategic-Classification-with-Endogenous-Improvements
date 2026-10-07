@@ -1,0 +1,47 @@
+{
+  "dataset": "/Users/siddharthshrivastava/Downloads/Research/1st_problem/NeurIPS_submission/datasets/law_school_clean.csv",
+  "dataset_sha256": "23c1b173f3480beb7afc4957b107a9917dfc4a8dc9d87ea6034ec35222152452",
+  "seed": 42,
+  "fractions": {
+    "lr_train": 0.45,
+    "algo_train": 0.45,
+    "algo_val": 0.05,
+    "algo_test": 0.05
+  },
+  "features": [
+    "decile1b",
+    "decile3",
+    "lsat",
+    "ugpa",
+    "zfygpa",
+    "zgpa",
+    "fam_inc",
+    "tier"
+  ],
+  "target": "pass_bar",
+  "rows_raw": 20798,
+  "rows_dropped_missing": 0,
+  "rows_clean": 20798,
+  "splits": {
+    "lr_train": {
+      "rows": 9359,
+      "fraction": 0.449995,
+      "positive_rate": 0.891228
+    },
+    "algo_train": {
+      "rows": 9359,
+      "fraction": 0.449995,
+      "positive_rate": 0.888556
+    },
+    "algo_val": {
+      "rows": 1039,
+      "fraction": 0.049957,
+      "positive_rate": 0.868142
+    },
+    "algo_test": {
+      "rows": 1041,
+      "fraction": 0.050053,
+      "positive_rate": 0.908742
+    }
+  }
+}

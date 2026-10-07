@@ -1,0 +1,35 @@
+{
+  "split": "algo_test",
+  "model": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/heloc/models/strat_imp_aware.pt",
+  "model_best_epoch": 474,
+  "feature_scaling": "standard",
+  "clip_mode": "feasible",
+  "seed": 42,
+  "n_agents": 486,
+  "j_star": "ExternalRiskEstimate",
+  "S_w": 2.385463681984706,
+  "manipulating_agents": 252,
+  "manipulating_by_original_label": {
+    "y=0": 92,
+    "y=1": 160
+  },
+  "improved_agents": 47,
+  "improvement_rate": 0.5108695652173914,
+  "improvement_rate_definition": "improved / manipulating agents with original y = 0",
+  "fraction_of_agents_manipulating": 0.5185185185185185,
+  "frac_movers_beyond_observed_max": 0.0,
+  "expected_improved_agents": 47.63339793031991,
+  "expected_improvement_rate": 0.5177543253295642,
+  "repeats_1000": {
+    "improved_mean": 47.563,
+    "improved_std": 4.771246775822416,
+    "improvement_rate_mean": 0.5169891304347827,
+    "improvement_rate_std": 0.05186137799806974
+  },
+  "pi_imp_among_negative_movers": {
+    "mean": 0.5177543253295642,
+    "median": 0.5550103452094038,
+    "min": 0.15405060226188505,
+    "max": 0.6868082203403628
+  }
+}

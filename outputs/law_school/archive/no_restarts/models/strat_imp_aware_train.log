@@ -1,0 +1,212 @@
+Features: ['lsat', 'ugpa', 'zgpa']   feature_scaling: standard   init: uniform   clip_mode: feasible
+Train algo_train: 9359 rows   Val algo_val: 1039 rows
+FrozenLR matches sklearn LR (max |diff| = 0.0e+00); its parameters are buffers, not trained
+Hyperparameters: epochs=200, lr=0.01, batch_size=256, beta=2.0, delta_g=0.01, seed=42, init=uniform, feature_scaling=standard, clip_mode=feasible, alpha={'lsat': 1.0, 'ugpa': 1.0, 'zgpa': 1.0}
+
+epoch   1  train 0.35910  val 0.22953  w=[0.0639 0.0558 0.4713]  b=-0.1705  j*=2  S=0.9426  moved=0.356  *best
+epoch   2  train 0.20849  val 0.20395  w=[0.0634 0.0431 0.5606]  b=-0.2176  j*=2  S=1.1212  moved=0.343  *best
+epoch   3  train 0.19159  val 0.19626  w=[0.0678 0.038  0.6144]  b=-0.2395  j*=2  S=1.2289  moved=0.341  *best
+epoch   4  train 0.18495  val 0.19234  w=[0.0747 0.0361 0.6527]  b=-0.2492  j*=2  S=1.3053  moved=0.344  *best
+epoch   5  train 0.18101  val 0.18963  w=[0.0807 0.034  0.6834]  b=-0.2546  j*=2  S=1.3669  moved=0.350  *best
+epoch   6  train 0.17876  val 0.18756  w=[0.0865 0.0327 0.7084]  b=-0.2567  j*=2  S=1.4169  moved=0.353  *best
+epoch   7  train 0.17706  val 0.18587  w=[0.0926 0.0321 0.7301]  b=-0.2565  j*=2  S=1.4602  moved=0.362  *best
+epoch   8  train 0.17616  val 0.18452  w=[0.0983 0.0321 0.749 ]  b=-0.2553  j*=2  S=1.4981  moved=0.365  *best
+epoch   9  train 0.17683  val 0.18343  w=[0.1035 0.0328 0.7654]  b=-0.2529  j*=2  S=1.5309  moved=0.368  *best
+epoch  10  train 0.17448  val 0.18250  w=[0.108  0.0338 0.7805]  b=-0.2494  j*=2  S=1.5611  moved=0.370  *best
+epoch  11  train 0.17380  val 0.18167  w=[0.1114 0.034  0.795 ]  b=-0.2465  j*=2  S=1.5899  moved=0.372  *best
+epoch  12  train 0.17359  val 0.18098  w=[0.115  0.0347 0.8081]  b=-0.2434  j*=2  S=1.6161  moved=0.376  *best
+epoch  13  train 0.17266  val 0.18037  w=[0.1184 0.0363 0.8202]  b=-0.2396  j*=2  S=1.6404  moved=0.379  *best
+epoch  14  train 0.17251  val 0.17980  w=[0.1217 0.0368 0.8316]  b=-0.2354  j*=2  S=1.6633  moved=0.379  *best
+epoch  15  train 0.17176  val 0.17928  w=[0.1248 0.0372 0.8426]  b=-0.2314  j*=2  S=1.6853  moved=0.380  *best
+epoch  16  train 0.17143  val 0.17883  w=[0.1279 0.0382 0.8528]  b=-0.2272  j*=2  S=1.7057  moved=0.381  *best
+epoch  17  train 0.17193  val 0.17845  w=[0.1307 0.0388 0.8621]  b=-0.2229  j*=2  S=1.7242  moved=0.384  *best
+epoch  18  train 0.17083  val 0.17810  w=[0.1335 0.04   0.8712]  b=-0.2188  j*=2  S=1.7424  moved=0.389  *best
+epoch  19  train 0.17065  val 0.17780  w=[0.1359 0.0411 0.8797]  b=-0.2148  j*=2  S=1.7595  moved=0.391  *best
+epoch  20  train 0.17047  val 0.17752  w=[0.1374 0.0424 0.8884]  b=-0.2114  j*=2  S=1.7768  moved=0.393  *best
+epoch  21  train 0.17012  val 0.17727  w=[0.1391 0.0441 0.8966]  b=-0.2076  j*=2  S=1.7932  moved=0.394  *best
+epoch  22  train 0.16963  val 0.17703  w=[0.1412 0.0451 0.9044]  b=-0.2042  j*=2  S=1.8087  moved=0.397  *best
+epoch  23  train 0.16926  val 0.17680  w=[0.1428 0.0459 0.912 ]  b=-0.2011  j*=2  S=1.8240  moved=0.400  *best
+epoch  24  train 0.17103  val 0.17662  w=[0.1441 0.0468 0.9187]  b=-0.1977  j*=2  S=1.8374  moved=0.401  *best
+epoch  25  train 0.16951  val 0.17644  w=[0.1455 0.0475 0.9257]  b=-0.1947  j*=2  S=1.8515  moved=0.402  *best
+epoch  26  train 0.16986  val 0.17626  w=[0.147  0.0478 0.9324]  b=-0.1915  j*=2  S=1.8647  moved=0.404  *best
+epoch  27  train 0.17000  val 0.17611  w=[0.1484 0.0484 0.9384]  b=-0.1883  j*=2  S=1.8769  moved=0.405  *best
+epoch  28  train 0.16939  val 0.17599  w=[0.1497 0.0487 0.9446]  b=-0.1855  j*=2  S=1.8892  moved=0.407  *best
+epoch  29  train 0.16799  val 0.17587  w=[0.1505 0.0488 0.9508]  b=-0.1832  j*=2  S=1.9015  moved=0.407  *best
+epoch  30  train 0.16888  val 0.17576  w=[0.1515 0.0496 0.9564]  b=-0.1806  j*=2  S=1.9129  moved=0.408  *best
+epoch  31  train 0.16905  val 0.17566  w=[0.1527 0.0504 0.962 ]  b=-0.1778  j*=2  S=1.9240  moved=0.408  *best
+epoch  32  train 0.16816  val 0.17556  w=[0.1538 0.0509 0.9676]  b=-0.1752  j*=2  S=1.9352  moved=0.409  *best
+epoch  33  train 0.16802  val 0.17547  w=[0.1547 0.051  0.9731]  b=-0.1728  j*=2  S=1.9462  moved=0.412  *best
+epoch  34  train 0.16860  val 0.17539  w=[0.1555 0.0513 0.9784]  b=-0.1702  j*=2  S=1.9567  moved=0.412  *best
+epoch  35  train 0.16867  val 0.17531  w=[0.156  0.0516 0.9834]  b=-0.1677  j*=2  S=1.9668  moved=0.414  *best
+epoch  36  train 0.16857  val 0.17525  w=[0.1565 0.0519 0.9883]  b=-0.1651  j*=2  S=1.9765  moved=0.416  *best
+epoch  37  train 0.16761  val 0.17519  w=[0.157  0.0526 0.9929]  b=-0.1623  j*=2  S=1.9858  moved=0.417  *best
+epoch  38  train 0.16798  val 0.17512  w=[0.1573 0.0523 0.9978]  b=-0.1600  j*=2  S=1.9956  moved=0.419  *best
+epoch  39  train 0.16731  val 0.17507  w=[0.1574 0.0523 1.0023]  b=-0.1577  j*=2  S=2.0046  moved=0.421  *best
+epoch  40  train 0.16794  val 0.17502  w=[0.1576 0.0524 1.0067]  b=-0.1555  j*=2  S=2.0134  moved=0.421  *best
+epoch  41  train 0.16745  val 0.17498  w=[0.1578 0.0526 1.0109]  b=-0.1532  j*=2  S=2.0218  moved=0.422  *best
+epoch  42  train 0.16770  val 0.17494  w=[0.1578 0.0526 1.0151]  b=-0.1513  j*=2  S=2.0301  moved=0.422  *best
+epoch  43  train 0.16752  val 0.17490  w=[0.1581 0.0527 1.0192]  b=-0.1494  j*=2  S=2.0383  moved=0.425  *best
+epoch  44  train 0.16769  val 0.17486  w=[0.1581 0.0525 1.0232]  b=-0.1475  j*=2  S=2.0465  moved=0.427  *best
+epoch  45  train 0.16777  val 0.17482  w=[0.1588 0.0525 1.0268]  b=-0.1453  j*=2  S=2.0535  moved=0.427  *best
+epoch  46  train 0.16675  val 0.17478  w=[0.159  0.0524 1.0304]  b=-0.1434  j*=2  S=2.0608  moved=0.428  *best
+epoch  47  train 0.16752  val 0.17475  w=[0.1596 0.0529 1.034 ]  b=-0.1415  j*=2  S=2.0679  moved=0.428  *best
+epoch  48  train 0.16706  val 0.17470  w=[0.1601 0.0526 1.0377]  b=-0.1402  j*=2  S=2.0754  moved=0.428  *best
+epoch  49  train 0.16780  val 0.17468  w=[0.1603 0.0527 1.041 ]  b=-0.1383  j*=2  S=2.0821  moved=0.430  *best
+epoch  50  train 0.16679  val 0.17464  w=[0.1607 0.0524 1.0444]  b=-0.1368  j*=2  S=2.0888  moved=0.430  *best
+epoch  51  train 0.16716  val 0.17460  w=[0.1612 0.0519 1.0477]  b=-0.1353  j*=2  S=2.0954  moved=0.431  *best
+epoch  52  train 0.16739  val 0.17456  w=[0.162  0.0517 1.0506]  b=-0.1337  j*=2  S=2.1012  moved=0.433  *best
+epoch  53  train 0.16730  val 0.17453  w=[0.1624 0.0516 1.0536]  b=-0.1323  j*=2  S=2.1073  moved=0.435  *best
+epoch  54  train 0.16736  val 0.17450  w=[0.1631 0.0517 1.0564]  b=-0.1306  j*=2  S=2.1127  moved=0.435  *best
+epoch  55  train 0.16794  val 0.17446  w=[0.1641 0.052  1.059 ]  b=-0.1290  j*=2  S=2.1179  moved=0.437  *best
+epoch  56  train 0.16671  val 0.17443  w=[0.1652 0.0522 1.0616]  b=-0.1275  j*=2  S=2.1231  moved=0.440  *best
+epoch  57  train 0.16740  val 0.17439  w=[0.1663 0.0523 1.0641]  b=-0.1257  j*=2  S=2.1283  moved=0.441  *best
+epoch  58  train 0.16720  val 0.17436  w=[0.1667 0.0524 1.0667]  b=-0.1243  j*=2  S=2.1335  moved=0.442  *best
+epoch  59  train 0.16761  val 0.17433  w=[0.1671 0.0524 1.0693]  b=-0.1230  j*=2  S=2.1386  moved=0.443  *best
+epoch  60  train 0.16743  val 0.17430  w=[0.1682 0.0527 1.0717]  b=-0.1215  j*=2  S=2.1434  moved=0.443  *best
+epoch  61  train 0.16694  val 0.17427  w=[0.1682 0.0526 1.0746]  b=-0.1210  j*=2  S=2.1493  moved=0.444  *best
+epoch  62  train 0.16770  val 0.17423  w=[0.1694 0.0524 1.0766]  b=-0.1189  j*=2  S=2.1533  moved=0.444  *best
+epoch  63  train 0.16740  val 0.17421  w=[0.1699 0.0524 1.0788]  b=-0.1176  j*=2  S=2.1577  moved=0.444  *best
+epoch  64  train 0.16691  val 0.17418  w=[0.1704 0.052  1.0812]  b=-0.1164  j*=2  S=2.1624  moved=0.444  *best
+epoch  65  train 0.16651  val 0.17414  w=[0.1706 0.0513 1.0836]  b=-0.1151  j*=2  S=2.1672  moved=0.444  *best
+epoch  66  train 0.16630  val 0.17411  w=[0.1711 0.0507 1.086 ]  b=-0.1139  j*=2  S=2.1719  moved=0.444  *best
+epoch  67  train 0.16734  val 0.17407  w=[0.1716 0.0501 1.0881]  b=-0.1128  j*=2  S=2.1762  moved=0.444  *best
+epoch  68  train 0.16780  val 0.17405  w=[0.1721 0.0499 1.09  ]  b=-0.1113  j*=2  S=2.1800  moved=0.444  *best
+epoch  69  train 0.16689  val 0.17403  w=[0.1726 0.0495 1.092 ]  b=-0.1101  j*=2  S=2.1840  moved=0.446  *best
+epoch  70  train 0.16664  val 0.17399  w=[0.1732 0.0491 1.0942]  b=-0.1093  j*=2  S=2.1884  moved=0.447  *best
+epoch  71  train 0.16670  val 0.17396  w=[0.1738 0.0487 1.0963]  b=-0.1084  j*=2  S=2.1926  moved=0.447  *best
+epoch  72  train 0.16673  val 0.17394  w=[0.1744 0.0487 1.0982]  b=-0.1073  j*=2  S=2.1964  moved=0.447  *best
+epoch  73  train 0.16658  val 0.17392  w=[0.1745 0.0486 1.1002]  b=-0.1064  j*=2  S=2.2005  moved=0.447  *best
+epoch  74  train 0.16641  val 0.17389  w=[0.1748 0.0485 1.1021]  b=-0.1056  j*=2  S=2.2042  moved=0.447  *best
+epoch  75  train 0.16652  val 0.17387  w=[0.1757 0.0482 1.1039]  b=-0.1048  j*=2  S=2.2078  moved=0.447  *best
+epoch  76  train 0.16716  val 0.17385  w=[0.1759 0.0483 1.1057]  b=-0.1041  j*=2  S=2.2115  moved=0.447  *best
+epoch  77  train 0.16724  val 0.17384  w=[0.1768 0.0487 1.1071]  b=-0.1023  j*=2  S=2.2141  moved=0.447  *best
+epoch  78  train 0.16744  val 0.17382  w=[0.1769 0.0481 1.1087]  b=-0.1014  j*=2  S=2.2173  moved=0.449  *best
+epoch  79  train 0.16609  val 0.17380  w=[0.177  0.0479 1.1106]  b=-0.1008  j*=2  S=2.2211  moved=0.448  *best
+epoch  80  train 0.16693  val 0.17378  w=[0.1776 0.0481 1.112 ]  b=-0.0997  j*=2  S=2.2239  moved=0.448  *best
+epoch  81  train 0.16671  val 0.17376  w=[0.1778 0.0481 1.1136]  b=-0.0986  j*=2  S=2.2272  moved=0.448  *best
+epoch  82  train 0.16691  val 0.17374  w=[0.178  0.0479 1.1152]  b=-0.0982  j*=2  S=2.2304  moved=0.448  *best
+epoch  83  train 0.16691  val 0.17372  w=[0.1783 0.048  1.1166]  b=-0.0974  j*=2  S=2.2333  moved=0.448  *best
+epoch  84  train 0.16633  val 0.17370  w=[0.1789 0.0482 1.118 ]  b=-0.0964  j*=2  S=2.2359  moved=0.448  *best
+epoch  85  train 0.16665  val 0.17369  w=[0.1791 0.0483 1.1193]  b=-0.0959  j*=2  S=2.2387  moved=0.449  *best
+epoch  86  train 0.16685  val 0.17368  w=[0.1792 0.0482 1.1207]  b=-0.0952  j*=2  S=2.2414  moved=0.449  *best
+epoch  87  train 0.16683  val 0.17366  w=[0.1794 0.048  1.122 ]  b=-0.0941  j*=2  S=2.2440  moved=0.449  *best
+epoch  88  train 0.16688  val 0.17365  w=[0.1791 0.0477 1.1235]  b=-0.0936  j*=2  S=2.2471  moved=0.449  *best
+epoch  89  train 0.16734  val 0.17365  w=[0.1793 0.0484 1.1243]  b=-0.0922  j*=2  S=2.2486  moved=0.449
+epoch  90  train 0.16698  val 0.17364  w=[0.1799 0.0489 1.1254]  b=-0.0912  j*=2  S=2.2509  moved=0.449  *best
+epoch  91  train 0.16655  val 0.17364  w=[0.1789 0.0484 1.1272]  b=-0.0911  j*=2  S=2.2544  moved=0.449  *best
+epoch  92  train 0.16649  val 0.17364  w=[0.1789 0.0488 1.1283]  b=-0.0901  j*=2  S=2.2565  moved=0.449  *best
+epoch  93  train 0.16577  val 0.17363  w=[0.179  0.0489 1.1294]  b=-0.0893  j*=2  S=2.2587  moved=0.450  *best
+epoch  94  train 0.16695  val 0.17361  w=[0.1793 0.0487 1.1304]  b=-0.0887  j*=2  S=2.2608  moved=0.450  *best
+epoch  95  train 0.16754  val 0.17361  w=[0.1793 0.0489 1.1312]  b=-0.0879  j*=2  S=2.2623  moved=0.452  *best
+epoch  96  train 0.16696  val 0.17360  w=[0.1793 0.0489 1.1324]  b=-0.0876  j*=2  S=2.2648  moved=0.452  *best
+epoch  97  train 0.16712  val 0.17360  w=[0.1795 0.0492 1.1333]  b=-0.0869  j*=2  S=2.2665  moved=0.452  *best
+epoch  98  train 0.16691  val 0.17359  w=[0.1796 0.049  1.1344]  b=-0.0861  j*=2  S=2.2688  moved=0.452  *best
+epoch  99  train 0.16667  val 0.17358  w=[0.1799 0.049  1.1352]  b=-0.0852  j*=2  S=2.2703  moved=0.453  *best
+epoch 100  train 0.16678  val 0.17356  w=[0.1805 0.0487 1.1359]  b=-0.0843  j*=2  S=2.2718  moved=0.454  *best
+epoch 101  train 0.16662  val 0.17356  w=[0.1805 0.0487 1.1368]  b=-0.0837  j*=2  S=2.2735  moved=0.454  *best
+epoch 102  train 0.16756  val 0.17355  w=[0.1806 0.0488 1.1376]  b=-0.0834  j*=2  S=2.2752  moved=0.454  *best
+epoch 103  train 0.16620  val 0.17354  w=[0.1809 0.0489 1.1385]  b=-0.0828  j*=2  S=2.2771  moved=0.454  *best
+epoch 104  train 0.16609  val 0.17354  w=[0.1808 0.0488 1.1395]  b=-0.0825  j*=2  S=2.2791  moved=0.454  *best
+epoch 105  train 0.16630  val 0.17354  w=[0.1806 0.0489 1.1406]  b=-0.0821  j*=2  S=2.2812  moved=0.455  *best
+epoch 106  train 0.16641  val 0.17353  w=[0.1808 0.0488 1.1415]  b=-0.0816  j*=2  S=2.2830  moved=0.455  *best
+epoch 107  train 0.16701  val 0.17352  w=[0.1804 0.0485 1.1425]  b=-0.0813  j*=2  S=2.2849  moved=0.455  *best
+epoch 108  train 0.16696  val 0.17352  w=[0.1805 0.0488 1.143 ]  b=-0.0803  j*=2  S=2.2860  moved=0.456
+epoch 109  train 0.16697  val 0.17352  w=[0.1799 0.0486 1.144 ]  b=-0.0801  j*=2  S=2.2879  moved=0.455
+epoch 110  train 0.16759  val 0.17352  w=[0.1806 0.0491 1.1442]  b=-0.0791  j*=2  S=2.2884  moved=0.456
+epoch 111  train 0.16721  val 0.17351  w=[0.1811 0.0492 1.1447]  b=-0.0784  j*=2  S=2.2895  moved=0.457  *best
+epoch 112  train 0.16628  val 0.17351  w=[0.1805 0.0486 1.1457]  b=-0.0783  j*=2  S=2.2915  moved=0.456  *best
+epoch 113  train 0.16685  val 0.17350  w=[0.1809 0.0487 1.1464]  b=-0.0778  j*=2  S=2.2929  moved=0.456  *best
+epoch 114  train 0.16694  val 0.17350  w=[0.181  0.049  1.1471]  b=-0.0771  j*=2  S=2.2942  moved=0.457
+epoch 115  train 0.16652  val 0.17350  w=[0.1811 0.0493 1.1477]  b=-0.0765  j*=2  S=2.2955  moved=0.457
+epoch 116  train 0.16761  val 0.17350  w=[0.181  0.0493 1.1484]  b=-0.0764  j*=2  S=2.2968  moved=0.457  *best
+epoch 117  train 0.16671  val 0.17349  w=[0.1811 0.0491 1.149 ]  b=-0.0756  j*=2  S=2.2980  moved=0.457  *best
+epoch 118  train 0.16667  val 0.17350  w=[0.1809 0.0494 1.1497]  b=-0.0751  j*=2  S=2.2993  moved=0.457
+epoch 119  train 0.16784  val 0.17349  w=[0.181  0.0492 1.1503]  b=-0.0747  j*=2  S=2.3005  moved=0.457  *best
+epoch 120  train 0.16643  val 0.17348  w=[0.1814 0.0491 1.151 ]  b=-0.0743  j*=2  S=2.3020  moved=0.457  *best
+epoch 121  train 0.16683  val 0.17348  w=[0.1817 0.0495 1.1518]  b=-0.0739  j*=2  S=2.3036  moved=0.457  *best
+epoch 122  train 0.16660  val 0.17348  w=[0.1816 0.0498 1.1524]  b=-0.0734  j*=2  S=2.3049  moved=0.457
+epoch 123  train 0.16726  val 0.17347  w=[0.182  0.0499 1.1532]  b=-0.0731  j*=2  S=2.3064  moved=0.456  *best
+epoch 124  train 0.16751  val 0.17348  w=[0.1824 0.0504 1.1535]  b=-0.0723  j*=2  S=2.3070  moved=0.456
+epoch 125  train 0.16677  val 0.17346  w=[0.1822 0.0497 1.1543]  b=-0.0725  j*=2  S=2.3087  moved=0.456  *best
+epoch 126  train 0.16712  val 0.17347  w=[0.182  0.0501 1.155 ]  b=-0.0719  j*=2  S=2.3099  moved=0.456
+epoch 127  train 0.16633  val 0.17346  w=[0.1821 0.0499 1.1555]  b=-0.0714  j*=2  S=2.3110  moved=0.456
+epoch 128  train 0.16655  val 0.17346  w=[0.1819 0.0501 1.1562]  b=-0.0711  j*=2  S=2.3123  moved=0.456
+epoch 129  train 0.16647  val 0.17346  w=[0.1821 0.0501 1.1569]  b=-0.0711  j*=2  S=2.3137  moved=0.456  *best
+epoch 130  train 0.16594  val 0.17345  w=[0.1816 0.0496 1.1579]  b=-0.0714  j*=2  S=2.3157  moved=0.456  *best
+epoch 131  train 0.16612  val 0.17344  w=[0.1816 0.0497 1.1585]  b=-0.0713  j*=2  S=2.3169  moved=0.456  *best
+epoch 132  train 0.16720  val 0.17345  w=[0.1819 0.0502 1.1587]  b=-0.0708  j*=2  S=2.3175  moved=0.456
+epoch 133  train 0.16681  val 0.17344  w=[0.182  0.0501 1.1592]  b=-0.0704  j*=2  S=2.3183  moved=0.456  *best
+epoch 134  train 0.16641  val 0.17344  w=[0.1819 0.0502 1.1598]  b=-0.0703  j*=2  S=2.3196  moved=0.456  *best
+epoch 135  train 0.16655  val 0.17344  w=[0.1825 0.0506 1.1602]  b=-0.0700  j*=2  S=2.3205  moved=0.456  *best
+epoch 136  train 0.16648  val 0.17343  w=[0.1821 0.0502 1.1608]  b=-0.0700  j*=2  S=2.3217  moved=0.456  *best
+epoch 137  train 0.16675  val 0.17343  w=[0.1824 0.0501 1.1613]  b=-0.0697  j*=2  S=2.3226  moved=0.456  *best
+epoch 138  train 0.16652  val 0.17342  w=[0.1826 0.0501 1.1615]  b=-0.0692  j*=2  S=2.3231  moved=0.456  *best
+epoch 139  train 0.16694  val 0.17343  w=[0.1827 0.0504 1.1617]  b=-0.0686  j*=2  S=2.3234  moved=0.456
+epoch 140  train 0.16619  val 0.17342  w=[0.1827 0.0502 1.1623]  b=-0.0687  j*=2  S=2.3245  moved=0.456  *best
+epoch 141  train 0.16675  val 0.17342  w=[0.1826 0.0503 1.1626]  b=-0.0683  j*=2  S=2.3251  moved=0.456
+epoch 142  train 0.16638  val 0.17342  w=[0.1825 0.0502 1.163 ]  b=-0.0682  j*=2  S=2.3260  moved=0.456  *best
+epoch 143  train 0.16624  val 0.17342  w=[0.1826 0.0504 1.1633]  b=-0.0678  j*=2  S=2.3266  moved=0.457
+epoch 144  train 0.16737  val 0.17343  w=[0.1821 0.0505 1.1636]  b=-0.0676  j*=2  S=2.3272  moved=0.458
+epoch 145  train 0.16628  val 0.17343  w=[0.1824 0.0506 1.1639]  b=-0.0673  j*=2  S=2.3279  moved=0.458
+epoch 146  train 0.16693  val 0.17343  w=[0.182  0.0506 1.1643]  b=-0.0672  j*=2  S=2.3287  moved=0.458
+epoch 147  train 0.16652  val 0.17342  w=[0.1823 0.0505 1.1647]  b=-0.0668  j*=2  S=2.3294  moved=0.458
+epoch 148  train 0.16681  val 0.17342  w=[0.1822 0.0502 1.1651]  b=-0.0668  j*=2  S=2.3302  moved=0.458  *best
+epoch 149  train 0.16697  val 0.17341  w=[0.1818 0.0501 1.1656]  b=-0.0670  j*=2  S=2.3313  moved=0.458  *best
+epoch 150  train 0.16644  val 0.17341  w=[0.1817 0.05   1.166 ]  b=-0.0671  j*=2  S=2.3319  moved=0.458  *best
+epoch 151  train 0.16673  val 0.17341  w=[0.182  0.0502 1.1663]  b=-0.0668  j*=2  S=2.3327  moved=0.458  *best
+epoch 152  train 0.16648  val 0.17341  w=[0.1823 0.0506 1.1667]  b=-0.0664  j*=2  S=2.3334  moved=0.458
+epoch 153  train 0.16735  val 0.17341  w=[0.1822 0.0505 1.1668]  b=-0.0660  j*=2  S=2.3336  moved=0.458
+epoch 154  train 0.16730  val 0.17341  w=[0.1827 0.0507 1.167 ]  b=-0.0659  j*=2  S=2.3341  moved=0.458  *best
+epoch 155  train 0.16634  val 0.17340  w=[0.1824 0.0503 1.1674]  b=-0.0656  j*=2  S=2.3349  moved=0.458  *best
+epoch 156  train 0.16585  val 0.17340  w=[0.1825 0.0502 1.1678]  b=-0.0656  j*=2  S=2.3356  moved=0.458  *best
+epoch 157  train 0.16607  val 0.17340  w=[0.1825 0.0503 1.1681]  b=-0.0655  j*=2  S=2.3362  moved=0.458
+epoch 158  train 0.16704  val 0.17340  w=[0.1827 0.0505 1.1683]  b=-0.0651  j*=2  S=2.3365  moved=0.458
+epoch 159  train 0.16618  val 0.17340  w=[0.1827 0.0505 1.1686]  b=-0.0650  j*=2  S=2.3371  moved=0.458
+epoch 160  train 0.16640  val 0.17340  w=[0.1824 0.0504 1.1689]  b=-0.0648  j*=2  S=2.3377  moved=0.458
+epoch 161  train 0.16639  val 0.17339  w=[0.1825 0.0501 1.1693]  b=-0.0647  j*=2  S=2.3385  moved=0.458  *best
+epoch 162  train 0.16720  val 0.17339  w=[0.1827 0.0501 1.1695]  b=-0.0646  j*=2  S=2.3389  moved=0.458  *best
+epoch 163  train 0.16581  val 0.17339  w=[0.1824 0.0502 1.1699]  b=-0.0647  j*=2  S=2.3398  moved=0.458
+epoch 164  train 0.16607  val 0.17338  w=[0.1827 0.0502 1.1701]  b=-0.0645  j*=2  S=2.3403  moved=0.458  *best
+epoch 165  train 0.16632  val 0.17338  w=[0.1827 0.0501 1.1705]  b=-0.0645  j*=2  S=2.3409  moved=0.458  *best
+epoch 166  train 0.16640  val 0.17338  w=[0.1825 0.0497 1.1708]  b=-0.0644  j*=2  S=2.3416  moved=0.458  *best
+epoch 167  train 0.16652  val 0.17337  w=[0.1828 0.0499 1.1711]  b=-0.0641  j*=2  S=2.3421  moved=0.458  *best
+epoch 168  train 0.16673  val 0.17337  w=[0.183  0.0498 1.1713]  b=-0.0641  j*=2  S=2.3426  moved=0.458  *best
+epoch 169  train 0.16679  val 0.17337  w=[0.1829 0.0496 1.1717]  b=-0.0639  j*=2  S=2.3434  moved=0.458  *best
+epoch 170  train 0.16684  val 0.17337  w=[0.1829 0.0498 1.1718]  b=-0.0636  j*=2  S=2.3436  moved=0.458
+epoch 171  train 0.16667  val 0.17337  w=[0.1825 0.0494 1.1721]  b=-0.0636  j*=2  S=2.3441  moved=0.458
+epoch 172  train 0.16637  val 0.17337  w=[0.1826 0.0495 1.1722]  b=-0.0632  j*=2  S=2.3444  moved=0.458
+epoch 173  train 0.16756  val 0.17337  w=[0.1826 0.0494 1.1722]  b=-0.0629  j*=2  S=2.3444  moved=0.458
+epoch 174  train 0.16591  val 0.17336  w=[0.1826 0.0494 1.1726]  b=-0.0630  j*=2  S=2.3453  moved=0.458  *best
+epoch 175  train 0.16590  val 0.17336  w=[0.1823 0.0493 1.173 ]  b=-0.0631  j*=2  S=2.3461  moved=0.458  *best
+epoch 176  train 0.16715  val 0.17337  w=[0.1822 0.0493 1.173 ]  b=-0.0629  j*=2  S=2.3460  moved=0.459
+epoch 177  train 0.16680  val 0.17337  w=[0.182  0.0494 1.1733]  b=-0.0629  j*=2  S=2.3466  moved=0.459
+epoch 178  train 0.16751  val 0.17337  w=[0.1821 0.0493 1.1735]  b=-0.0627  j*=2  S=2.3469  moved=0.459
+epoch 179  train 0.16662  val 0.17337  w=[0.1821 0.0496 1.1737]  b=-0.0625  j*=2  S=2.3473  moved=0.459
+epoch 180  train 0.16617  val 0.17338  w=[0.1816 0.0495 1.1741]  b=-0.0629  j*=2  S=2.3482  moved=0.459
+epoch 181  train 0.16690  val 0.17337  w=[0.1819 0.0496 1.1742]  b=-0.0628  j*=2  S=2.3484  moved=0.459
+epoch 182  train 0.16760  val 0.17337  w=[0.1821 0.0499 1.1741]  b=-0.0626  j*=2  S=2.3482  moved=0.459
+epoch 183  train 0.16668  val 0.17338  w=[0.1819 0.0501 1.1743]  b=-0.0625  j*=2  S=2.3487  moved=0.459
+epoch 184  train 0.16573  val 0.17338  w=[0.1819 0.0503 1.1747]  b=-0.0625  j*=2  S=2.3493  moved=0.459
+epoch 185  train 0.16618  val 0.17337  w=[0.182  0.0501 1.175 ]  b=-0.0625  j*=2  S=2.3501  moved=0.459
+epoch 186  train 0.16688  val 0.17338  w=[0.1819 0.0504 1.1752]  b=-0.0622  j*=2  S=2.3503  moved=0.459
+epoch 187  train 0.16634  val 0.17338  w=[0.1818 0.0505 1.1754]  b=-0.0622  j*=2  S=2.3508  moved=0.459
+epoch 188  train 0.16708  val 0.17338  w=[0.1818 0.0501 1.1754]  b=-0.0619  j*=2  S=2.3508  moved=0.459
+epoch 189  train 0.16633  val 0.17338  w=[0.1815 0.0501 1.1756]  b=-0.0618  j*=2  S=2.3513  moved=0.459
+epoch 190  train 0.16736  val 0.17338  w=[0.1814 0.0497 1.1758]  b=-0.0618  j*=2  S=2.3516  moved=0.459
+epoch 191  train 0.16671  val 0.17338  w=[0.1812 0.0496 1.1761]  b=-0.0619  j*=2  S=2.3522  moved=0.459
+epoch 192  train 0.16684  val 0.17337  w=[0.1819 0.0498 1.176 ]  b=-0.0615  j*=2  S=2.3520  moved=0.459
+epoch 193  train 0.16634  val 0.17336  w=[0.1821 0.0497 1.1762]  b=-0.0616  j*=2  S=2.3525  moved=0.459  *best
+epoch 194  train 0.16668  val 0.17336  w=[0.1821 0.0494 1.1764]  b=-0.0616  j*=2  S=2.3528  moved=0.459  *best
+epoch 195  train 0.16658  val 0.17336  w=[0.1824 0.05   1.1764]  b=-0.0612  j*=2  S=2.3529  moved=0.459
+epoch 196  train 0.16753  val 0.17337  w=[0.1824 0.0501 1.1763]  b=-0.0608  j*=2  S=2.3526  moved=0.459
+epoch 197  train 0.16707  val 0.17337  w=[0.1822 0.0501 1.1764]  b=-0.0610  j*=2  S=2.3529  moved=0.459
+epoch 198  train 0.16747  val 0.17337  w=[0.1824 0.0502 1.1763]  b=-0.0604  j*=2  S=2.3525  moved=0.459
+epoch 199  train 0.16642  val 0.17337  w=[0.1825 0.0502 1.1763]  b=-0.0603  j*=2  S=2.3527  moved=0.459
+epoch 200  train 0.16622  val 0.17337  w=[0.1826 0.0503 1.1765]  b=-0.0603  j*=2  S=2.3530  moved=0.459
+
+Best epoch 194: val loss 0.17336
+  model space (standard): w = lsat 0.18210, ugpa 0.04940, zgpa 1.17641;  b = -0.06160
+  raw units:    w = lsat 0.033828, ugpa 0.119005, zgpa 1.198663;  b = 1.58594
+Saved -> /Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school/models/strat_imp_aware.pt
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school/models/strat_imp_aware.json
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school/models/strat_imp_aware_history.csv

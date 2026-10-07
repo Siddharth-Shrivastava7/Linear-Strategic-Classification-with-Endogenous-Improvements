@@ -1,0 +1,15 @@
+feature,dtype,n_unique,n_missing,min,max,detected_type,detected_reason,final_type,source
+age,int64,74,0,17.0,90.0,continuous,"integer-valued, 74 > 30 unique values",continuous,auto-detected
+workclass,object,8,2799,,,nominal,non-numeric values,nominal,auto-detected
+fnlwgt,int64,28523,0,12285.0,1490400.0,continuous,"integer-valued, 28523 > 30 unique values",continuous,auto-detected
+education,object,16,0,,,nominal,non-numeric values,nominal,config override
+educational-num,int64,16,0,1.0,16.0,ordinal,"integer-valued, 16 <= 30 unique values (may be nominal codes)",ordinal,auto-detected
+marital-status,object,7,0,,,nominal,non-numeric values,nominal,auto-detected
+occupation,object,14,2809,,,nominal,non-numeric values,nominal,auto-detected
+relationship,object,6,0,,,nominal,non-numeric values,nominal,auto-detected
+race,object,5,0,,,nominal,non-numeric values,nominal,auto-detected
+gender,object,2,0,,,nominal,binary,nominal,auto-detected
+capital-gain,int64,123,0,0.0,99999.0,continuous,"integer-valued, 123 > 30 unique values",continuous,auto-detected
+capital-loss,int64,99,0,0.0,4356.0,continuous,"integer-valued, 99 > 30 unique values",continuous,auto-detected
+hours-per-week,int64,96,0,1.0,99.0,continuous,"integer-valued, 96 > 30 unique values",continuous,auto-detected
+native-country,object,41,857,,,nominal,non-numeric values,nominal,auto-detected

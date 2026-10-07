@@ -1,0 +1,35 @@
+{
+  "split": "algo_test",
+  "model": "/Users/siddharthshrivastava/Downloads/Research_coding/outputs/law_school_stratified/models/strat_imp_aware.pt",
+  "model_best_epoch": 15,
+  "feature_scaling": "standard",
+  "clip_mode": "feasible",
+  "seed": 42,
+  "n_agents": 1043,
+  "j_star": "zgpa",
+  "S_w": 1.6716721331202693,
+  "manipulating_agents": 391,
+  "manipulating_by_original_label": {
+    "y=0": 103,
+    "y=1": 288
+  },
+  "improved_agents": 56,
+  "improvement_rate": 0.5436893203883495,
+  "improvement_rate_definition": "improved / manipulating agents with original y = 0",
+  "fraction_of_agents_manipulating": 0.37488015340364333,
+  "frac_movers_beyond_observed_max": 0.0,
+  "expected_improved_agents": 59.968937272891324,
+  "expected_improvement_rate": 0.5822226919698187,
+  "repeats_1000": {
+    "improved_mean": 59.952,
+    "improved_std": 4.398072195751115,
+    "improvement_rate_mean": 0.5820582524271845,
+    "improvement_rate_std": 0.04269973005583606
+  },
+  "pi_imp_among_negative_movers": {
+    "mean": 0.5822226919698187,
+    "median": 0.6550761451625302,
+    "min": 0.01008834158097904,
+    "max": 0.8666853231949645
+  }
+}

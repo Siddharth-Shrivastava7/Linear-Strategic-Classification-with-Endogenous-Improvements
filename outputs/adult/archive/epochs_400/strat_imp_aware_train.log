@@ -1,0 +1,15 @@
+Features: ['age', 'hours-per-week', 'educational-num']   feature_scaling: standard   init: lr   clip_mode: feasible
+Train algo_train: 21978 rows   Val algo_val: 2442 rows
+FrozenLR matches sklearn LR (max |diff| = 0.0e+00); its parameters are buffers, not trained
+Hyperparameters: epochs=400, lr=0.01, batch_size=256, beta=2.0, delta_g=0.01, seed=42, init=lr, feature_scaling=standard, clip_mode=feasible, restarts=2, class_weight=None, alpha={'age': 1000000.0, 'hours-per-week': 0.5, 'educational-num': 1.0}
+
+restart 0 (seed 42): best epoch 399, val loss 0.45242, j* = hours-per-week
+restart 1 (seed 1042): best epoch 397, val loss 0.45261, j* = hours-per-week
+-> kept restart 0 (seed 42), val loss 0.45242
+
+Best epoch 399: val loss 0.45242
+  model space (standard): w = age 0.49557, hours-per-week 0.51428, educational-num 0.89444;  b = 3.17003
+  raw units:    w = age 0.036236, hours-per-week 0.041512, educational-num 0.347954;  b = 9.75052
+Saved -> /Users/siddharthshrivastava/Downloads/Research_coding/outputs/adult/models/strat_imp_aware.pt
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/adult/models/strat_imp_aware.json
+         /Users/siddharthshrivastava/Downloads/Research_coding/outputs/adult/models/strat_imp_aware_history.csv

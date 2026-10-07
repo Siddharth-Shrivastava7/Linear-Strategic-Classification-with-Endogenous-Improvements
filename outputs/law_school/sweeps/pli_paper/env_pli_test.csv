@@ -1,0 +1,23 @@
+method,r,improvement_error,improvement_rate,movers,neg_movers
+"Ours (stage 4 model, seed 42)",0.0,0.37175792507204614,,0,0
+"Ours (stage 4 model, seed 42)",0.01,0.37175792507204614,,0,0
+"Ours (stage 4 model, seed 42)",0.05,0.37175792507204614,,0,0
+"Ours (stage 4 model, seed 42)",0.1,0.37175792507204614,,0,0
+"Ours (stage 4 model, seed 42)",0.2,0.37079731027857826,,1,0
+"Ours (stage 4 model, seed 42)",0.3,0.37079731027857826,,1,0
+"Ours (stage 4 model, seed 42)",0.4,0.37079731027857826,,1,0
+"Ours (stage 4 model, seed 42)",0.7,0.37079731027857826,,1,0
+"Ours (stage 4 model, seed 42)",1.0,0.37079731027857826,,1,0
+"Ours (stage 4 model, seed 42)",2.0,0.37079731027857826,,1,0
+"Ours (stage 4 model, seed 42)",4.0,0.37079731027857826,,1,0
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.0,0.27953890489913547,,0,0
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.01,0.2737752161383285,0.0,10,2
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.05,0.2574447646493756,0.6666666666666666,29,3
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.1,0.24495677233429394,0.6666666666666666,49,6
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.2,0.2132564841498559,0.75,91,12
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.3,0.18155619596541786,0.875,129,16
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.4,0.14505283381364073,0.9090909090909091,174,22
+"PLI paper default (NN, FP weight 2, threshold 0.9)",0.7,0.09221902017291066,0.9545454545454546,254,44
+"PLI paper default (NN, FP weight 2, threshold 0.9)",1.0,0.05187319884726225,0.9354838709677419,310,62
+"PLI paper default (NN, FP weight 2, threshold 0.9)",2.0,0.01825168107588857,1.0,357,84
+"PLI paper default (NN, FP weight 2, threshold 0.9)",4.0,0.01825168107588857,1.0,361,87

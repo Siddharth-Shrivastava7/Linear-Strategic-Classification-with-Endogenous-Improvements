@@ -1,0 +1,14 @@
+# HELOC comparison table (Ours, PLI, GSC x2, SVM), seed 42 only, our environment.
+# Same baseline settings as law school; no class-balanced rows (HELOC is ~48/52).
+
+base_config: configs/heloc.yaml
+train_split: algo_train
+select_split: algo_val        # GSC lambda; ours: checkpoint + restarts (from base config)
+test_split: algo_test
+seeds: [42]
+workers: 8
+
+pli: {model_type: nn, loss: wbce_2, threshold: 0.9, epochs: 100, batch_size: 64, lr: 0.001,
+      select_thresholds: [0.5, 0.7, 0.8, 0.9]}   # extra row: PLI's threshold grid, chosen on algo_val (same network)
+gsc: {shifts: [l2, ours], lambdas: [0.1, 1.0], epochs: 100, batch_size: 128, lr: 0.05}
+svm: {C: 1.0, loss: hinge, max_iter: 200000}
